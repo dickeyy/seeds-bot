@@ -5,6 +5,8 @@ const { Routes, InteractionResponseType } = require('discord-api-types/v9');
 const dotenv = require('dotenv');
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const { Configuration, OpenAIApi } = require("openai");
+const osu = require('node-os-utils');
+const axios = require('axios').default
 
 // Process errors
 process.on('uncaughtException', function (error) {
@@ -67,7 +69,11 @@ const commands = [
     { name: 'rps', description: 'Play Seeds in a game of rock paper scissors', options: [{ name: 'bet', description: 'How much you want to bet ont the game', required: true, type: Constants.ApplicationCommandOptionTypes.INTEGER }, { name: 'move', description: 'The move for the game (either rock, paper, or scissors)', required: true, type: Constants.ApplicationCommandOptionTypes.STRING, choices: [{ name: 'rock', value: 'rock' }, { name: 'paper', value: 'paper' }, { name: 'scissors', value: 'scissors' }] }] },
     { name: 'shop', description: 'See items that are avaliable for purchase' },
     { name: 'buy', description: 'Buy something from the shop', options: [{ name: 'id', description: 'The shop id number, get this using /shop', required: true, type: Constants.ApplicationCommandOptionTypes.INTEGER }] },
-    { name: 'fish', description: 'Cast your pole out and hope for a bite' }
+    { name: 'fish', description: 'Cast your pole out and hope for a bite' },
+
+    // Utility Commands
+    { name: 'stats', description: 'Get some cool stats about the bot' },
+    { name: 'rcolor', description: 'Generate a random color (with hex code)' }
 ]
 
 // Register slash commands
@@ -186,6 +192,14 @@ client.on('interactionCreate', async interaction => {
     if (commandName == 'fish') {
         await fishCmd(user,guild,interaction)
     }
+
+    if (commandName == 'stats') {
+        statsCmd(user,guild,interaction)
+    }
+
+    if (commandName == 'rcolor') {
+        rcolorCmd(user,guild,interaction)
+    }
 })
 
 // Client Events
@@ -261,8 +275,9 @@ function helpCmd(user,guild,interaction) {
     .setDescription('All Seeds commands use the prefix `\`/`\`\n\n[parameter] = Required\n{parameter} = Optional\n')
     .setFields([
         { name: 'Moderation:', value: '`\`/ban [user] {reason}`\`, `\`/unban [user]`\`, `\`/kick [user] {reason}`\`, `\`/warn [user] [reason]`\`, `\`/cases [user]`\`, `\`/deletecase [case]`\`', inline: false },
-        { name: 'Economy:', value: '`\`/balance`\`, `\`/daily`\`, `\`/beg`\`, `\`/highlow`\`, `\`/slots [bet > 10]`\`, `\`/rps [bet > 10] [move]`\`', inline: false },
-        { name: 'Fun:', value: '`\`/friend [message]`\`, `\`/tsh [topic]`\`', inline: false }
+        { name: 'Economy:', value: '`\`/balance`\`, `\`/daily`\`, `\`/beg`\`, `\`/highlow`\`, `\`/slots [bet > 10]`\`, `\`/rps [bet > 10] [move]`\`, `\`/fish`\`', inline: false },
+        { name: 'Fun:', value: '`\`/friend [message]`\`, `\`/tsh [topic]`\`', inline: false },
+        { name: 'Utility: ', value: '`\`/stats`\`, `\`/rcolor`\`', inline: false }
     ])
 
     interaction.reply({
@@ -1325,6 +1340,19 @@ async function buyCmd(user,guild,interaction,shopId) {
 async function fishCmd(user,guild,interaction) {
     const cmdName = 'fish'
 
+    if (cooldown.has(user.id + '--' + cmdName)) {
+        const embed = new MessageEmbed()
+
+        .setTitle(cdList[Math.floor(Math.random() * cdList.length)])
+        .setDescription('That command can only be run once every five minutes')
+        .setColor('RED')
+        interaction.reply({
+            embeds: [embed],
+            ephemeral: true
+        })
+        return
+    }
+
     const collection = db.collection('economy')
     const doc = await collection.findOne({ userId: user.id, guildId: guild.id })
 
@@ -1358,9 +1386,7 @@ async function fishCmd(user,guild,interaction) {
             const fishDoc = await collection.findOne({ shop: true })
             const fish = fishDoc.fish[fishToFetch]
             const fishPole = doc.i_1
-    
-            console.log(fish)
-    
+        
             const newBalance = doc.coins + fish.price
     
             const embed = new MessageEmbed()
@@ -1390,8 +1416,80 @@ async function fishCmd(user,guild,interaction) {
                     embeds: [embed]
                 })
             }   
+
+            cooldown.add(user.id + '--' + cmdName);
+                setTimeout(() => {
+                    cooldown.delete(user.id + '--' + cmdName);
+                }, fiveMinCooldown);
+
+                cmdRun(user,cmdName)
+            
         }
     }
+}
+
+// Utility Commands
+// Stats
+function statsCmd(user,guild,interaction) {
+    const cmdName = 'stats'
+
+    const guilds = client.guilds.cache.size
+    const cpu = osu.cpu
+    const mem = osu.mem
+    const uptime = Math.round(client.uptime / 1000 / 60 / 60 / 24)
+
+    cpu.usage().then(cpuPercentage => {
+        mem.info().then(info => {
+            const embed = new MessageEmbed()
+                .setColor(mainHex)
+                .setTitle('Jams Stats')
+                .setThumbnail('https://seedsbot.xyz/images/logo.png')
+                .addField("Servers:", `${guilds}`, true)
+                .addField('CPU %:', `${cpuPercentage}`, true)
+                .addField('Mem. %:', `${info.freeMemPercentage}%`, true)
+                .addField('Ping:', `${Math.round(client.ws.ping)}ms`, true)
+                .addField('Uptime:', `${uptime} Days`, true)
+                .addField('Library:', 'Discord.JS', true)
+                .addField('Links', '[🌐 Website](https://seedsbot.xyz) | [<:invite:823987169978613851> Invite](https://seedsbot.xyz/invite) | [<:discord:823989269626355793> Support](https://jamsbot.com/support) | [<:upvote:823988328306049104> Vote](https://top.gg/bot/935801319569104948/vote)')
+            interaction.reply({
+                embeds: [embed],
+            })
+            cmdRun(user,cmdName)
+        });
+    });
+} 
+
+// Random color command
+async function rcolorCmd(user,guild,interaction) {
+    const cmdName = 'rcolor'
+
+    const r = Math.round(Math.random() * 256)
+    const g = Math.round(Math.random() * 256)
+    const b = Math.round(Math.random() * 256)
+    const rgb = `(${r},${g},${b})`
+
+    const data = await axios({
+        method: 'get',
+        url: `https://www.thecolorapi.com/id?rgb=rgb${rgb}`,
+        responseType: 'json'
+    })
+    const res = data['data']
+    const hexClean = res['hex']['clean']
+    const hex = res['hex']['value']
+    const name = res['name']['value']
+
+    const embed = new MessageEmbed()
+    .setTitle(name)
+    .setURL(`https://www.color-hex.com/color/${hexClean}`)
+    .setDescription(hex)
+    .setImage(`https://singlecolorimage.com/get/${hexClean}/125x125`)
+    .setColor(hex)
+
+    interaction.reply({
+        embeds: [embed]
+    })
+
+    cmdRun(user,cmdName)
 }
 
 // Run Bot
