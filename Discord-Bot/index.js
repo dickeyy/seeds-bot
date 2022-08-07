@@ -59,6 +59,8 @@ const commands = [
     // Fun Commands
     { name: 'friend', description: 'Talk to an AI friend', options: [{ name: 'message', description: 'What you want to say to your friend', required: true, type: Constants.ApplicationCommandOptionTypes.STRING }] },
     { name: 'tsh', description: 'Make a 2 sentence horror story based on a given topic', options: [{ name: 'topic', description: 'The topic of the horror story', required: true, type: Constants.ApplicationCommandOptionTypes.STRING }] },
+    { name: 'poll', description: 'Send a poll for 2 options in the server', options: [{ name: 'option1', description: 'First option for the poll', required: true, type: Constants.ApplicationCommandOptionTypes.STRING }, { name: 'option2', description: 'Second option for the poll', required: true, type: Constants.ApplicationCommandOptionTypes.STRING }] },
+    { name: 'coinflip', description: 'Flip a coin' },
 
     // Economy Commands
     { name: 'balance', description: 'Check you SeedCoin balance' },
@@ -78,13 +80,14 @@ const commands = [
 
 // Register slash commands
 const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
+// const rest = new REST({ version: '9' }).setToken(process.env.BETA_TOKEN);
 
 (async () => {
     try {
       console.log('Started refreshing application (/) commands.');
   
       await rest.put(
-        //   Routes.applicationGuildCommands(process.env.APP_ID, '731445738290020442', '801360477984522260'),
+        // Routes.applicationGuildCommands(process.env.BETA_APP_ID, '801360477984522260', '961272863363567636', '731445738290020442'),
           Routes.applicationCommands(process.env.APP_ID),
           {body: commands},
       );
@@ -200,6 +203,17 @@ client.on('interactionCreate', async interaction => {
     if (commandName == 'rcolor') {
         rcolorCmd(user,guild,interaction)
     }
+
+    if (commandName == 'poll') {
+        const option1 = options.getString('option1')
+        const option2 = options.getString('option2')
+
+        await pollCmd(user,guild,interaction,option1,option2)
+    }
+
+    if (commandName == 'coinflip') {
+        coinflipCmd(user,guild,interaction)
+    }
 })
 
 // Client Events
@@ -276,8 +290,8 @@ function helpCmd(user,guild,interaction) {
     .setFields([
         { name: 'Moderation:', value: '`\`/ban [user] {reason}`\`, `\`/unban [user]`\`, `\`/kick [user] {reason}`\`, `\`/warn [user] [reason]`\`, `\`/cases [user]`\`, `\`/deletecase [case]`\`', inline: false },
         { name: 'Economy:', value: '`\`/balance`\`, `\`/daily`\`, `\`/beg`\`, `\`/highlow`\`, `\`/slots [bet > 10]`\`, `\`/rps [bet > 10] [move]`\`, `\`/fish`\`, `\`/shop`\`, `\`/buy [shop id]`\`', inline: false },
-        { name: 'Fun:', value: '`\`/friend [message]`\`, `\`/tsh [topic]`\`', inline: false },
-        { name: 'Utility: ', value: '`\`/stats`\`, `\`/rcolor`\`', inline: false }
+        { name: 'Fun:', value: '`\`/friend [message]`\`, `\`/tsh [topic]`\`, `\`/coinflip`\`', inline: false },
+        { name: 'Utility: ', value: '`\`/stats`\`, `\`/rcolor`\`, `\`/poll [option 1] [option 2]`\`', inline: false }
     ])
     .addField('Links', '[🌐 Website](https://seedsbot.xyz) | [<:invite:823987169978613851> Invite](https://seedsbot.xyz/invite) | [<:discord:823989269626355793> Support](https://seedsbot.xyz/support)')
 
@@ -1493,5 +1507,56 @@ async function rcolorCmd(user,guild,interaction) {
     cmdRun(user,cmdName)
 }
 
+// poll command
+async function pollCmd(user,guild,interaction,option1,option2) {
+    const cmdName = 'poll'
+
+    const embed = new MessageEmbed()
+        .setTitle(`Poll:`)
+        .setDescription(`1️⃣: ${option1}\n\n2️⃣: ${option2}`)
+
+
+    const message = await interaction.reply({
+        embeds: [embed],
+        fetchReply: true
+    })
+
+    message.react('1️⃣')
+    message.react('2️⃣')
+
+    cmdRun(user,cmdName)
+}
+
+// Coinflip command
+function coinflipCmd(user, guild, interaction) {
+    const cmdName = 'coinflip'
+
+    const choice = Math.round(Math.random())
+
+    if (choice === 1) {
+        const embed = new MessageEmbed()
+        .setTitle('<:simp_coin:824720566241853460> Heads!')
+        .setColor('GOLD')
+        
+        cmdRun(user, cmdName)
+        
+        interaction.reply({
+            embeds: [embed]
+        })
+
+    } else {
+        const embed = new MessageEmbed()
+        .setTitle('<:fuck_coin:824720614543196220> Tails!')
+        .setColor('GOLD')
+        
+        cmdRun(user, cmdName)
+
+        interaction.reply({
+            embeds: [embed]
+        })
+    }
+}
+
 // Run Bot
-client.login(process.env.TOKEN);
+// client.login(process.env.BETA_TOKEN);
+client.login(process.env.TOKEN)
