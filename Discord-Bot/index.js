@@ -275,10 +275,11 @@ function helpCmd(user,guild,interaction) {
     .setDescription('All Seeds commands use the prefix `\`/`\`\n\n[parameter] = Required\n{parameter} = Optional\n')
     .setFields([
         { name: 'Moderation:', value: '`\`/ban [user] {reason}`\`, `\`/unban [user]`\`, `\`/kick [user] {reason}`\`, `\`/warn [user] [reason]`\`, `\`/cases [user]`\`, `\`/deletecase [case]`\`', inline: false },
-        { name: 'Economy:', value: '`\`/balance`\`, `\`/daily`\`, `\`/beg`\`, `\`/highlow`\`, `\`/slots [bet > 10]`\`, `\`/rps [bet > 10] [move]`\`, `\`/fish`\`', inline: false },
+        { name: 'Economy:', value: '`\`/balance`\`, `\`/daily`\`, `\`/beg`\`, `\`/highlow`\`, `\`/slots [bet > 10]`\`, `\`/rps [bet > 10] [move]`\`, `\`/fish`\`, `\`/shop`\`, `\`/buy [shop id]`\`', inline: false },
         { name: 'Fun:', value: '`\`/friend [message]`\`, `\`/tsh [topic]`\`', inline: false },
         { name: 'Utility: ', value: '`\`/stats`\`, `\`/rcolor`\`', inline: false }
     ])
+    .addField('Links', '[🌐 Website](https://seedsbot.xyz) | [<:invite:823987169978613851> Invite](https://seedsbot.xyz/invite) | [<:discord:823989269626355793> Support](https://seedsbot.xyz/support)')
 
     interaction.reply({
         embeds: [embed]
@@ -1450,7 +1451,7 @@ function statsCmd(user,guild,interaction) {
                 .addField('Ping:', `${Math.round(client.ws.ping)}ms`, true)
                 .addField('Uptime:', `${uptime} Days`, true)
                 .addField('Library:', 'Discord.JS', true)
-                .addField('Links', '[🌐 Website](https://seedsbot.xyz) | [<:invite:823987169978613851> Invite](https://seedsbot.xyz/invite) | [<:discord:823989269626355793> Support](https://jamsbot.com/support) | [<:upvote:823988328306049104> Vote](https://top.gg/bot/935801319569104948/vote)')
+                .addField('Links', '[🌐 Website](https://seedsbot.xyz) | [<:invite:823987169978613851> Invite](https://seedsbot.xyz/invite) | [<:discord:823989269626355793> Support](https://seedsbot.xyz/support)')
             interaction.reply({
                 embeds: [embed],
             })

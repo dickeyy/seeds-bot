@@ -10,5 +10,9 @@ if (pageName == 'invite') {
 }
 
 if (pageName == 'support') {
-    window.location.replace('https://discord.gg/nushMv6R8T')
+    window.location.replace('https://discord.gg/AU3t2yVBBe')
+}
+
+if (pageName == 'server') {
+    window.location.replace('https://discord.gg/AU3t2yVBBe')
 }
