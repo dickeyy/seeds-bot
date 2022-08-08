@@ -1314,6 +1314,18 @@ async function buyCmd(user,guild,interaction,shopId) {
     const doc = await collection.findOne({ userId: user.id, guildId: guild.id })
     const itemData = shopData.items['i_' + shopId]
 
+    if (doc == null) {
+        const embed = new MessageEmbed()
+        .setTitle('You have no coins')
+        .setDescription('Run `\`/daily`\` to get some')
+        .setColor('RED')
+
+        interaction.reply({
+            embeds: [embed],
+            ephemeral: true
+        })
+    }
+
     if (doc.coins < itemData.price) {
         const embed = new MessageEmbed()
         .setTitle('You do not have enough coins to buy that')
