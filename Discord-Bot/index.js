@@ -7,10 +7,20 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const { Configuration, OpenAIApi } = require("openai");
 const osu = require('node-os-utils');
 const axios = require('axios').default
+import fetch from "node-fetch";
 
 // Process errors
 process.on('uncaughtException', function (error) {
     console.log(error.stack);
+
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+    fetch('https://discord.com/api/webhooks/1006253983213559879/9E_oGEEPG_xmbvHCN6e89JIiDlX-BVc8eiXBMPkW8klCrBPjoDOpCTW59LtiXloo-6Yu',{method: 'post',headers: {'Content-Type': 'application/json',}, body: JSON.stringify({ embeds: [{ color: 11730954, title: 'Error at ' + date + ' ' + time, description: error.stack, },],}),});
+
+    fetch('https://discord.com/api/webhooks/1006501293822595145/ThkI0IYejBT3VObgWXgKVxAKHJyYfQig4l8qHPfeDQAfyRhHvQAo-il832JujT2I_sRO',{ method: 'post',headers: {'Content-Type': 'application/json', }, body: JSON.stringify({embeds: [{color: 11730954,title: 'Error at ' + date + ' ' + time ,description: error.stack,},], }),});
+
 });
 
 // Dotenv initialize 
@@ -88,8 +98,8 @@ const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
   
       await rest.put(
         // Routes.applicationGuildCommands(process.env.BETA_APP_ID, '801360477984522260', '961272863363567636', '731445738290020442'),
-          Routes.applicationCommands(process.env.APP_ID),
-          {body: commands},
+        Routes.applicationCommands(process.env.APP_ID),
+        {body: commands},
       );
   
       console.log('Successfully reloaded application (/) commands.');
@@ -276,6 +286,23 @@ async function cmdRun(user,cmdName) {
     }
 
     console.log(`${date} ${time} | ${user.tag} - ${cmdName}`)
+
+    fetch(
+        'https://discord.com/api/webhooks/1006253983213559879/9E_oGEEPG_xmbvHCN6e89JIiDlX-BVc8eiXBMPkW8klCrBPjoDOpCTW59LtiXloo-6Yu',
+        {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            embeds: [
+              {
+                title: `${date} ${time} | ${user.tag} - ${cmdName}`,
+              },
+            ],
+          }),
+        }
+      );
 }
 
 // Help command
