@@ -7,20 +7,10 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const { Configuration, OpenAIApi } = require("openai");
 const osu = require('node-os-utils');
 const axios = require('axios').default
-import fetch from "node-fetch";
 
 // Process errors
-process.on('uncaughtException', function (error) {
+process.on('uncaughtException', async function (error) {
     console.log(error.stack);
-
-    var today = new Date();
-    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-
-    fetch('https://discord.com/api/webhooks/1006253983213559879/9E_oGEEPG_xmbvHCN6e89JIiDlX-BVc8eiXBMPkW8klCrBPjoDOpCTW59LtiXloo-6Yu',{method: 'post',headers: {'Content-Type': 'application/json',}, body: JSON.stringify({ embeds: [{ color: 11730954, title: 'Error at ' + date + ' ' + time, description: error.stack, },],}),});
-
-    fetch('https://discord.com/api/webhooks/1006501293822595145/ThkI0IYejBT3VObgWXgKVxAKHJyYfQig4l8qHPfeDQAfyRhHvQAo-il832JujT2I_sRO',{ method: 'post',headers: {'Content-Type': 'application/json', }, body: JSON.stringify({embeds: [{color: 11730954,title: 'Error at ' + date + ' ' + time ,description: error.stack,},], }),});
-
 });
 
 // Dotenv initialize 
@@ -286,23 +276,6 @@ async function cmdRun(user,cmdName) {
     }
 
     console.log(`${date} ${time} | ${user.tag} - ${cmdName}`)
-
-    fetch(
-        'https://discord.com/api/webhooks/1006253983213559879/9E_oGEEPG_xmbvHCN6e89JIiDlX-BVc8eiXBMPkW8klCrBPjoDOpCTW59LtiXloo-6Yu',
-        {
-          method: 'post',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            embeds: [
-              {
-                title: `${date} ${time} | ${user.tag} - ${cmdName}`,
-              },
-            ],
-          }),
-        }
-      );
 }
 
 // Help command
@@ -630,26 +603,65 @@ async function deletecaseCmd(user,guild,interaction,caseId) {
 async function aiCmd(user,guild,interaction,prompt) {
     const cmdName = 'friend'
 
-    const completion = await openai.createCompletion("text-davinci-002", {
-        prompt: "You: " + prompt + "\n Friend: ",
-        temperature: 0.5,
-        max_tokens: 60,
-        top_p: 1.0,
-        frequency_penalty: 0.5,
-        presence_penalty: 0.0,
-        stop: ["You:"],
-    })
-
-    if (completion.data.choices[0].text != '') {
+    if (cooldown.has(`${user.id}--${cmdName}`)) {
         const embed = new MessageEmbed()
-        .setTitle('AI Friend')
-        .setDescription('You: ' + prompt )
-        .addField('AI:', completion.data.choices[0].text)
-        .setColor(mainHex)
-
+        .setTitle(cdList[Math.floor(Math.random() * cdList.length)])
+        .setDescription('That command can only be run once every 5 minutes')
+        .setColor('RED')
         interaction.reply({
-            embeds: [embed]
+            embeds: [embed],
+            ephemeral: true
         })
+    } else {
+
+        try {
+            const completion = await openai.createCompletion({
+                model: "text-ada-001",
+                prompt: "You: " + prompt + " \n Friend: ",
+                temperature: 0.5,
+                max_tokens: 60,
+                top_p: 1.0,
+                frequency_penalty: 0.5,
+                presence_penalty: 0.0,
+                stop: ["You:"],
+            });
+
+            if (completion.data.choices[0].text != '') {
+                const embed = new MessageEmbed()
+                .setTitle('AI Friend')
+                .setDescription('You: ' + prompt )
+                .addField('AI:', completion.data.choices[0].text)
+                .setColor(mainHex)
+        
+                interaction.reply({
+                    embeds: [embed]
+                })
+            }
+
+        } catch (error) {
+            if (error.response) {
+            console.log(error.response.status);
+            console.log(error.response.data);
+            } else {
+            console.log(error.message);
+            }
+
+            const embed = new MessageEmbed()
+            .setTitle('ERROR')
+            .setDescription('An error occured with this command. Please try again later. If the error persists, reach out to [SUPPORT](https://seedsbot.xyz/support)')
+            .setColor("RED")
+    
+            interaction.reply({
+            embeds: [embed],
+            ephemeral: true
+            })
+        }
+
+        //now, set cooldown
+        cooldown.add(`${user.id}--${cmdName}`);
+        setTimeout(() => {
+            cooldown.delete(`${user.id}--${cmdName}`);
+        }, fiveMinCooldown);
     }
 
     cmdRun(user,cmdName)
@@ -659,24 +671,64 @@ async function aiCmd(user,guild,interaction,prompt) {
 async function tshCmd(user,guild,interaction,topic) { 
     const cmdName = 'tsh'
 
-    const res = await openai.createCompletion("text-davinci-002", {
-        prompt: `Topic: ${topic}\nTwo-Sentence Horror Story:`,
-        temperature: 0.8,
-        max_tokens: 60,
-        top_p: 1.0,
-        frequency_penalty: 0.5,
-        presence_penalty: 0.0,
-    })
-
-    if (res.data.choices[0].text != '') {
+    if (cooldown.has(`${user.id}--${cmdName}`)) {
         const embed = new MessageEmbed()
-        .setTitle('Two Sentence Horror | Topic: ' + topic)
-        .setDescription(res.data.choices[0].text)
-        .setColor(mainHex)
-
+        .setTitle(cdList[Math.floor(Math.random() * cdList.length)])
+        .setDescription('That command can only be run once every 10 minutes')
+        .setColor('RED')
         interaction.reply({
-            embeds: [embed]
+            embeds: [embed],
+            ephemeral: true
         })
+    } else {
+
+        try {
+
+            const res = await openai.createCompletion("text-davinci-002", {
+                prompt: `Topic: ${topic}\nTwo-Sentence Horror Story:`,
+                temperature: 0.8,
+                max_tokens: 60,
+                top_p: 1.0,
+                frequency_penalty: 0.5,
+                presence_penalty: 0.0,
+            })
+        
+            if (res.data.choices[0].text != '') {
+                const embed = new MessageEmbed()
+                .setTitle('Two Sentence Horror | Topic: ' + topic)
+                .setDescription(res.data.choices[0].text)
+                .setColor(mainHex)
+        
+                interaction.reply({
+                    embeds: [embed]
+                })
+            }
+
+        } catch (error) {
+
+            if (error.response) {
+                console.log(error.response.status);
+                console.log(error.response.data);
+            } else {
+                console.log(error.message);
+            }
+    
+            const embed = new MessageEmbed()
+                .setTitle('ERROR')
+                .setDescription('An error occured with this command. Please try again later. If the error persists, reach out to [SUPPORT](https://seedsbot.xyz/support)')
+                .setColor("RED")
+        
+            interaction.reply({
+                embeds: [embed],
+                ephemeral: true
+            })
+        }
+
+        //now, set cooldown
+       cooldown.add(`${user.id}--${cmdName}`);
+       setTimeout(() => {
+           cooldown.delete(`${user.id}--${cmdName}`);
+       }, tenMinCooldown);
     }
 
     cmdRun(user,cmdName)
@@ -1577,7 +1629,7 @@ function coinflipCmd(user, guild, interaction) {
     const cmdName = 'coinflip'
 
     const choice = Math.round(Math.random())
-
+    
     if (choice === 1) {
         const embed = new MessageEmbed()
         .setTitle('<:simp_coin:824720566241853460> Heads!')
