@@ -1,4 +1,4 @@
-const { Client, Intents, MessageEmbed, Constants, MessageActionRow, MessageButton, Interaction, Permissions, Message } = require('discord.js');
+const { Client, Intents, MessageEmbed, Constants, MessageActionRow, MessageButton, Interaction, Permissions, Message, } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_BANS, Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS] });
 const { REST } = require('@discordjs/rest');
 const { Routes, InteractionResponseType } = require('discord-api-types/v9');
@@ -26,7 +26,7 @@ console.log('MongoDB Connected')
 // Define Colors
 const mainHex = '#d79a61'
 
-// Set up cooldown times
+// Set up cooldown stuff
 const cooldown = new Set();
 const oneMinCooldown = 60000;
 const twoMinCooldown = oneMinCooldown * 2;
@@ -34,7 +34,9 @@ const fiveMinCooldown = oneMinCooldown * 5;
 const tenMinCooldown = fiveMinCooldown * 2 ; 
 const thirtyMinCooldown = tenMinCooldown * 3;
 const oneHourCooldown = thirtyMinCooldown * 2;
-const OneDayCooldown = oneHourCooldown * 24;
+const twelveHourCooldown = oneHourCooldown * 12;
+const OneDayCooldown = twelveHourCooldown * 2;
+const OneWeekCooldown = OneDayCooldown * 7;
 
 const cdList = ['Chill Out', 'CHILLLLL', 'Stop.', 'Take a Breather', 'ok', 'Spamming commands is cringe', 'Slow it down', 'Wee-Woo-Wee-Woo Pull Over', 'No smile', '-_-', 'Why tho...', 'Yikes U Should Like Not', 'Slow it Cowboy', 'Take a Break Bro', 'Go Touch Some Grass']
 
@@ -72,10 +74,12 @@ const commands = [
     { name: 'shop', description: 'See items that are avaliable for purchase' },
     { name: 'buy', description: 'Buy something from the shop', options: [{ name: 'id', description: 'The shop id number, get this using /shop', required: true, type: Constants.ApplicationCommandOptionTypes.INTEGER }] },
     { name: 'fish', description: 'Cast your pole out and hope for a bite' },
+    { name: 'vote', description: 'Vote for Seeds on top.gg and get 1000 SeedCoins' },
 
     // Utility Commands
     { name: 'stats', description: 'Get some cool stats about the bot' },
-    { name: 'rcolor', description: 'Generate a random color (with hex code)' }
+    { name: 'rcolor', description: 'Generate a random color (with hex code)' },
+    { name: 'botidea', description: 'Suggest an idea to the devs (Your idea is publicly viewed and voted on in the support server)', options: [{ name: 'idea', description: 'The idea you want to suggest', required: true, type: Constants.ApplicationCommandOptionTypes.STRING }] },
 ]
 
 // Register slash commands
@@ -214,6 +218,15 @@ client.on('interactionCreate', async interaction => {
     if (commandName == 'coinflip') {
         coinflipCmd(user,guild,interaction)
     }
+
+    if (commandName == 'botidea') {
+        const idea = options.getString('idea')
+        await botideaCmd(user,guild,interaction,idea)
+    }
+
+    if (commandName == 'vote') {
+        voteCmd(user,guild,interaction)
+    }
 })
 
 // Client Events
@@ -289,9 +302,9 @@ function helpCmd(user,guild,interaction) {
     .setDescription('All Seeds commands use the prefix `\`/`\`\n\n[parameter] = Required\n{parameter} = Optional\n')
     .setFields([
         { name: 'Moderation:', value: '`\`/ban [user] {reason}`\`, `\`/unban [user]`\`, `\`/kick [user] {reason}`\`, `\`/warn [user] [reason]`\`, `\`/cases [user]`\`, `\`/deletecase [case]`\`', inline: false },
-        { name: 'Economy:', value: '`\`/balance`\`, `\`/daily`\`, `\`/beg`\`, `\`/highlow`\`, `\`/slots [bet > 10]`\`, `\`/rps [bet > 10] [move]`\`, `\`/fish`\`, `\`/shop`\`, `\`/buy [shop id]`\`', inline: false },
+        { name: 'Economy:', value: '`\`/balance`\`, `\`/daily`\`, `\`/beg`\`, `\`/highlow`\`, `\`/slots [bet > 10]`\`, `\`/rps [bet > 10] [move]`\`, `\`/fish`\`, `\`/shop`\`, `\`/buy [shop id]`\`, `\`/vote`\`', inline: false },
         { name: 'Fun:', value: '`\`/friend [message]`\`, `\`/tsh [topic]`\`, `\`/coinflip`\`', inline: false },
-        { name: 'Utility: ', value: '`\`/stats`\`, `\`/rcolor`\`, `\`/poll [option 1] [option 2]`\`', inline: false }
+        { name: 'Utility: ', value: '`\`/stats`\`, `\`/rcolor`\`, `\`/poll [option 1] [option 2]`\`, `\`/botidea [idea]`\`', inline: false }
     ])
     .addField('Links', '[🌐 Website](https://seedsbot.xyz) | [<:invite:823987169978613851> Invite](https://seedsbot.xyz/invite) | [<:discord:823989269626355793> Support](https://seedsbot.xyz/support)')
 
@@ -638,6 +651,12 @@ async function aiCmd(user,guild,interaction,prompt) {
                 })
             }
 
+            //now, set cooldown
+            cooldown.add(`${user.id}--${cmdName}`);
+            setTimeout(() => {
+                cooldown.delete(`${user.id}--${cmdName}`);
+            }, fiveMinCooldown);
+
         } catch (error) {
             if (error.response) {
             console.log(error.response.status);
@@ -656,12 +675,6 @@ async function aiCmd(user,guild,interaction,prompt) {
             ephemeral: true
             })
         }
-
-        //now, set cooldown
-        cooldown.add(`${user.id}--${cmdName}`);
-        setTimeout(() => {
-            cooldown.delete(`${user.id}--${cmdName}`);
-        }, fiveMinCooldown);
     }
 
     cmdRun(user,cmdName)
@@ -704,6 +717,12 @@ async function tshCmd(user,guild,interaction,topic) {
                 })
             }
 
+            //now, set cooldown
+            cooldown.add(`${user.id}--${cmdName}`);
+            setTimeout(() => {
+                cooldown.delete(`${user.id}--${cmdName}`);
+            }, tenMinCooldown);
+
         } catch (error) {
 
             if (error.response) {
@@ -724,11 +743,7 @@ async function tshCmd(user,guild,interaction,topic) {
             })
         }
 
-        //now, set cooldown
-       cooldown.add(`${user.id}--${cmdName}`);
-       setTimeout(() => {
-           cooldown.delete(`${user.id}--${cmdName}`);
-       }, tenMinCooldown);
+
     }
 
     cmdRun(user,cmdName)
@@ -1540,12 +1555,143 @@ async function fishCmd(user,guild,interaction) {
     }
 }
 
+// Vote command
+async function voteCmd(user,guild,interaction) {
+    const cmdName = 'vote'
+
+    if (cooldown.has(user.id + '--' + cmdName)) {
+        const embed = new MessageEmbed()
+        .setTitle(cdList[Math.floor(Math.random() * cdList.length)])
+        .setDescription('That command can only be run once every 12 hours')
+        .setColor('RED')
+        interaction.reply({
+            embeds: [embed],
+            ephemeral: true
+        })
+        return
+    }
+
+    const embed = new MessageEmbed()
+    .setTitle('Vote for Seeds on Top.gg')
+    .setDescription('Click the "Vote Here" button to vote then click the "I Voted" button to get your coins!')
+    .setColor(mainHex)
+
+    const row = new MessageActionRow()
+        .addComponents(
+            new MessageButton()
+                .setURL('https://top.gg/bot/968198214450831370/vote')
+                .setLabel('Vote Here')
+                .setStyle('LINK'),
+
+            new MessageButton()
+                .setCustomId('voted')
+                .setLabel('I Voted')
+                .setStyle('SUCCESS'),
+
+        )
+    interaction.reply({
+        embeds: [embed],
+        ephemeral: true,
+        components: [row]
+    })
+
+        client.on('interactionCreate', interaction2 => {
+            if (!interaction2.isButton()) return;
+
+            if (interaction2['customId'] == 'voted') {
+                
+                const url = `https://top.gg/api/bots/${process.env.APP_ID}/check?userId=${user.id}`;
+
+                const req = axios.get(url, {
+                    headers: {
+                        'Authorization': `${process.env.TOPGG_TOKEN}`
+                    }
+                }).then((res) => {
+                    if (res.status != 200) {
+                        const embed2 = new MessageEmbed()
+                        .setTitle('ERROR')
+                        .setDescription('An error occured while trying to get your vote status. Please try again later. If this error persists, please join the [Support Server](https://seedsbot.xyz/support).')
+                        .setColor('RED')
+
+                        interaction.editReply({
+                            embeds: [embed2],
+                            ephemeral: true,
+                            components: []
+                        })
+                    }
+
+                    else {
+
+                        if (res['data'] === 0) {
+                            const embed2 = new MessageEmbed()
+                            .setTitle('You have not voted yet!')
+                            .setDescription('Please vote using the "Vote Here" button.')
+                            .setColor('RED')
+
+                            interaction.editReply({
+                                embeds: [embed2],
+                                ephemeral: true,
+                                components: [row]
+                            })
+                        } else {
+
+                            const coll = db.collection('economy')
+                            const doc = coll.findOne({ userId: user.id, guildId: guild.id }).then(() => {})
+
+                            if (doc == null) {
+                                const embed2 = new MessageEmbed()
+                                .setTitle('You dont have any coins!')
+                                .setDescription('Please use the `\`/daily`\` command to get some then try again.')
+                                .setColor('RED')
+
+                                interaction.editReply({
+                                    embeds: [embed2],
+                                    ephemeral: true,
+                                    components: []
+                                })
+                            } else {
+
+                                const newBalance = doc.coins + 1000
+
+                                coll.updateOne({ userId: user.id, guildId: guild.id }, { $set: { coins: newBalance } }).then(() => {
+
+                                    const embed2 = new MessageEmbed()
+                                    .setTitle('Thank you for voting!')
+                                    .setDescription('We have recieved your vote and 1000 coins have been added to your balance. \n\nPlease vote again in 12 hours to recieve more coins!')
+                                    .setColor('GREEN')
+        
+                                    interaction.editReply({
+                                        embeds: [embed2],
+                                        ephemeral: false,
+                                        components: []
+                                    })
+                                })
+
+                            }
+                            
+                        }
+
+                    }
+                });
+
+            } 
+        })
+
+    cooldown.add(user.id + '--' + cmdName);
+    setTimeout(() => {
+        cooldown.delete(user.id + '--' + cmdName);
+    }, twelveHourCooldown);
+
+    cmdRun(user,cmdName)
+}
+
 // Utility Commands
 // Stats
 function statsCmd(user,guild,interaction) {
     const cmdName = 'stats'
 
     const guilds = client.guilds.cache.size
+
     const cpu = osu.cpu
     const mem = osu.mem
     const uptime = Math.round(client.uptime / 1000 / 60 / 60 / 24)
@@ -1653,6 +1799,69 @@ function coinflipCmd(user, guild, interaction) {
         })
     }
 }
+
+// Bot idea system
+// recommend idea
+async function botideaCmd(user, guild, interaction, idea) {
+    const cmdName = 'botidea'
+
+    if (cooldown.has(user.id + '--' + cmdName)) {
+        const embed = new MessageEmbed()
+
+        .setTitle(cdList[Math.floor(Math.random() * cdList.length)])
+        .setDescription('That command can only be run once every week.')
+        .setColor('RED')
+        interaction.reply({
+            embeds: [embed],
+            ephemeral: true
+        })
+        return
+    }
+
+    const ideaId = Math.floor(Math.random() * 10000)
+
+    const embed = new MessageEmbed()
+        .setTitle('Your idea has been submitted! | ID: ' + ideaId)
+        .setDescription(`Thank you for your idea! View it in #bot-ideas in the [Support Server](https://seedsbot.xyz/support) \n\n**Idea:** ${idea}`)
+        .setColor(mainHex)
+
+    const botIdeaChannel = client.channels.cache.find(channel => channel.id === '1006830410812096532')
+
+    const embed2 = new MessageEmbed()
+        .setTitle(`Idea #${ideaId}`)
+        .setDescription(`**Idea:** ${idea}\n\nSubmitted by: <@${user.id}>`)
+        .setColor(mainHex)
+
+    const message = await botIdeaChannel.send({ embeds: [embed2] })
+
+    const coll = db.collection('botIdeas')
+    await coll.insertOne({
+        ideaId: ideaId,
+        idea: idea,
+        submittedBy: user.id,
+        submittedAt: new Date(),
+        messageId: message.id
+    })
+
+    message.react('👍')
+    message.react('👎')
+
+    interaction.reply({
+        embeds: [embed],
+        ephemeral: true
+    })
+
+    cooldown.add(user.id + '--' + cmdName);
+    setTimeout(() => {
+        cooldown.delete(user.id + '--' + cmdName);
+    }, OneWeekCooldown);
+
+    cmdRun(user, cmdName)
+}
+
+// eventually add admin commands
+
+ 
 
 // Run Bot
 // client.login(process.env.BETA_TOKEN);
