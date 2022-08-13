@@ -49,8 +49,10 @@ const openai = new OpenAIApi(aiConfig)
 
 // Write Command Definitions
 const commands = [
-    // Moderation Commands
+
     { name: 'help', description: 'Get a list of all Seeds commands' },
+
+    // Moderation Commands
     { name: 'ban', description: 'Ban a member from the server', options: [{ name: 'user', description: 'The person you want to ban', required: true, type: Constants.ApplicationCommandOptionTypes.USER }, { name: 'reason', description: 'The reason the person is being banned', required: false, type: Constants.ApplicationCommandOptionTypes.STRING }] },
     { name: 'unban', description: 'Unban a previously banned member', options: [{ name: 'user', description: 'The person you want to unban', required: true, type: Constants.ApplicationCommandOptionTypes.USER }] },
     { name: 'kick', description: 'Kick a member from the server', options: [{ name: 'user', description: 'The person you want to kick', required: true, type: Constants.ApplicationCommandOptionTypes.USER }, { name: 'reason', description: 'The reason the person is being kicked', required: false, type: Constants.ApplicationCommandOptionTypes.STRING }] },
@@ -1636,38 +1638,40 @@ async function voteCmd(user,guild,interaction) {
                         } else {
 
                             const coll = db.collection('economy')
-                            const doc = coll.findOne({ userId: user.id, guildId: guild.id }).then(() => {})
+                            const doc = coll.findOne({ userId: user.id, guildId: guild.id }).then((data) => {
 
-                            if (doc == null) {
-                                const embed2 = new MessageEmbed()
-                                .setTitle('You dont have any coins!')
-                                .setDescription('Please use the `\`/daily`\` command to get some then try again.')
-                                .setColor('RED')
-
-                                interaction.editReply({
-                                    embeds: [embed2],
-                                    ephemeral: true,
-                                    components: []
-                                })
-                            } else {
-
-                                const newBalance = doc.coins + 1000
-
-                                coll.updateOne({ userId: user.id, guildId: guild.id }, { $set: { coins: newBalance } }).then(() => {
-
+                                if (data == null) {
                                     const embed2 = new MessageEmbed()
-                                    .setTitle('Thank you for voting!')
-                                    .setDescription('We have recieved your vote and 1000 coins have been added to your balance. \n\nPlease vote again in 12 hours to recieve more coins!')
-                                    .setColor('GREEN')
-        
+                                    .setTitle('You dont have any coins!')
+                                    .setDescription('Please use the `\`/daily`\` command to get some then try again.')
+                                    .setColor('RED')
+    
                                     interaction.editReply({
                                         embeds: [embed2],
-                                        ephemeral: false,
+                                        ephemeral: true,
                                         components: []
                                     })
-                                })
+                                } else {
+    
+                                    const newBalance = data.coins + 1000
+    
+                                    coll.updateOne({ userId: user.id, guildId: guild.id }, { $set: { coins: newBalance } }).then(() => {
+    
+                                        const embed2 = new MessageEmbed()
+                                        .setTitle('Thank you for voting!')
+                                        .setDescription('We have recieved your vote and 1000 coins have been added to your balance. \n\nPlease vote again in 12 hours to recieve more coins!')
+                                        .setColor('GREEN')
+            
+                                        interaction.editReply({
+                                            embeds: [embed2],
+                                            ephemeral: false,
+                                            components: []
+                                        })
+                                    })
+    
+                                }
 
-                            }
+                            })
                             
                         }
 
