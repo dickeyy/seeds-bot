@@ -432,7 +432,7 @@ function logsCmd(user, guild, interaction, dateArg) {
   
       // interaction.reply("Logs For " + date + "`\`\`" + data + "`\`\`")
       interaction.reply({
-        content: 'Logs For ' + date,
+        content: 'Logs For **' + date + '**',
         files: [file],
       })
   
@@ -452,7 +452,7 @@ function logsCmd(user, guild, interaction, dateArg) {
   
       // interaction.reply("Logs For " + date + "`\`\`" + data + "`\`\`")
       interaction.reply({
-        content: 'Logs For ' + date,
+        content: 'Logs For **' + date + '**',
         files: [file],
       })
   
