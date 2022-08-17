@@ -7,10 +7,14 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const { Configuration, OpenAIApi } = require("openai");
 const osu = require('node-os-utils');
 const axios = require('axios').default
+const fs = require('fs')
 
 // Process errors
 process.on('uncaughtException', async function (error) {
     console.log(error.stack);
+
+    var logData = `${error.stack}\n`
+    await log(logData)
 });
 
 // Dotenv initialize 
@@ -21,6 +25,8 @@ const MongoUri = process.env.MONGO_URI;
 const mClient = new MongoClient(MongoUri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 mClient.connect();
 const db = mClient.db('main');
+var logData = `MongoDB Connected\n`
+log(logData)
 console.log('MongoDB Connected')
 
 // Define Colors
@@ -40,6 +46,11 @@ const OneWeekCooldown = OneDayCooldown * 7;
 
 const cdList = ['Chill Out', 'CHILLLLL', 'Stop.', 'Take a Breather', 'ok', 'Spamming commands is cringe', 'Slow it down', 'Wee-Woo-Wee-Woo Pull Over', 'No smile', '-_-', 'Why tho...', 'Yikes U Should Like Not', 'Slow it Cowboy', 'Take a Break Bro', 'Go Touch Some Grass']
 
+// Permission Integers
+const BAN_MEMBERS_PERM = 0x0000000000000004
+const KICK_MEMBERS_PERM = 0x0000000000000002
+const ADMIN_PERM = 0x0000000000000008
+const MODERATE_PERM = 0x0000010000000000
 
 // Open AI Connection
 const aiConfig = new Configuration({
@@ -53,12 +64,12 @@ const commands = [
     { name: 'help', description: 'Get a list of all Seeds commands' },
 
     // Moderation Commands
-    { name: 'ban', description: 'Ban a member from the server', options: [{ name: 'user', description: 'The person you want to ban', required: true, type: Constants.ApplicationCommandOptionTypes.USER }, { name: 'reason', description: 'The reason the person is being banned', required: false, type: Constants.ApplicationCommandOptionTypes.STRING }] },
-    { name: 'unban', description: 'Unban a previously banned member', options: [{ name: 'user', description: 'The person you want to unban', required: true, type: Constants.ApplicationCommandOptionTypes.USER }] },
-    { name: 'kick', description: 'Kick a member from the server', options: [{ name: 'user', description: 'The person you want to kick', required: true, type: Constants.ApplicationCommandOptionTypes.USER }, { name: 'reason', description: 'The reason the person is being kicked', required: false, type: Constants.ApplicationCommandOptionTypes.STRING }] },
-    { name: 'warn', description: 'Warn a member in the server', options: [{ name: 'user', description: 'The person you want to warn', required: true, type: Constants.ApplicationCommandOptionTypes.USER }, { name: 'reason', description: 'The reason for the warn', required: true, type: Constants.ApplicationCommandOptionTypes.STRING }] },
-    { name: 'cases', description: 'Check a members cases', options: [{ name: 'user', description: 'The person whos cases you want', required: true, type: Constants.ApplicationCommandOptionTypes.USER }] },
-    { name: 'deletecase', description: 'Delete a specific case', options: [{ name: 'case', description: 'The case ID that you want to delete', required: true, type: Constants.ApplicationCommandOptionTypes.INTEGER }] },
+    { name: 'ban', description: 'Ban a member from the server', default_member_permissions: BAN_MEMBERS_PERM, options: [{ name: 'user', description: 'The person you want to ban', required: true, type: Constants.ApplicationCommandOptionTypes.USER }, { name: 'reason', description: 'The reason the person is being banned', required: false, type: Constants.ApplicationCommandOptionTypes.STRING }] },
+    { name: 'unban', description: 'Unban a previously banned member', default_member_permissions: BAN_MEMBERS_PERM, options: [{ name: 'user', description: 'The person you want to unban', required: true, type: Constants.ApplicationCommandOptionTypes.USER }] },
+    { name: 'kick', description: 'Kick a member from the server', default_member_permissions: KICK_MEMBERS_PERM, options: [{ name: 'user', description: 'The person you want to kick', required: true, type: Constants.ApplicationCommandOptionTypes.USER }, { name: 'reason', description: 'The reason the person is being kicked', required: false, type: Constants.ApplicationCommandOptionTypes.STRING }] },
+    { name: 'warn', description: 'Warn a member in the server', default_member_permissions: MODERATE_PERM, options: [{ name: 'user', description: 'The person you want to warn', required: true, type: Constants.ApplicationCommandOptionTypes.USER }, { name: 'reason', description: 'The reason for the warn', required: true, type: Constants.ApplicationCommandOptionTypes.STRING }] },
+    { name: 'cases', description: 'Check a members cases', default_member_permissions: MODERATE_PERM, options: [{ name: 'user', description: 'The person whos cases you want', required: true, type: Constants.ApplicationCommandOptionTypes.USER }] },
+    { name: 'deletecase', description: 'Delete a specific case', default_member_permissions: MODERATE_PERM, options: [{ name: 'case', description: 'The case ID that you want to delete', required: true, type: Constants.ApplicationCommandOptionTypes.INTEGER }] },
 
     // Fun Commands
     { name: 'friend', description: 'Talk to an AI friend', options: [{ name: 'message', description: 'What you want to say to your friend', required: true, type: Constants.ApplicationCommandOptionTypes.STRING }] },
@@ -90,6 +101,8 @@ const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
 
 (async () => {
     try {
+        var logData = 'Started refreshing application (/) commands.\n'
+      await log(logData) 
       console.log('Started refreshing application (/) commands.');
   
       await rest.put(
@@ -97,7 +110,8 @@ const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
         Routes.applicationCommands(process.env.APP_ID),
         {body: commands},
       );
-  
+        var logData = 'Successfully reloaded application (/) commands.\n'
+      await log(logData)    
       console.log('Successfully reloaded application (/) commands.');
     } catch (error) {
       console.error(error);
@@ -107,6 +121,8 @@ const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
 // When the bot is ready
 client.on('ready', () => {
     client.user.setActivity('/help', { type: 'LISTENING' });
+    var logData = `Logged in as: ${client.user.tag}\n`
+    /log(logData)    
     console.log(`Logged in as: ${client.user.tag}`)
 });
 
@@ -257,13 +273,20 @@ client.on('guildCreate', async guild => {
     var collection = db.collection('guilds')
     await collection.insertOne(guildData)
 
+    var logData = `New Guild -- ${guild.name}\n`
+    await log(logData)
+
     console.log(`New Guild -- ${guild.name}`)
-})
+})/
 
 // When the bot leaves a server
 client.on('guildDelete', async guild => {
     const collection = db.collection('guilds');
     await collection.deleteOne({ _id: guild.id })
+
+    var logData = `Left Guild -- ${guild.name}\n`
+    await log(logData)
+
     console.log(`Left Guild -- ${guild.name}`)
 })
 
@@ -276,6 +299,9 @@ async function cmdRun(user,cmdName) {
 
     var collection = db.collection('commands')
     const doc = await collection.find({ name: cmdName }).toArray();
+
+    var logData = `${date} ${time} | ${user.tag} - ${cmdName}\n`
+    await log(logData)
 
     if (doc.length == 0) {
         const cmdData = {
@@ -292,6 +318,27 @@ async function cmdRun(user,cmdName) {
 
     console.log(`${date} ${time} | ${user.tag} - ${cmdName}`)
 }
+
+// Log functuon 
+async function log(logData) {
+
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
+    if (logData == null) {
+        return
+    }
+
+    fs.appendFile('./logs/' + date + '.txt', logData, function (err) {
+        if (err !== null) {
+            fs.writeFile('./logs/' + date + '.txt', logData, function (err) {
+                if (err) throw err;
+            });
+        }
+    });
+
+}
+
 
 // Help command
 function helpCmd(user,guild,interaction) {
@@ -1843,8 +1890,12 @@ async function botideaCmd(user, guild, interaction, idea) {
         ideaId: ideaId,
         idea: idea,
         submittedBy: user.id,
+        submitterGuildId: guild.id,
         submittedAt: new Date(),
-        messageId: message.id
+        messageId: message.id,
+        botideaChannelId: message.channelId,
+        botideaGuildId: message.guildId,
+        status: 'pending'
     })
 
     message.react('👍')
