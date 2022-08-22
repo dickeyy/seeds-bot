@@ -1,7 +1,8 @@
 {
   "hosting": {
+    "site": "seeds-api",
     "cleanUrls": true,
-    "public": "Website/public",
+    "public": "build",
     "ignore": [
       "firebase.json",
       "**/.*",
