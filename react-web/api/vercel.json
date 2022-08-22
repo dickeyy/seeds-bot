@@ -2,7 +2,7 @@
     "version": 2,
     "builds": [
       {
-        "src": "./api/api.js",
+        "src": "./api.js",
         "use": "@now/node"
       }
     ],
