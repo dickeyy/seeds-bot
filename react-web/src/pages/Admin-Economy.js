@@ -69,7 +69,7 @@ function AdminCmdsPage() {
   , [])
 
   return (
-    <ThemeProvider w='20vw' theme={theme}>
+    <Box w='20vw' theme={theme}>
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <Header />
       <Box h={50}></Box>
@@ -113,7 +113,7 @@ function AdminCmdsPage() {
 
       <Box h={50}></Box>
 
-    </ThemeProvider>
+    </Box>
   );
 }
 

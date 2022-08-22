@@ -47,7 +47,7 @@ function AdminGuildsPage() {
   , [])
 
   return (
-    <ThemeProvider w='20vw' theme={theme}>
+    <Box w='20vw' theme={theme}>
       <Header />
       <Box h={50}></Box>
       <Stat>
@@ -86,7 +86,7 @@ function AdminGuildsPage() {
 
       <Box h={50}></Box>
 
-    </ThemeProvider>
+    </Box>
   );
 }
 
