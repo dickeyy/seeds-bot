@@ -46,3 +46,6 @@ app.get('/admin/fetch-economy', (req, res) => {
 })
 
 app.listen(apiPort, () => console.log(`http://localhost:${apiPort}`))
+
+// Export the Express API
+module.exports = app;
