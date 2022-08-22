@@ -1,10 +1,10 @@
 import '../css/App.css';
 import * as React from 'react'
-import { ChakraProvider, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Box, Stat, StatLabel, StatNumber, StatHelpText, StatArrow, StatGroup, Divider, Button, useToast, Skeleton, ColorModeScript, useColorMode, } from '@chakra-ui/react'
+import { ChakraProvider, Table, theme,  ThemeProvider, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Box, Stat, StatLabel, StatNumber, StatHelpText, StatArrow, StatGroup, Divider, Button, useToast, Skeleton, ColorModeScript, useColorMode, } from '@chakra-ui/react'
 
 // Components
 import Header from '../comps/Header';
-import theme from '../theme';
+// import theme from '../theme';
 
 function AdminGuildsPage() {
 
@@ -47,12 +47,9 @@ function AdminGuildsPage() {
   , [])
 
   return (
-    <ChakraProvider w='20vw' backgroundColor={'#1A202C'}>
+    <ThemeProvider w='20vw' theme={theme}>
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <Header />
-      <Button onClick={toggleColorMode}>
-        Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
-      </Button>
       <Box h={50}></Box>
       <Stat>
         <StatLabel fontSize={40}>Guild Count</StatLabel>
@@ -62,7 +59,7 @@ function AdminGuildsPage() {
       <Divider />
       <Skeleton isLoaded={isLoaded}>
         <TableContainer maxWidth='70%' whiteSpace={'normal'} justifyContent={'center'} m={'auto'}>
-          <Table variant='simple' colorScheme='red'>
+          <Table variant='simple' colorScheme='orange'>
           <TableCaption placement={'top'} fontSize={30}>Guilds</TableCaption>
             <Thead>
               <Tr>
@@ -90,7 +87,7 @@ function AdminGuildsPage() {
 
       <Box h={50}></Box>
 
-    </ChakraProvider>
+    </ThemeProvider>
   );
 }
 
