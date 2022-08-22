@@ -17,7 +17,7 @@ function AdminGuildsPage() {
 
   // Set Guild Count
   React.useEffect(() => {
-    fetch('http://localhost:2000/admin/fetch-guilds')
+    fetch('https://seeds-bot.vercel.app/api/api/admin/fetch-guilds')
       .then(res => res.json())
       .then(data => {
         setGuildCount(data.length)
@@ -28,7 +28,7 @@ function AdminGuildsPage() {
 
   // Set Guilds
   React.useEffect(() => {
-    fetch('http://localhost:2000/admin/fetch-guilds')
+    fetch('https://seeds-bot.vercel.app/api/api/admin/fetch-guilds')
       .then(res => res.json())
       .then(data => {
         

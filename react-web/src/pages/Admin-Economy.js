@@ -18,7 +18,7 @@ function AdminCmdsPage() {
 
   // Set user Count
   React.useEffect(() => {
-    fetch('http://localhost:2000/admin/fetch-economy')
+    fetch('https://seeds-bot.vercel.app/api/api/admin/fetch-economy')
       .then(res => res.json())
       .then(data => {
         setUserCount(data.length)
@@ -29,7 +29,7 @@ function AdminCmdsPage() {
 
   // Set cmd coin Count
   React.useEffect(() => {
-    fetch('http://localhost:2000/admin/fetch-economy')
+    fetch('https://seeds-bot.vercel.app/api/api/admin/fetch-economy')
       .then(res => res.json())
       .then(data => {
         var rC = 0
@@ -49,7 +49,7 @@ function AdminCmdsPage() {
 
   // Set econ data
   React.useEffect(() => {
-    fetch('http://localhost:2000/admin/fetch-economy')
+    fetch('https://seeds-bot.vercel.app/api/api/admin/fetch-economy')
       .then(res => res.json())
       .then(data => {
         

@@ -18,7 +18,7 @@ function AdminCmdsPage() {
 
   // Set cmd Count
   React.useEffect(() => {
-    fetch('http://localhost:2000/admin/fetch-commands')
+    fetch('https://seeds-bot.vercel.app/api/api/admin/fetch-commands')
       .then(res => res.json())
       .then(data => {
         setCmdCount(data.length)
@@ -29,7 +29,7 @@ function AdminCmdsPage() {
 
   // Set cmd run Count
   React.useEffect(() => {
-    fetch('http://localhost:2000/admin/fetch-commands')
+    fetch('https://seeds-bot.vercel.app/api/api/admin/fetch-commands')
       .then(res => res.json())
       .then(data => {
         var rC = 0
@@ -44,7 +44,7 @@ function AdminCmdsPage() {
 
   // Set cmd data
   React.useEffect(() => {
-    fetch('http://localhost:2000/admin/fetch-commands')
+    fetch('https://seeds-bot.vercel.app/api/api/admin/fetch-commands')
       .then(res => res.json())
       .then(data => {
         

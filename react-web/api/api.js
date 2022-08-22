@@ -21,7 +21,7 @@ app.get('/api/api/', (req, res) => {
     res.send('Hello World')
 } )
 
-app.get('/admin/fetch-guilds', (req, res) => {
+app.get('/api/api/admin/fetch-guilds', (req, res) => {
     db.collection('guilds').find({}).toArray((err, result) => {
         if (err) throw err;
         res.send(result)
@@ -29,7 +29,7 @@ app.get('/admin/fetch-guilds', (req, res) => {
     )
 })
 
-app.get('/admin/fetch-commands', (req, res) => {
+app.get('/api/api/admin/fetch-commands', (req, res) => {
     db.collection('commands').find({}).toArray((err, result) => {
         if (err) throw err;
         res.send(result)
@@ -37,7 +37,7 @@ app.get('/admin/fetch-commands', (req, res) => {
     )
 })
 
-app.get('/admin/fetch-economy', (req, res) => {
+app.get('/api/api/admin/fetch-economy', (req, res) => {
     db.collection('economy').find({}).toArray((err, result) => {
         if (err) throw err;
         res.send(result)
