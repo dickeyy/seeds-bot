@@ -13,7 +13,7 @@
         "methods": ["GET"]
       },
       {
-        "src": "/admin/fetch-guilds",
+        "src": "api/api/admin/fetch-guilds",
         "dest": "/",
         "methods": ["GET"]
       }
