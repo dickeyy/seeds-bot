@@ -9,7 +9,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.createRoot(rootElement).render(
   <>
     {/* 👇 Here's the script */}
-    <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+    <ColorModeScript initialColorMode={'dark'} />
     <App />
   </>,
 )
