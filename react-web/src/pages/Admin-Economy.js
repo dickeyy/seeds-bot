@@ -2,7 +2,7 @@ import '../css/App.css';
 
 import * as React from 'react'
 
-import { ChakraProvider, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Box, Stat, StatLabel, StatNumber, StatHelpText, StatArrow, StatGroup, Divider, Button, useToast, Skeleton } from '@chakra-ui/react'
+import { ChakraProvider, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Box, Stat, StatLabel, StatNumber, StatHelpText, StatArrow, StatGroup, Divider, Button, useToast, Skeleton, theme } from '@chakra-ui/react'
 
 // Components
 import Header from '../comps/Header';
@@ -57,7 +57,7 @@ function AdminCmdsPage() {
         setLoaded(true)
 
         toast({
-          title: 'Loaded Command Data',
+          title: 'Loaded Economy Data',
           status: 'success',
           duration: 5000,
           isClosable: true,
@@ -68,7 +68,7 @@ function AdminCmdsPage() {
   , [])
 
   return (
-    <ChakraProvider w='20vw'>
+    <ChakraProvider theme={theme}  w='20vw'>
       <Header />
       <Box h={50}></Box>
       <StatGroup>
