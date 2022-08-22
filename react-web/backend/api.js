@@ -17,6 +17,10 @@ mClient.connect();
 const db = mClient.db('main');
 console.log('MongoDB Connected')
 
+app.get('/', (req, res) => {
+    res.send('Hello World')
+} )
+
 app.get('/admin/fetch-guilds', (req, res) => {
     db.collection('guilds').find({}).toArray((err, result) => {
         if (err) throw err;
