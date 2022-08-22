@@ -9,11 +9,13 @@
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "/"
+        "dest": "/",
+        "methods": ["GET"]
       },
       {
-        "src": "/admin/(.*)",
-        "dest": "/admin/$1"
+        "src": "/admin/fetch-guilds",
+        "dest": "/",
+        "methods": ["GET"]
       }
     ]
   }
