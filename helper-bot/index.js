@@ -440,10 +440,21 @@ function logsCmd(user, guild, interaction, dateArg) {
 
   } else {
 
-    var date = dateArg
+    var date = dateArg 
 
     fs.readFile('../Discord-Bot/logs/' + date + '.txt', 'utf8', function (err, data) {
-      if (err) throw err;
+      if (err) {
+        const embed = new MessageEmbed()
+        .setTitle('ERROR: No logs for that date.')
+        .setDescription('Please check the date and try again')
+        .setColor('RED')
+
+        interaction.reply({
+          embeds: [embed],
+          ephemeral: true
+        })
+        return
+      };
       
       const embed = new MessageEmbed() 
       .setTitle('Logs for ' + date)
