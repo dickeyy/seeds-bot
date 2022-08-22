@@ -65,7 +65,7 @@ function AdminCmdsPage() {
   , [])
 
   return (
-    <ChakraProvider theme={theme}  w='20vw'>
+    <ChakraProvider theme={theme}  w='20vw' backgroundColor={'#1A202C'}>
       <Header />
       <Box h={50}></Box>
       <StatGroup>
