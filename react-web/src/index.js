@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './css/index.css';
 import { BrowserRouter, Routes, Route, } from "react-router-dom";
+import { ColorModeScript } from '@chakra-ui/react';
+import theme from './theme'
 
 // Pages
 import AdminGuildsPage from './pages/Admin-Guilds';
@@ -23,5 +25,6 @@ root.render(
       <Route path="/admin/commands" element={<AdminCmdsPage />} />
       <Route path="/admin/economy" element={<AdminEconPage />} />
     </Routes>
+    <ColorModeScript initialColorMode={theme.config.initialColorMode} />
   </BrowserRouter>
 );

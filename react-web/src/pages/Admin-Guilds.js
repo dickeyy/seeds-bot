@@ -1,8 +1,6 @@
 import '../css/App.css';
-
 import * as React from 'react'
-
-import { ChakraProvider, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Box, Stat, StatLabel, StatNumber, StatHelpText, StatArrow, StatGroup, Divider, Button, useToast, Skeleton, theme } from '@chakra-ui/react'
+import { ChakraProvider, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Box, Stat, StatLabel, StatNumber, StatHelpText, StatArrow, StatGroup, Divider, Button, useToast, Skeleton, } from '@chakra-ui/react'
 
 // Components
 import Header from '../comps/Header';
@@ -47,7 +45,7 @@ function AdminGuildsPage() {
   , [])
 
   return (
-    <ChakraProvider theme={theme} w='20vw' backgroundColor={'#1A202C'}>
+    <ChakraProvider w='20vw' backgroundColor={'#1A202C'}>
       <Header />
       <Box h={50}></Box>
       <Stat>
