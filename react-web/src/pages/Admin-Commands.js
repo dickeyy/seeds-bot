@@ -2,10 +2,11 @@ import '../css/App.css';
 
 import * as React from 'react'
 
-import { ChakraProvider, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Box, Stat, StatLabel, StatNumber, StatHelpText, StatArrow, StatGroup, Divider, Button, useToast, Skeleton, theme } from '@chakra-ui/react'
+import { ChakraProvider, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Box, Stat, StatLabel, StatNumber, StatHelpText, StatArrow, StatGroup, Divider, Button, useToast, Skeleton, ColorModeScript, } from '@chakra-ui/react'
 
 // Components
 import Header from '../comps/Header';
+import theme from '../theme';
 
 function AdminCmdsPage() {
 
@@ -66,6 +67,7 @@ function AdminCmdsPage() {
 
   return (
     <ChakraProvider theme={theme}  w='20vw' backgroundColor={'#1A202C'}>
+      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <Header />
       <Box h={50}></Box>
       <StatGroup>

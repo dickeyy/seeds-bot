@@ -1,13 +1,15 @@
 import * as React from 'react';
-import { ChakraProvider, Text, Link, Badge, theme, Button, Box, Image } from '@chakra-ui/react';
+import { ChakraProvider, Text, Link, Badge, Button, Box, Image, ColorModeScript } from '@chakra-ui/react';
 import '../css/App.css'
 import { NavLink } from "react-router-dom";
 import Logo from  '../images/logo.png'
+import theme from '../theme';
 
 function Header() {
 
   return (
     <ChakraProvider theme={theme} backgroundColor={'#1A202C'}>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <Box 
         w={'90vw'} 
         p={'1.5rem'}
