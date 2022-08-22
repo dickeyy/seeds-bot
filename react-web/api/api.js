@@ -17,7 +17,7 @@ mClient.connect();
 const db = mClient.db('main');
 console.log('MongoDB Connected')
 
-app.get('/api/api/', (req, res) => {
+app.get('/api/api/fetch-guilds', (req, res) => {
     res.send('poop')
 } )
 
