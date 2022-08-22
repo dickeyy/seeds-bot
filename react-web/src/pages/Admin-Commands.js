@@ -50,8 +50,6 @@ function AdminCmdsPage() {
         
         setCommandData(data)
 
-        console.log(commandData)
-
         setLoaded(true)
 
         toast({

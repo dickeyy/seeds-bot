@@ -16,14 +16,16 @@ import AdminEconPage from './pages/Admin-Economy';
 
 export default function App() {
     return (
-        <BrowserRouter>
-        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-            <Routes>
-            <Route path="/" element={<AdminGuildsPage />} />
-            <Route path="/admin/guilds" element={<AdminGuildsPage />} />
-            <Route path="/admin/commands" element={<AdminCmdsPage />} />
-            <Route path="/admin/economy" element={<AdminEconPage />} />
-            </Routes>
-        </BrowserRouter>
+        // <BrowserRouter>
+        // <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+        //     <Routes>
+        //     <Route path="/" element={<AdminGuildsPage />} />
+        //     <Route path="/admin/guilds" element={<AdminGuildsPage />} />
+        //     <Route path="/admin/commands" element={<AdminCmdsPage />} />
+        //     <Route path="/admin/economy" element={<AdminEconPage />} />
+        //     </Routes>
+        // </BrowserRouter>
+
+        <AdminGuildsPage />
     );
 };
