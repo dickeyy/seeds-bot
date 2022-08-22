@@ -4,6 +4,7 @@ import { ChakraProvider, Table, theme,  ThemeProvider, Thead, Tbody, Tfoot, Tr, 
 
 // Components
 import Header from '../comps/Header';
+import { ColorModeSwitcher } from '../ColorModeSwitcher';
 // import theme from '../theme';
 
 function AdminGuildsPage() {
@@ -50,6 +51,7 @@ function AdminGuildsPage() {
     <Box w='20vw' theme={theme}>
       <Header />
       <Box h={50}></Box>
+      <ColorModeSwitcher />
       <Stat>
         <StatLabel fontSize={40}>Guild Count</StatLabel>
         <StatNumber fontSize={50}>{guildCount}</StatNumber>
