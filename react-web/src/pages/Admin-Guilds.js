@@ -48,7 +48,7 @@ function AdminGuildsPage() {
 
   return (
     <ThemeProvider w='20vw' theme={theme}>
-      {/* <Header /> */}
+      <Header />
       <Box h={50}></Box>
       <Stat>
         <StatLabel fontSize={40}>Guild Count</StatLabel>
