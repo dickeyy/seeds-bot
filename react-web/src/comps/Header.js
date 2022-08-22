@@ -4,6 +4,7 @@ import '../css/App.css'
 import { NavLink } from "react-router-dom";
 import Logo from  '../images/logo.png'
 import theme from '../theme';
+import { ColorModeSwitcher } from '../ColorModeSwitcher';
 
 
 function Header() {
@@ -75,6 +76,7 @@ function Header() {
                 </Badge>
             </Box>
       </Box>
+
     </ChakraProvider>
   );
 }
