@@ -48,8 +48,7 @@ function AdminGuildsPage() {
 
   return (
     <ThemeProvider w='20vw' theme={theme}>
-      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-      <Header />
+      {/* <Header /> */}
       <Box h={50}></Box>
       <Stat>
         <StatLabel fontSize={40}>Guild Count</StatLabel>
