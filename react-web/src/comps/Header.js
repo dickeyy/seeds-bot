@@ -31,19 +31,19 @@ function Header() {
                 alignItems={'center'}
             >
                 <NavLink to={'/admin/guilds'}>
-                    <Link color={'white'}  mr={3}>
+                    <Link mr={3}>
                         Guilds
                     </Link>
                 </NavLink>
 
                 <NavLink to={'/admin/commands'}>
-                    <Link color={'white'} mr={3}>
+                    <Link mr={3}>
                         Commands
                     </Link>
                 </NavLink>
 
                 <NavLink to={'/admin/economy'}>
-                    <Link color={'white'} mr={3}>
+                    <Link mr={3}>
                         Economy
                     </Link>
                 </NavLink>
@@ -68,7 +68,7 @@ function Header() {
                         </a>
                     </Link>
                 </NavLink>
-                <Text color={'white'} fontSize={25} ml={20} mr={2} fontWeight={800} mt={'-2.5'}>Seeds</Text>
+                <Text fontSize={25} ml={20} mr={2} fontWeight={800} mt={'-2.5'}>Seeds</Text>
 
                 <Badge variant='solid' colorScheme='orange' mt={-1.5}>
                     Beta
