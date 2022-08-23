@@ -14,6 +14,11 @@ function AdminGuildsPage() {
   const [guildCount, setGuildCount] = React.useState(['Loading...'])
   const [guilds, setGuilds] = React.useState([])
   const [userCount, setUserCount] = React.useState(['Loading...'])
+  const [userNumCount, setUserNumCount] = React.useState(0)
+  const [guildChangeNum, setGuildChangeNum] = React.useState([0])
+  const [guildChangeType, setGuildChangeType] = React.useState(['decrease'])
+  const [userChangeNum, setUserChangeNum] = React.useState([0])
+  const [userChangeType, setUserChangeType] = React.useState(['decrease'])
   const toast = useToast()
   const [isLoaded, setLoaded] = React.useState(false)
 
@@ -42,9 +47,11 @@ function AdminGuildsPage() {
         }
         setUserCount(commas)
 
+        setUserNumCount(Number(rC))
+
         setGuilds(data.data)
 
-        setLoaded(true)
+        
 
         toast({
           title: 'Loaded Guild Data',
@@ -54,6 +61,37 @@ function AdminGuildsPage() {
         })
       }
       )
+
+      fetch('https://us-central1.gcp.data.mongodb-api.com/app/seeds-dashboard-vsxgk/endpoint/admin/fetch/historical_data/guilds')
+      .then(res2 => res2.json())
+      .then(data2 => {
+
+        const guildHistory = data2.guildCount
+        const userHistory = data2.userCount
+
+        if (guildCount > guildHistory) {
+          setGuildChangeNum(Number(guildCount) - Number(guildHistory))
+          setGuildChangeType('increase')
+        }
+
+        else if (guildCount < guildHistory) {
+          setGuildChangeNum(Number(guildHistory) - Number(guildCount))
+          setGuildChangeType('decrease')
+        }
+
+        if (userNumCount > userHistory) {
+          setUserChangeNum(Number(userNumCount) - Number(userHistory))
+          setUserChangeType('increase')
+        }
+        
+        else if (userNumCount < userHistory) {
+          setUserChangeNum(Number(userHistory) - Number(userNumCount))
+          setUserChangeType('decrease')
+        }
+
+        setLoaded(true)
+
+      })
   }
   , [])
 
@@ -66,10 +104,18 @@ function AdminGuildsPage() {
         <Stat>
             <StatLabel fontSize={40}>Guild Count</StatLabel>
             <StatNumber fontSize={50}>{guildCount}</StatNumber>
+            <StatHelpText>
+              <StatArrow type={guildChangeType} />
+                {guildChangeNum} in the last 24 hours
+            </StatHelpText>
         </Stat>
         <Stat>
             <StatLabel fontSize={40}>User Count</StatLabel>
             <StatNumber fontSize={50}>{userCount}</StatNumber>
+            <StatHelpText>
+              <StatArrow type={userChangeType} />
+                {userChangeNum} in the last 24 hours
+            </StatHelpText>
         </Stat>
       </StatGroup>
       <Box h={5}></Box>
