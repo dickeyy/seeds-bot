@@ -290,6 +290,22 @@ client.on('guildDelete', async guild => {
     console.log(`Left Guild -- ${guild.name}`)
 })
 
+// User joins a server
+client.on('guildMemberAdd', async member => {
+    const collection = db.collection('guilds');
+    const guild = await collection.findOne({ _id: member.guild.id })
+    const memCout = Number(guild.memberCount) + 1
+    await collection.updateOne({ _id: member.guild.id }, { $set: { memberCount: memCout } })
+})
+
+// User leaves a server
+client.on('guildMemberRemove', async member => {
+    const collection = db.collection('guilds');
+    const guild = await collection.findOne({ _id: member.guild.id })
+    const memCout = Number(guild.memberCount) - 1
+    await collection.updateOne({ _id: member.guild.id }, { $set: { memberCount: memCout } })
+})
+
 // bot functions
 // Command run
 async function cmdRun(user,cmdName) {
