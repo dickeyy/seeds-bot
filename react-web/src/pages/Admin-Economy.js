@@ -11,7 +11,7 @@ import { checkUser } from '../checkUser';
 function AdminCmdsPage() {
 
   const [userCount, setUserCount] = React.useState(['Loading...'])
-  const [totalCoins, setTotalCoins] = React.useState([0])
+  const [totalCoins, setTotalCoins] = React.useState(['Loading...'])
   const [econData, setEconData] = React.useState([{}])
   const toast = useToast()
   const [isLoaded, setLoaded] = React.useState(false)
@@ -30,16 +30,7 @@ function AdminCmdsPage() {
       .then(res => res.json())
       .then(data => {
         setUserCount(data.data.length)
-      }
-      )
-  }
-  , [])
 
-  // Set cmd coin Count
-  React.useEffect(() => {
-    fetch('https://us-central1.gcp.data.mongodb-api.com/app/seeds-dashboard-vsxgk/endpoint/admin/fetch/economy')
-      .then(res => res.json())
-      .then(data => {
         var rC = 0
         for (var i = 0; i < data.data.length; i++) {
 
@@ -50,17 +41,7 @@ function AdminCmdsPage() {
             }
         }
         setTotalCoins(commas)
-      }
-      )
-  }
-  , [])
 
-  // Set econ data
-  React.useEffect(() => {
-    fetch('https://us-central1.gcp.data.mongodb-api.com/app/seeds-dashboard-vsxgk/endpoint/admin/fetch/economy')
-      .then(res => res.json())
-      .then(data => {
-        
         setEconData(data.data)
 
         setLoaded(true)

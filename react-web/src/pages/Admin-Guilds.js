@@ -13,7 +13,7 @@ function AdminGuildsPage() {
 
   const [guildCount, setGuildCount] = React.useState(['Loading...'])
   const [guilds, setGuilds] = React.useState([])
-  const [userCount, setUserCount] = React.useState([])
+  const [userCount, setUserCount] = React.useState(['Loading...'])
   const toast = useToast()
   const [isLoaded, setLoaded] = React.useState(false)
 
@@ -41,17 +41,7 @@ function AdminGuildsPage() {
             }
         }
         setUserCount(commas)
-      }
-      )
-  }
-  , [])
 
-  // Set Guilds
-  React.useEffect(() => {
-    fetch('https://us-central1.gcp.data.mongodb-api.com/app/seeds-dashboard-vsxgk/endpoint/admin/fetch/guilds')
-      .then(res => res.json())
-      .then(data => {
-        
         setGuilds(data.data)
 
         setLoaded(true)

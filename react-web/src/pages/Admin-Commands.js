@@ -11,7 +11,7 @@ import { checkUser } from '../checkUser';
 function AdminCmdsPage() {
 
   const [cmdCount, setCmdCount] = React.useState(['Loading...'])
-  const [cmdRunCount, setCmdRunCount] = React.useState([0])
+  const [cmdRunCount, setCmdRunCount] = React.useState(['Loading...'])
   const [commandData, setCommandData] = React.useState([{}])
   const toast = useToast()
   const [isLoaded, setLoaded] = React.useState(false)
@@ -29,32 +29,13 @@ function AdminCmdsPage() {
       .then(res => res.json())
       .then(data => {
         setCmdCount(data.data.length)
-      }
-      )
-  }
-  , [])
 
-  // Set cmd run Count
-  React.useEffect(() => {
-    fetch('https://us-central1.gcp.data.mongodb-api.com/app/seeds-dashboard-vsxgk/endpoint/admin/fetch/commands')
-      .then(res => res.json())
-      .then(data => {
         var rC = 0
         for (var i = 0; i < data.data.length; i++) {
            rC = Number(data.data[i].runCount) + rC
         }
         setCmdRunCount(rC)
-      }
-      )
-  }
-  , [])
 
-  // Set cmd data
-  React.useEffect(() => {
-    fetch('https://us-central1.gcp.data.mongodb-api.com/app/seeds-dashboard-vsxgk/endpoint/admin/fetch/commands')
-      .then(res => res.json())
-      .then(data => {
-        
         setCommandData(data.data)
 
         setLoaded(true)
