@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>My Discord OAuth2 App</title>
+	</head>
+	<body>
+        <div id="info">Hoi!</div>
+        <a id="login" style="display: none;" href="https://discord.com/api/oauth2/authorize?client_id=968198214450831370&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fcallback&response_type=token&scope=identify">Identify Yourself</a>
+        <script>
+            window.onload = () => {
+                const fragment = new URLSearchParams(window.location.hash.slice(1));
+                const [accessToken, tokenType] = [fragment.get('access_token'), fragment.get('token_type')];
+
+                if (!accessToken) {
+                    return (document.getElementById('login').style.display = 'block');
+                }
+
+                fetch('https://discord.com/api/users/@me', {
+                    headers: {
+                        authorization: `${tokenType} ${accessToken}`,
+                    },
+                })
+                    .then(result => result.json())
+                    .then(response => {
+                        const { username, discriminator } = response;
+                        document.getElementById('info').innerText += ` ${username}#${discriminator}`;
+
+                        fetch(`http://localhost:8080/auth/login?access_token=${accessToken}&token_type=${tokenType}`, {
+                            method: 'POST',
+                        })
+                            .then(result => result.json())
+                            .then(response => {
+                                console.log(response);
+                            })
+                            .catch(error => {
+                                console.log(error);
+                            });
+                    })
+                    .catch(console.error);
+            };
+        </script>
+	</body>
+</html>

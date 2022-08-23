@@ -3,26 +3,30 @@
 require("dotenv").config();
 
 const express = require("express");
-const cors = require("cors");
-const helmet = require("helmet");
-
-var allowedOrigins = ["https://example.com"];
-/* var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Operation not allowed'))
-    }
-  }
-} */
 
 const app = express();
 
-app.use(helmet());
-/* app.use(cors(corsOptions)); */
+app.get('/callback', (req, res) => {
+  return res.sendFile('index.html', { root: '.' });
+  
+})
 
-module.exports = app;
+app.post('/auth/login', (req, res) => {
+  const accessToken = req.query.access_token;
+  const tokenType = req.query.token_type
+
+  console.log(req.query)
+
+  console.log(accessToken, tokenType);
+
+  res.send({message: 'ok'})
+})
+
+//start server locally
+// app.listen(8080,function () {
+//     console.log("Server started. Go to http://localhost:8080/");
+// });
+
 
 // Export the Express API
 module.exports = app;
