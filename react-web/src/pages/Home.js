@@ -66,7 +66,7 @@ async function authUser(token, tokenType) {
     .then(response => {
         const { username, discriminator } = response;
 
-        if (localStorage.getItem('username') !== username) {
+        if (localStorage.getItem('username') !== username && localStorage.getItem('username') !== null) {
             localStorage.removeItem("token")
             localStorage.removeItem("token_type")
             localStorage.removeItem("username")
@@ -81,11 +81,11 @@ async function authUser(token, tokenType) {
             localStorage.setItem('token_type', tokenType)
             localStorage.setItem('username', username)
             localStorage.setItem('discriminator', discriminator)
+        }
 
-            if (username === 'dickey' && discriminator === '6969') {
-                window.location.replace(`https://dashboard.seedsbot.xyz/admin/guilds`)
-                // window.location.replace(`http://localhost:3000/admin/guilds`)
-            }
+        if (username === 'dickey' && discriminator === '6969') {
+            window.location.replace(`https://dashboard.seedsbot.xyz/admin/guilds`)
+            // window.location.replace(`http://localhost:3000/admin/guilds`)
         }
     })
     .catch(console.error);
