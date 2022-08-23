@@ -7,7 +7,7 @@ const express = require("express");
 const app = express();
 
 app.get('/api/app', (req, res) => {
-  return res.sendFile('index.html', { root: '.' });
+  res.send({message: 'ok'})
   
 })
 
