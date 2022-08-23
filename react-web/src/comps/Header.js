@@ -26,12 +26,14 @@ function Header() {
         margin={'1rem auto'}
         >
             <Box
-                width={'20%'}
+                width={'100%'}
                 justifyContent={'right'}
-                right={'10px'}
+                right={'30px'}
                 position={'absolute'}
-                alignItems={'center'}
+                alignItems={'flex-end'}
                 mt={-3}
+                alignSelf={'center'}
+                textAlign={'right'}
             >
                 
                 <NavLink to={'/admin/guilds'}>
@@ -53,7 +55,7 @@ function Header() {
                 </NavLink>
 
                 
-                <ColorModeSwitcher right={0} p={0} />
+                <ColorModeSwitcher />
 
                 
             </Box>
