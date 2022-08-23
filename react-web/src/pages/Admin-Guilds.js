@@ -13,6 +13,7 @@ function AdminGuildsPage() {
 
   const [guildCount, setGuildCount] = React.useState(['Loading...'])
   const [guilds, setGuilds] = React.useState([])
+  const [userCount, setUserCount] = React.useState([])
   const toast = useToast()
   const [isLoaded, setLoaded] = React.useState(false)
 
@@ -29,6 +30,17 @@ function AdminGuildsPage() {
       .then(res => res.json())
       .then(data => {
         setGuildCount(data.data.length - 1)
+
+        var rC = 0
+        for (var i = 0; i < data.data.length; i++) {
+
+            if (data.data[i].memberCount != null) {
+                rC = Number(data.data[i].memberCount) + rC
+
+                var commas = rC.toLocaleString("en-US");
+            }
+        }
+        setUserCount(commas)
       }
       )
   }
@@ -60,10 +72,16 @@ function AdminGuildsPage() {
       <Header />
       <Box h={50}></Box>
       
-      <Stat>
-        <StatLabel fontSize={40}>Guild Count</StatLabel>
-        <StatNumber fontSize={50}>{guildCount}</StatNumber>
-      </Stat>
+      <StatGroup>
+        <Stat>
+            <StatLabel fontSize={40}>Guild Count</StatLabel>
+            <StatNumber fontSize={50}>{guildCount}</StatNumber>
+        </Stat>
+        <Stat>
+            <StatLabel fontSize={40}>User Count</StatLabel>
+            <StatNumber fontSize={50}>{userCount}</StatNumber>
+        </Stat>
+      </StatGroup>
       <Box h={5}></Box>
       <Divider />
       <Skeleton isLoaded={isLoaded}>
