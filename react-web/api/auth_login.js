@@ -6,12 +6,7 @@ const express = require("express");
 
 const app = express();
 
-app.get('/api/app', (req, res) => {
-  return res.sendFile('index.html', { root: '.' });
-  
-})
-
-app.post('/auth/login', (req, res) => {
+app.post('/api/auth_login', (req, res) => {
   const accessToken = req.query.access_token;
   const tokenType = req.query.token_type
 

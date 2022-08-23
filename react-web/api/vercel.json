@@ -11,11 +11,6 @@
         "src": "/(.*)",
         "dest": "/",
         "methods": ["GET"]
-      },
-      {
-        "src": "api/api/admin/fetch-guilds",
-        "dest": "/",
-        "methods": ["GET"]
       }
     ]
   }
