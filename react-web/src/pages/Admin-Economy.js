@@ -1,8 +1,7 @@
 import '../css/App.css';
-
 import * as React from 'react'
-
 import { ChakraProvider, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Box, Stat, StatLabel, StatNumber, StatHelpText, StatArrow, StatGroup, Divider, Button, useToast, Skeleton, ColorModeScript, ThemeProvider } from '@chakra-ui/react'
+import { useLocation } from 'react-router-dom';
 
 // Components
 import Header from '../comps/Header';
@@ -15,6 +14,29 @@ function AdminCmdsPage() {
   const [econData, setEconData] = React.useState([{}])
   const toast = useToast()
   const [isLoaded, setLoaded] = React.useState(false)
+
+  const location = useLocation();
+  const params = new URLSearchParams(location.hash);
+  const token = params.get('#t');
+  const tokenType = params.get('tt');
+
+  // Verify owner
+  React.useEffect(() => {
+    fetch('https://discord.com/api/users/@me', {
+      headers: {
+        authorization: `${tokenType} ${token}`,
+      },
+    }).then(result => result.json())
+    .then(response => {
+        const { username, discriminator } = response;
+
+        if (username !== 'dickey' && discriminator !== '6969') {
+            window.location.replace(`https://dashboard.seedsbot.xyz`)
+        }
+    })
+    .catch(console.error);
+  }
+  , [])
 
   // Set user Count
   React.useEffect(() => {

@@ -1,6 +1,7 @@
 import '../css/App.css';
 import * as React from 'react'
 import { ChakraProvider, Table, theme,  ThemeProvider, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Box, Stat, StatLabel, StatNumber, StatHelpText, StatArrow, StatGroup, Divider, Button, useToast, Skeleton, ColorModeScript, useColorMode, } from '@chakra-ui/react'
+import { useSearchParams, useLocation } from "react-router-dom"
 
 // Components
 import Header from '../comps/Header';
@@ -13,7 +14,31 @@ function AdminGuildsPage() {
   const [guilds, setGuilds] = React.useState([])
   const toast = useToast()
   const [isLoaded, setLoaded] = React.useState(false)
+  const [isOwner, setIsOwner] = React.useState(true)
   const { colorMode, toggleColorMode } = useColorMode()
+
+  const location = useLocation();
+  const params = new URLSearchParams(location.hash);
+  const token = params.get('#t');
+  const tokenType = params.get('tt');
+
+  // Verify owner
+  React.useEffect(() => {
+    fetch('https://discord.com/api/users/@me', {
+      headers: {
+        authorization: `${tokenType} ${token}`,
+      },
+    }).then(result => result.json())
+    .then(response => {
+        const { username, discriminator } = response;
+
+        if (username !== 'dickey' && discriminator !== '6969') {
+            window.location.replace(`https://dashboard.seedsbot.xyz`)
+        }
+    })
+    .catch(console.error);
+  }
+  , [])
 
   // Set Guild Count
   React.useEffect(() => {

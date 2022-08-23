@@ -67,7 +67,7 @@ async function authUser(token, tokenType) {
                         const { username, discriminator } = response;
 
                         if (username === 'dickey' && discriminator === '6969') {
-                            window.location.replace(`https://dashboard.seedsbot.xyz/admin/guilds`)
+                            window.location.replace(`https://dashboard.seedsbot.xyz/admin/guilds#t=${token}&Ftt=${tokenType}`)
                         }
                     })
                     .catch(console.error);
