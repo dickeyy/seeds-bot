@@ -1,6 +1,6 @@
 import '../css/App.css';
 import * as React from 'react'
-import { ChakraProvider, Table, theme,  ThemeProvider, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Box, Stat, StatLabel, StatNumber, StatHelpText, StatArrow, StatGroup, Divider, Button, useToast, Skeleton, ColorModeScript, useColorMode, Heading, } from '@chakra-ui/react'
+import { theme, Box, Button, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, useDisclosure, } from '@chakra-ui/react'
 import { FaDiscord } from 'react-icons/fa';
 import { useSearchParams, useLocation } from "react-router-dom"
 
@@ -15,6 +15,9 @@ const discordUrl = 'https://discord.com/api/oauth2/authorize?client_id=968198214
 function HomePage() {
 
     const [isLoading, setLoading] = React.useState(false)
+    const [isDisabled, setDisabled] = React.useState(false)
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const cancelRef = React.useRef()
 
     const location = useLocation();
     const params = new URLSearchParams(location.hash);
@@ -25,7 +28,52 @@ function HomePage() {
         if (token !== null) {
             setLoading(true)
 
-            authUser(token, tokenType)
+            const reqUrl = `https://dashboard.seedsbot.xyz/api/auth_login?access_token=${token}%2Ftoken_type=${tokenType}`
+
+            fetch(reqUrl)
+            .then(res => res.json())
+            .then(data => {
+                
+                console.log(data)
+            })
+
+            fetch('https://discord.com/api/users/@me', {
+                headers: {
+                    authorization: `${tokenType} ${token}`,
+                },
+            })
+            .then(result => result.json())
+            .then(response => {
+                const { username, discriminator } = response;
+
+                if (localStorage.getItem('username') !== username && localStorage.getItem('username') !== null) {
+                    localStorage.removeItem("token")
+                    localStorage.removeItem("token_type")
+                    localStorage.removeItem("username")
+                    localStorage.removeItem("discriminator")
+
+                    localStorage.setItem('token', token)
+                    localStorage.setItem('token_type', tokenType)
+                    localStorage.setItem('username', username)
+                    localStorage.setItem('discriminator', discriminator)
+                } else {
+                    localStorage.setItem('token', token)
+                    localStorage.setItem('token_type', tokenType)
+                    localStorage.setItem('username', username)
+                    localStorage.setItem('discriminator', discriminator)
+                }
+
+                if (username === 'dickey' && discriminator === '6969') {
+                    window.location.replace(`https://dashboard.seedsbot.xyz/admin/guilds`)
+                    // window.location.replace(`http://localhost:3000/admin/guilds`)
+                } else {
+                    setLoading(false)
+                    setDisabled(true)
+
+                    onOpen()
+                }
+            })
+            .catch(console.error);
         }
     }, [])
 
@@ -36,9 +84,33 @@ function HomePage() {
 
         <Box h={10} />
 
-        <Button isLoading={isLoading} colorScheme='orange' variant='solid' size='lg' leftIcon={<FaDiscord />} onClick={ () => { window.location.replace(`${discordUrl}`)} }>
+        <Button isLoading={isLoading} isDisabled={isDisabled} colorScheme='orange' variant='solid' size='lg' leftIcon={<FaDiscord />} onClick={ () => { window.location.replace(`${discordUrl}`)} }>
             Login With Discord
         </Button>
+
+        <AlertDialog
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+        isCentered
+        >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            
+            <AlertDialogHeader fontSize={30} color={'red.400'} fontWeight='bold' mt={3}>
+              ERROR 401 - Unauthorized
+            </AlertDialogHeader>
+
+            <AlertDialogBody>
+              Only the bot owner @dickey#6969 can use the dashboard at this time.
+            </AlertDialogBody>
+
+            <AlertDialogFooter>
+              
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
 
     </Box>
   );
