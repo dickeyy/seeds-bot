@@ -65,29 +65,23 @@ function AdminGuildsPage() {
           delay(1000).then(() => {
             const guildHistory = data2.guildCount
             const userHistory = data2.userCount
-  
-            console.log(guildHistory, guildCount)
-            console.log(userHistory, userNumCount)
-  
-            if (Number(data.data.length - 1) > Number(guildHistory) && guildCount !== 0) {
-              setGuildChangeNum(Number(guildCount) - Number(guildHistory))
+
+            setGuildChangeNum(guildHistory)
+            setUserChangeNum(userHistory)
+
+
+            if (guildChangeNum > guildCount) {
+              setGuildChangeType('decrease')
+            } else {
               setGuildChangeType('increase')
             }
-  
-            else if (Number(data.data.length - 1) < Number(guildHistory) && guildCount !== 0) {
-              setGuildChangeNum(Number(guildHistory) - Number(guildCount))
-              setGuildChangeType('decrease')
-            }
-  
-            if (Number(userNumCount) > Number(userHistory) && guildCount !== 0) {
-              setUserChangeNum(Number(userNumCount) - Number(userHistory))
+
+            if (userChangeNum > userNumCount) {
+              setUserChangeType('decrease')
+            } else {
               setUserChangeType('increase')
             }
-            
-            else if (Number(userNumCount) < Number(userHistory) && guildCount !== 0) {
-              setUserChangeNum(Number(userHistory) - Number(userNumCount))
-              setUserChangeType('decrease')
-            }
+
           })
 
           setLoaded(true)
@@ -113,10 +107,18 @@ function AdminGuildsPage() {
         <Stat>
             <StatLabel fontSize={40}>Guild Count</StatLabel>
             <StatNumber fontSize={50}>{guildCount}</StatNumber>
+            <StatHelpText>
+              <StatArrow type={guildChangeType} />
+                {guildCount - guildChangeNum} in the last 24 hours
+            </StatHelpText>
         </Stat>
         <Stat>
             <StatLabel fontSize={40}>User Count</StatLabel>
             <StatNumber fontSize={50}>{userCount}</StatNumber>
+            <StatHelpText>
+              <StatArrow type={userChangeType} />
+                {userNumCount - userChangeNum} in the last 24 hours
+            </StatHelpText>
         </Stat>
       </StatGroup>
       <Box h={5}></Box>
