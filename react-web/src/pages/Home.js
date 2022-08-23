@@ -19,7 +19,7 @@ function HomePage() {
     const location = useLocation();
     const params = new URLSearchParams(location.hash);
     const token = params.get('access_token');
-    const tokenType = params.get('token_type');
+    const tokenType = params.get('#token_type');
 
     React.useEffect(() => {
         if (token !== null) {
@@ -48,14 +48,28 @@ export default HomePage;
 
 async function authUser(token, tokenType) {
 
-    const reqUrl = `https://dashboard.seedsbot.xyz/api/auth_login?access_token=${token}&token_type=${tokenType}`
+    const reqUrl = `https://dashboard.seedsbot.xyz/api/auth_login?access_token=${token}%2Ftoken_type=${tokenType}`
 
     fetch(reqUrl)
       .then(res => res.json())
       .then(data => {
         
         console.log(data)
-      }
-      )
+    })
+
+    fetch('https://discord.com/api/users/@me', {
+                    headers: {
+                        authorization: `${tokenType} ${token}`,
+                    },
+                })
+                    .then(result => result.json())
+                    .then(response => {
+                        const { username, discriminator } = response;
+
+                        if (username === 'dickey' && discriminator === '6969') {
+                            window.location.replace(`https://dashboard.seedsbot.xyz/admin/guilds`)
+                        }
+                    })
+                    .catch(console.error);
 
 }

@@ -14,6 +14,8 @@ app.get('/api/auth_login', (req, res) => {
 
   console.log(accessToken, tokenType);
 
+  
+
   res.send({message: 'ok'})
 })
 
