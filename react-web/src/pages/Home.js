@@ -7,6 +7,7 @@ import { useSearchParams, useLocation } from "react-router-dom"
 // Components
 import Header from '../comps/Header';
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
+import { checkUser } from '../checkUser';
 // import theme from '../theme';
 
 // const discordUrl = 'https://discord.com/api/oauth2/authorize?client_id=968198214450831370&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&response_type=token&scope=identify%20email%20guilds'
@@ -23,6 +24,13 @@ function HomePage() {
     const params = new URLSearchParams(location.hash);
     const token = params.get('access_token');
     const tokenType = params.get('#token_type');
+
+     //check user
+    React.useEffect(() => {
+        if (checkUser()) {
+        window.location.href = "/admin/guilds"
+        }
+    }, [])
 
     React.useEffect(() => {
         if (token !== null) {
@@ -51,16 +59,19 @@ function HomePage() {
                     localStorage.removeItem("token_type")
                     localStorage.removeItem("username")
                     localStorage.removeItem("discriminator")
+                    localStorage.removeItem('expires_at')
 
                     localStorage.setItem('token', token)
                     localStorage.setItem('token_type', tokenType)
                     localStorage.setItem('username', username)
                     localStorage.setItem('discriminator', discriminator)
+                    localStorage.setItem('expires_at', Date.now() + (1000 * 60 * 60 * 24 * 7 * 14))
                 } else {
                     localStorage.setItem('token', token)
                     localStorage.setItem('token_type', tokenType)
                     localStorage.setItem('username', username)
                     localStorage.setItem('discriminator', discriminator)
+                    localStorage.setItem('expires_at', Date.now() + (1000 * 60 * 60 * 24 * 7 * 14))
                 }
 
                 if (username === 'dickey' && discriminator === '6969') {
