@@ -9,9 +9,11 @@ import Header from '../comps/Header';
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 // import theme from '../theme';
 
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+
 function AdminGuildsPage() {
 
-  const [guildCount, setGuildCount] = React.useState(['Loading...'])
+  const [guildCount, setGuildCount] = React.useState(0)
   const [guilds, setGuilds] = React.useState([])
   const [userCount, setUserCount] = React.useState(['Loading...'])
   const [userNumCount, setUserNumCount] = React.useState(0)
@@ -31,69 +33,76 @@ function AdminGuildsPage() {
 
   // Set Guild Count
   React.useEffect(() => {
-    fetch('https://us-central1.gcp.data.mongodb-api.com/app/seeds-dashboard-vsxgk/endpoint/admin/fetch/guilds')
+    delay(1000).then(() => {
+      fetch('https://us-central1.gcp.data.mongodb-api.com/app/seeds-dashboard-vsxgk/endpoint/admin/fetch/guilds')
       .then(res => res.json())
       .then(data => {
-        setGuildCount(data.data.length - 1)
+        fetch('https://us-central1.gcp.data.mongodb-api.com/app/seeds-dashboard-vsxgk/endpoint/admin/fetch/historical_data/guilds')
+        .then(res2 => res2.json())
+        .then(data2 => {
 
-        var rC = 0
-        for (var i = 0; i < data.data.length; i++) {
 
-            if (data.data[i].memberCount != null) {
-                rC = Number(data.data[i].memberCount) + rC
+          setGuildCount(data.data.length - 1)
+          console.log((guildCount))
 
-                var commas = rC.toLocaleString("en-US");
+          var rC = 0
+          for (var i = 0; i < data.data.length; i++) {
+
+              if (data.data[i].memberCount != null) {
+                  rC = Number(data.data[i].memberCount) + rC
+
+                  var commas = rC.toLocaleString("en-US"); 
+              }
+          }
+          
+          setUserNumCount(rC)
+          console.log(commas, rC)
+
+          setUserCount(commas)
+
+          setGuilds(data.data)
+
+          delay(1000).then(() => {
+            const guildHistory = data2.guildCount
+            const userHistory = data2.userCount
+  
+            console.log(guildHistory, guildCount)
+            console.log(userHistory, userNumCount)
+  
+            if (Number(data.data.length - 1) > Number(guildHistory) && guildCount !== 0) {
+              setGuildChangeNum(Number(guildCount) - Number(guildHistory))
+              setGuildChangeType('increase')
             }
-        }
-        setUserCount(commas)
+  
+            else if (Number(data.data.length - 1) < Number(guildHistory) && guildCount !== 0) {
+              setGuildChangeNum(Number(guildHistory) - Number(guildCount))
+              setGuildChangeType('decrease')
+            }
+  
+            if (Number(userNumCount) > Number(userHistory) && guildCount !== 0) {
+              setUserChangeNum(Number(userNumCount) - Number(userHistory))
+              setUserChangeType('increase')
+            }
+            
+            else if (Number(userNumCount) < Number(userHistory) && guildCount !== 0) {
+              setUserChangeNum(Number(userHistory) - Number(userNumCount))
+              setUserChangeType('decrease')
+            }
+          })
 
-        setUserNumCount(Number(rC))
-
-        setGuilds(data.data)
-
-        
-
-        toast({
-          title: 'Loaded Guild Data',
-          status: 'success',
-          duration: 5000,
-          isClosable: true,
+          setLoaded(true)
+      
+          toast({
+            title: 'Loaded Guild Data',
+            status: 'success',
+            duration: 5000,
+            isClosable: true,
+          })
         })
       }
       )
-
-      fetch('https://us-central1.gcp.data.mongodb-api.com/app/seeds-dashboard-vsxgk/endpoint/admin/fetch/historical_data/guilds')
-      .then(res2 => res2.json())
-      .then(data2 => {
-
-        const guildHistory = data2.guildCount
-        const userHistory = data2.userCount
-
-        if (guildCount > guildHistory) {
-          setGuildChangeNum(Number(guildCount) - Number(guildHistory))
-          setGuildChangeType('increase')
-        }
-
-        else if (guildCount < guildHistory) {
-          setGuildChangeNum(Number(guildHistory) - Number(guildCount))
-          setGuildChangeType('decrease')
-        }
-
-        if (userNumCount > userHistory) {
-          setUserChangeNum(Number(userNumCount) - Number(userHistory))
-          setUserChangeType('increase')
-        }
-        
-        else if (userNumCount < userHistory) {
-          setUserChangeNum(Number(userHistory) - Number(userNumCount))
-          setUserChangeType('decrease')
-        }
-
-        setLoaded(true)
-
-      })
-  }
-  , [])
+    })
+  }, [])
 
   return (
     <Box w='20vw' theme={theme}>
@@ -104,18 +113,10 @@ function AdminGuildsPage() {
         <Stat>
             <StatLabel fontSize={40}>Guild Count</StatLabel>
             <StatNumber fontSize={50}>{guildCount}</StatNumber>
-            <StatHelpText>
-              <StatArrow type={guildChangeType} />
-                {guildChangeNum} in the last 24 hours
-            </StatHelpText>
         </Stat>
         <Stat>
             <StatLabel fontSize={40}>User Count</StatLabel>
             <StatNumber fontSize={50}>{userCount}</StatNumber>
-            <StatHelpText>
-              <StatArrow type={userChangeType} />
-                {userChangeNum} in the last 24 hours
-            </StatHelpText>
         </Stat>
       </StatGroup>
       <Box h={5}></Box>
