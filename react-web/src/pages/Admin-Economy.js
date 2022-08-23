@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 // Components
 import Header from '../comps/Header';
 import theme from '../theme';
+import { checkUser } from '../checkUser';
 
 function AdminCmdsPage() {
 
@@ -15,6 +16,13 @@ function AdminCmdsPage() {
   const toast = useToast()
   const [isLoaded, setLoaded] = React.useState(false)
 
+
+  //check user
+  React.useEffect(() => {
+    if (!checkUser()) {
+      window.location.href = "/"
+    }
+  }, [])
 
   // Set user Count
   React.useEffect(() => {

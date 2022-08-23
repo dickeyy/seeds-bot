@@ -1,7 +1,8 @@
 import '../css/App.css';
 import * as React from 'react'
 import { ChakraProvider, Table, theme,  ThemeProvider, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Box, Stat, StatLabel, StatNumber, StatHelpText, StatArrow, StatGroup, Divider, Button, useToast, Skeleton, ColorModeScript, useColorMode, } from '@chakra-ui/react'
-import { useSearchParams, useLocation } from "react-router-dom"
+import { useLocation } from "react-router-dom"
+import { checkUser } from '../checkUser';
 
 // Components
 import Header from '../comps/Header';
@@ -14,34 +15,13 @@ function AdminGuildsPage() {
   const [guilds, setGuilds] = React.useState([])
   const toast = useToast()
   const [isLoaded, setLoaded] = React.useState(false)
-  const [isOwner, setIsOwner] = React.useState(true)
-  const { colorMode, toggleColorMode } = useColorMode()
 
-  const location = useLocation();
-  const params = new URLSearchParams(location.hash);
-  const token = params.get('#t');
-  const tokenType = params.get('tt');
-
-  // Verify owner
+  //check user
   React.useEffect(() => {
-    fetch('https://discord.com/api/users/@me', {
-      headers: {
-        authorization: `${tokenType} ${token}`,
-      },
-    }).then(result => result.json())
-    .then(response => {
-        const { username, discriminator } = response;
-
-        console.log(username, discriminator)
-        console.log(token, tokenType)
-
-        if (username !== 'dickey' && discriminator !== '6969') {
-            window.location.replace(`https://dashboard.seedsbot.xyz`)
-        }
-    })
-    .catch(console.error);
-  }
-  , [])
+    if (!checkUser()) {
+      window.location.href = "/"
+    }
+  }, [])
 
   // Set Guild Count
   React.useEffect(() => {

@@ -9,8 +9,8 @@ import Header from '../comps/Header';
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 // import theme from '../theme';
 
-// const discordUrl = 'https://discord.com/api/oauth2/authorize?client_id=968198214450831370&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&response_type=token&scope=identify%20email%20guilds'
-const discordUrl = 'https://discord.com/api/oauth2/authorize?client_id=968198214450831370&redirect_uri=https%3A%2F%2Fdashboard.seedsbot.xyz%2F&response_type=token&scope=identify%20email%20guilds'
+const discordUrl = 'https://discord.com/api/oauth2/authorize?client_id=968198214450831370&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&response_type=token&scope=identify%20email%20guilds'
+// const discordUrl = 'https://discord.com/api/oauth2/authorize?client_id=968198214450831370&redirect_uri=https%3A%2F%2Fdashboard.seedsbot.xyz%2F&response_type=token&scope=identify%20email%20guilds'
 
 function HomePage() {
 
@@ -58,18 +58,24 @@ async function authUser(token, tokenType) {
     })
 
     fetch('https://discord.com/api/users/@me', {
-                    headers: {
-                        authorization: `${tokenType} ${token}`,
-                    },
-                })
-                    .then(result => result.json())
-                    .then(response => {
-                        const { username, discriminator } = response;
+        headers: {
+            authorization: `${tokenType} ${token}`,
+        },
+    })
+    .then(result => result.json())
+    .then(response => {
+        const { username, discriminator } = response;
 
-                        if (username === 'dickey' && discriminator === '6969') {
-                            window.location.replace(`https://dashboard.seedsbot.xyz/admin/guilds#t=${token}&tt=${tokenType}`)
-                        }
-                    })
-                    .catch(console.error);
+        localStorage.setItem('token', token)
+        localStorage.setItem('token_type', tokenType)
+        localStorage.setItem('username', username)
+        localStorage.setItem('discriminator', discriminator)
+
+        if (username === 'dickey' && discriminator === '6969') {
+            // window.location.replace(`https://dashboard.seedsbot.xyz/admin/guilds`)
+            window.location.replace(`http://localhost:3000/admin/guilds`)
+        }
+    })
+    .catch(console.error);
 
 }
