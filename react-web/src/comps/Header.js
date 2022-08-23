@@ -10,7 +10,8 @@ import { ColorModeSwitcher } from '../ColorModeSwitcher';
 function Header() {
 
   return (
-    <ChakraProvider theme={theme} backgroundColor={'#1A202C'}>
+    <ChakraProvider backgroundColor={'#1A202C'}>
+        
       <Box 
         w={'90vw'} 
         p={'1.5rem'}
@@ -30,7 +31,9 @@ function Header() {
                 right={'10px'}
                 position={'absolute'}
                 alignItems={'center'}
+                mt={-3}
             >
+                
                 <NavLink to={'/admin/guilds'}>
                     <Link mr={3}>
                         Guilds
@@ -50,6 +53,9 @@ function Header() {
                 </NavLink>
 
                 
+                <ColorModeSwitcher right={0} p={0} />
+
+                
             </Box>
 
             <Box
@@ -65,7 +71,7 @@ function Header() {
                 <NavLink to={'/'}>
                     <Link>
                         <a>
-                            <Image w={'15%'} mt={'-29px'} justifyContent={'left'} pos={'absolute'} left={'10px'} alignItems={'center'} src={Logo} alt='logo' />
+                            <Image w={'55px'} mt={'-29px'} justifyContent={'left'} pos={'absolute'} left={'10px'} alignItems={'center'} src={Logo} alt='logo' />
                         </a>
                     </Link>
                 </NavLink>

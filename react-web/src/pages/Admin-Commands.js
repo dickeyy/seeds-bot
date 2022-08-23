@@ -65,7 +65,6 @@ function AdminCmdsPage() {
 
   return (
     <Box theme={theme}  w='20vw'>
-      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <Header />
       <Box h={50}></Box>
       <StatGroup>
