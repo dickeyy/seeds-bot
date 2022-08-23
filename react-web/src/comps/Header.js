@@ -10,13 +10,12 @@ import { ColorModeSwitcher } from '../ColorModeSwitcher';
 function Header() {
 
   return (
-    <ChakraProvider backgroundColor={'#1A202C'}>
+    <ChakraProvider backgroundColor={'#1A202C'} justifyContent={'center'}>
         
       <Box 
         w={'90vw'} 
         p={'1.5rem'}
         pb={'3rem'}
-        mt={'1rem'}
         position={"sticky"}
         top={'0'}
         height={'fit-content'}
@@ -24,6 +23,7 @@ function Header() {
         backdropFilter={'blur(10px)'}
         boxShadow={'rgba(28, 28, 28, 0.2) 0px 0px 10px'}
         borderRadius={'13px'}
+        margin={'1rem auto'}
         >
             <Box
                 width={'20%'}

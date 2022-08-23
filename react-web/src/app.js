@@ -7,6 +7,7 @@ import theme from './theme'
 import AdminGuildsPage from './pages/Admin-Guilds';
 import AdminCmdsPage from './pages/Admin-Commands';
 import AdminEconPage from './pages/Admin-Economy';
+import HomePage from './pages/Home';
 
 // root.render(
 //   <React.StrictMode>
@@ -18,10 +19,10 @@ export default function App() {
     return (
         <BrowserRouter>
             <Routes>
-            <Route path="/" element={<AdminGuildsPage />} />
-            <Route path="/admin/guilds" element={<AdminGuildsPage />} />
-            <Route path="/admin/commands" element={<AdminCmdsPage />} />
-            <Route path="/admin/economy" element={<AdminEconPage />} />
+                <Route path="/" element={<HomePage />} />
+                <Route path="/admin/guilds" element={<AdminGuildsPage />} />
+                <Route path="/admin/commands" element={<AdminCmdsPage />} />
+                <Route path="/admin/economy" element={<AdminEconPage />} />
             </Routes>
         </BrowserRouter>
     );

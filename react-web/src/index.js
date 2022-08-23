@@ -5,8 +5,6 @@ import * as ReactDOM from 'react-dom/client'
 import App from "./app";
 import config from "./theme";
 
-console.log(config.initialColorMode)
-
 const rootElement = document.getElementById('root')
 ReactDOM.createRoot(rootElement).render(
   <ChakraProvider>
