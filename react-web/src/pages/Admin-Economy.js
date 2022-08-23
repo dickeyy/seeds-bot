@@ -76,7 +76,7 @@ function AdminCmdsPage() {
       <Skeleton isLoaded={isLoaded}>
         <TableContainer maxWidth='60%' whiteSpace={'normal'} justifyContent={'center'} m={'auto'}>
           <Table variant='simple' colorScheme='orange'>
-          <TableCaption placement={'top'} fontSize={30}>Commands</TableCaption>
+          <TableCaption placement={'top'} fontSize={30}>Economy Users</TableCaption>
             <Thead>
               <Tr>
                 <Th>User ID</Th>

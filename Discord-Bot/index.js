@@ -298,6 +298,25 @@ client.on('guildMemberAdd', async member => {
     await collection.updateOne({ _id: member.guild.id }, { $set: { memberCount: memCout } })
 })
 
+// update all counts (once)
+// const doc = await collection.find({}).toArray()
+// for (var i = 0; i < doc.length; i++) {
+//     const server = doc[i]
+
+//     const serverObj = client.guilds.cache.get(server.id)
+
+//     if (serverObj !== undefined) {
+//         const oldCount = Number(server.memberCount)
+//         const newCount = Number(serverObj.memberCount)
+
+//         if (oldCount !== newCount) {
+//             await collection.updateOne({ _id: server.id }, { $set: { memberCount: newCount } })
+
+//             console.log(`Updated memberCount for ${server.name} -- ${oldCount} -> ${newCount}`)
+//         }
+//     }
+// } 
+
 // User leaves a server
 client.on('guildMemberRemove', async member => {
     const collection = db.collection('guilds');
