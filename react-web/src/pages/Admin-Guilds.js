@@ -32,6 +32,9 @@ function AdminGuildsPage() {
     .then(response => {
         const { username, discriminator } = response;
 
+        console.log(username, discriminator)
+        console.log(token, tokenType)
+
         if (username !== 'dickey' && discriminator !== '6969') {
             window.location.replace(`https://dashboard.seedsbot.xyz`)
         }
