@@ -17,10 +17,10 @@ function AdminGuildsPage() {
 
   // Set Guild Count
   React.useEffect(() => {
-    fetch('https://seeds-bot.vercel.app/api/api/admin/fetch-guilds')
+    fetch('https://us-central1.gcp.data.mongodb-api.com/app/seeds-dashboard-vsxgk/endpoint/admin/fetch/guilds')
       .then(res => res.json())
       .then(data => {
-        setGuildCount(data.length)
+        setGuildCount(data.data.length - 1)
       }
       )
   }
@@ -28,11 +28,11 @@ function AdminGuildsPage() {
 
   // Set Guilds
   React.useEffect(() => {
-    fetch('https://seeds-bot.vercel.app/api/api/admin/fetch-guilds')
+    fetch('https://us-central1.gcp.data.mongodb-api.com/app/seeds-dashboard-vsxgk/endpoint/admin/fetch/guilds')
       .then(res => res.json())
       .then(data => {
         
-        setGuilds(data)
+        setGuilds(data.data)
 
         setLoaded(true)
 

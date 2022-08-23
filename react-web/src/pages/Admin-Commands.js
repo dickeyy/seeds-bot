@@ -18,10 +18,10 @@ function AdminCmdsPage() {
 
   // Set cmd Count
   React.useEffect(() => {
-    fetch('https://seeds-bot.vercel.app/api/api/admin/fetch-commands')
+    fetch('https://us-central1.gcp.data.mongodb-api.com/app/seeds-dashboard-vsxgk/endpoint/admin/fetch/commands')
       .then(res => res.json())
       .then(data => {
-        setCmdCount(data.length)
+        setCmdCount(data.data.length)
       }
       )
   }
@@ -29,12 +29,12 @@ function AdminCmdsPage() {
 
   // Set cmd run Count
   React.useEffect(() => {
-    fetch('https://seeds-bot.vercel.app/api/api/admin/fetch-commands')
+    fetch('https://us-central1.gcp.data.mongodb-api.com/app/seeds-dashboard-vsxgk/endpoint/admin/fetch/commands')
       .then(res => res.json())
       .then(data => {
         var rC = 0
-        for (var i = 0; i < data.length; i++) {
-           rC = Number(data[i].runCount) + rC
+        for (var i = 0; i < data.data.length; i++) {
+           rC = Number(data.data[i].runCount) + rC
         }
         setCmdRunCount(rC)
       }
@@ -44,11 +44,11 @@ function AdminCmdsPage() {
 
   // Set cmd data
   React.useEffect(() => {
-    fetch('https://seeds-bot.vercel.app/api/api/admin/fetch-commands')
+    fetch('https://us-central1.gcp.data.mongodb-api.com/app/seeds-dashboard-vsxgk/endpoint/admin/fetch/commands')
       .then(res => res.json())
       .then(data => {
         
-        setCommandData(data)
+        setCommandData(data.data)
 
         setLoaded(true)
 

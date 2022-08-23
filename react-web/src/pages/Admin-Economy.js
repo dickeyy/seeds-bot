@@ -18,10 +18,10 @@ function AdminCmdsPage() {
 
   // Set user Count
   React.useEffect(() => {
-    fetch('https://seeds-bot.vercel.app/api/api/admin/fetch-economy')
+    fetch('https://us-central1.gcp.data.mongodb-api.com/app/seeds-dashboard-vsxgk/endpoint/admin/fetch/economy')
       .then(res => res.json())
       .then(data => {
-        setUserCount(data.length)
+        setUserCount(data.data.length)
       }
       )
   }
@@ -29,14 +29,14 @@ function AdminCmdsPage() {
 
   // Set cmd coin Count
   React.useEffect(() => {
-    fetch('https://seeds-bot.vercel.app/api/api/admin/fetch-economy')
+    fetch('https://us-central1.gcp.data.mongodb-api.com/app/seeds-dashboard-vsxgk/endpoint/admin/fetch/economy')
       .then(res => res.json())
       .then(data => {
         var rC = 0
-        for (var i = 0; i < data.length; i++) {
+        for (var i = 0; i < data.data.length; i++) {
 
-            if (data[i].coins != null) {
-                rC = Number(data[i].coins) + rC
+            if (data.data[i].coins != null) {
+                rC = Number(data.data[i].coins) + rC
 
                 var commas = rC.toLocaleString("en-US");
             }
@@ -49,11 +49,11 @@ function AdminCmdsPage() {
 
   // Set econ data
   React.useEffect(() => {
-    fetch('https://seeds-bot.vercel.app/api/api/admin/fetch-economy')
+    fetch('https://us-central1.gcp.data.mongodb-api.com/app/seeds-dashboard-vsxgk/endpoint/admin/fetch/economy')
       .then(res => res.json())
       .then(data => {
         
-        setEconData(data)
+        setEconData(data.data)
 
         setLoaded(true)
 
