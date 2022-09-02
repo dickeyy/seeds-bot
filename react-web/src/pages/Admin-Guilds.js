@@ -70,7 +70,7 @@ function AdminGuildsPage() {
             setUserChangeNum(userHistory)
 
 
-            if (guildChangeNum > guildCount) {
+            if (Number(guildChangeNum) > Number(guildCount)) {
               setGuildChangeType('decrease')
             } else {
               setGuildChangeType('increase')

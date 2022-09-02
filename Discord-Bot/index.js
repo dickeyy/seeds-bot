@@ -89,6 +89,7 @@ const commands = [
     { name: 'buy', description: 'Buy something from the shop', options: [{ name: 'id', description: 'The shop id number, get this using /shop', required: true, type: Constants.ApplicationCommandOptionTypes.INTEGER }] },
     { name: 'fish', description: 'Cast your pole out and hope for a bite' },
     { name: 'vote', description: 'Vote for Seeds on top.gg and get 1000 SeedCoins' },
+    { name: 'mine', description: 'Use your pickaxe to find some ore and get some coins. (Watch for lava)' },
 
     // Utility Commands
     { name: 'stats', description: 'Get some cool stats about the bot' },
@@ -245,6 +246,10 @@ client.on('interactionCreate', async interaction => {
 
     if (commandName == 'vote') {
         voteCmd(user,guild,interaction)
+    }
+
+    if (commandName == 'mine') {
+        await mineCmd(user,guild,interaction)
     }
 })
 
@@ -415,7 +420,7 @@ function helpCmd(user,guild,interaction) {
     .setDescription('All Seeds commands use the prefix `\`/`\`\n\n[parameter] = Required\n{parameter} = Optional\n')
     .setFields([
         { name: 'Moderation:', value: '`\`/ban [user] {reason}`\`, `\`/unban [user]`\`, `\`/kick [user] {reason}`\`, `\`/warn [user] [reason]`\`, `\`/cases [user]`\`, `\`/deletecase [case]`\`', inline: false },
-        { name: 'Economy:', value: '`\`/balance`\`, `\`/daily`\`, `\`/beg`\`, `\`/highlow`\`, `\`/slots [bet > 10]`\`, `\`/rps [bet > 10] [move]`\`, `\`/fish`\`, `\`/shop`\`, `\`/buy [shop id]`\`, `\`/vote`\`', inline: false },
+        { name: 'Economy:', value: '`\`/balance`\`, `\`/daily`\`, `\`/beg`\`, `\`/highlow`\`, `\`/slots [bet > 10]`\`, `\`/rps [bet > 10] [move]`\`, `\`/fish`\`, `\`/mine`\`, `\`/shop`\`, `\`/buy [shop id]`\`, `\`/vote`\`', inline: false },
         { name: 'Fun:', value: '`\`/friend [message]`\`, `\`/tsh [topic]`\`, `\`/coinflip`\`', inline: false },
         { name: 'Utility: ', value: '`\`/stats`\`, `\`/rcolor`\`, `\`/poll [option 1] [option 2]`\`, `\`/botidea [idea]`\`', inline: false }
     ])
@@ -1668,6 +1673,139 @@ async function fishCmd(user,guild,interaction) {
     }
 }
 
+// Mine command
+async function mineCmd(user, guild, interaction) {
+
+    const cmdName = 'mine'
+
+    if (cooldown.has(user.id + '--' + cmdName)) {
+        const embed = new MessageEmbed()
+
+        .setTitle(cdList[Math.floor(Math.random() * cdList.length)])
+        .setDescription('That command can only be run once every two minutes')
+        .setColor('RED')
+        interaction.reply({
+            embeds: [embed],
+            ephemeral: true
+        })
+        return
+    }
+
+    const coll = db.collection('economy')
+    const doc = await coll.findOne({ userId: user.id, guildId: guild.id })
+
+    // Check if user is in econ database
+    if (doc == null) {
+        const embed = new MessageEmbed()
+        .setTitle('ERROR: You don\'t have any coins, use `\`/daily`\` to get some')
+        .setDescription('Please run the command again')
+        .setColor('RED')
+
+        interaction.reply({
+            embeds: [embed],
+            ephemeral: true
+        })
+        
+        return
+    }
+
+    const pickaxe = doc.i_2 || doc.i_3 || doc.i_4 || doc.i_5 || doc.i_6
+
+    // check if user has a pickaxe
+    if (pickaxe == null) {
+        const embed = new MessageEmbed()
+        .setTitle('ERROR: You don\'t have a pickaxe')
+        .setDescription('Use `\`/shop`\` to get one')
+        .setColor('RED')
+
+        interaction.reply({
+            embeds: [embed],
+            ephemeral: true
+        })
+        return
+    }
+
+    // check if pickaxe is broken
+    if (pickaxe.durability <= 0) {
+        const embed = new MessageEmbed()
+        .setTitle('Your pickaxe is broken')
+        .setDescription('Buy a new one using `\`/shop`\`')
+        .setColor('RED')
+
+        await coll.updateOne({ userId: user.id, guildId: guild.id }, { $set: { i_2: null, i_3: null, i_4: null, i_5: null, i_6: null } })
+
+        interaction.reply({
+            embeds: [embed],
+            ephemeral: true
+        })
+        return
+    }
+
+    //if good then mine
+    const rng = Math.round(Math.random() * 300)
+
+    const blocksDoc = await coll.findOne({ shop: true })
+    const blocks = blocksDoc.mine
+
+    const embed = new MessageEmbed()
+
+    if (rng == 1) { // One Percent for lava
+        const block = blocks.m13
+
+        const newBalance = doc.coins - block.price
+        const newDurability = pickaxe.durability - block.damage
+
+        const lavaEmbed = new MessageEmbed()
+        .setTitle('You fell into lava')
+        .setDescription('You lost **' + block.price + ' Coins**')
+        .setFooter({ text: 'Balance: ' + newBalance })
+        .setColor('RED')
+
+        await coll.updateOne({ userId: user.id, guildId: guild.id }, { $set: { i_2: { name: pickaxe.name, durability: newDurability }, coins: newBalance } })
+
+        interaction.reply({
+            embeds: [lavaEmbed]
+        })
+    } 
+
+    // Set percents for everything 
+    else if (rng <= 2 && rng > 1) { var block = blocks.m10 } // 1% for Rare Crystal
+    else if (rng <= 7 && rng > 2) { var block = blocks.m9 } // 5% for Diamond
+    else if (rng <= 14 && rng > 7) { var block = blocks.m8 } // 7% for Emerald
+    else if (rng <= 22 && rng > 14) { var block = blocks.m5 } // 8% for Gold
+    else if (rng <= 31 && rng > 22) { var block = blocks.m7 } // 9% for Silver
+    else if (rng <= 41 && rng > 31) { var block = blocks.m6 } // 10% for Copper
+    else if (rng <= 52 && rng > 41) { var block = blocks.m11 } // 11% for Obsidian
+    else if (rng <= 67 && rng > 52) { var block = blocks.m12 } // 15% for Iron
+    else if (rng <= 100 && rng > 67) { var block = blocks.m3 } // 33% for Stone
+    else if (rng <= 200 && rng > 100) { var block = blocks.m1 } // 50% for Dirt
+    else if (rng <= 300 && rng > 200) { var block = blocks.m2 } // 50% for Gravel
+
+    if (block.name == 'Rare Crystal') { embed.setColor('GOLD') }
+    else { embed.setColor(mainHex) }
+
+    const newBalance = Number(doc.coins) + Number(block.price)
+    const newDurability = pickaxe.durability - block.damage
+
+    embed.setTitle(`You mined ${block.name}`)
+    embed.setDescription(`You earned **${block.price} Coins**`)
+    embed.setFooter({ text: 'Balance: ' + newBalance })
+
+    await coll.updateOne({ userId: user.id, guildId: guild.id }, { $set: { i_2: { name: pickaxe.name, durability: newDurability }, coins: newBalance } })
+
+    interaction.reply({
+        embeds: [embed]
+    })
+
+    cooldown.add(user.id + '--' + cmdName);
+    setTimeout(() => {
+        cooldown.delete(user.id + '--' + cmdName);
+    }, twoMinCooldown);
+
+    cmdRun(user,cmdName)
+
+}
+
 // Vote command
 async function voteCmd(user,guild,interaction) {
     const cmdName = 'vote'
@@ -1979,6 +2117,7 @@ async function botideaCmd(user, guild, interaction, idea) {
 }
 
 // eventually add admin commands
+
 
  
 
