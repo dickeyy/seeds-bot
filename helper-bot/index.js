@@ -6,6 +6,8 @@ const dotenv = require('dotenv');
 const { MongoClient, ServerApiVersion } = require('mongodb')
 const osu = require('node-os-utils');
 const axios = require('axios').default
+const { TwitterApi } = require('twitter-api-v2');;
+const cron = require('node-cron');
 
 // Process errors
 process.on('uncaughtException', async function (error) {
@@ -24,6 +26,24 @@ console.log('MongoDB Connected')
 
 // Define Colors
 const mainHex = '#d79a61'
+
+// Code for the counting bot
+const twitterClient = new TwitterApi({
+  appKey: process.env.TWIT_API_KEY,
+  appSecret: process.env.TWIT_API_KEY_SECRET,
+  accessToken: process.env.TWIT_ACCESS_TOKEN,
+  accessSecret: process.env.TWIT_ACCESS_TOKEN_SECRET,
+});
+
+// Create and run a cron job for every 30 minutes
+cron.schedule('*/30 * * * *', async () => {
+  let doc = await db.collection('twitterCountingBot').findOne({ current: true })
+  let num = doc.num
+  num += 1
+  twitterClient.v2.tweet(`${num}`)
+  await db.collection('twitterCountingBot').updateOne({ current: true }, { $set: { num: num } })
+  console.log(`Tweeted ${num}`)
+});
 
 // Pemissions numbers
 const ADMIN_PERM = 0x0000000000000008
