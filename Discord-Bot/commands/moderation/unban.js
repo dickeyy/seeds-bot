@@ -1,5 +1,6 @@
 const { cmdRun } = require('../../functions/cmdRun.js')
 const { MessageEmbed, Permissions } = require('discord.js');
+const client = require('../../index.js').client
 
 const mainHex = '#d79a61'
 

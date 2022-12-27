@@ -1,6 +1,7 @@
 const { cmdRun } = require('../../functions/cmdRun.js')
 const { MessageEmbed } = require('discord.js');
 const { connectDb } = require('../../utils/db.js')
+const client = require('../../index.js').client
 
 const db = connectDb()
 

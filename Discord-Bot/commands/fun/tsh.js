@@ -1,12 +1,19 @@
 const { cmdRun } = require('../../functions/cmdRun.js')
 const { MessageEmbed } = require('discord.js');
 const { Configuration, OpenAIApi } = require("openai");
+const { connectDb } = require('../../utils/db.js')
+const client = require('../../index.js').client
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 // Open AI Connection
 const aiConfig = new Configuration({
     apiKey: process.env.OPENAI_API_KEY
 })
 const openai = new OpenAIApi(aiConfig)
+
+const db = connectDb()
 
 const mainHex = '#d79a61'
 

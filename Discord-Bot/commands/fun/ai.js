@@ -1,12 +1,19 @@
 const { cmdRun } = require('../../functions/cmdRun.js')
 const { MessageEmbed } = require('discord.js');
 const { Configuration, OpenAIApi } = require("openai");
+const { connectDb } = require('../../utils/db.js')
+const client = require('../../index.js').client
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 // Open AI Connection
 const aiConfig = new Configuration({
     apiKey: process.env.OPENAI_API_KEY
 })
 const openai = new OpenAIApi(aiConfig)
+
+const db = connectDb()
 
 const mainHex = '#d79a61'
 
@@ -30,7 +37,7 @@ exports.aiCmd = async function aiCmd(user,guild,interaction,prompt) {
     if (cooldown.has(`${user.id}--${cmdName}`)) {
         const embed = new MessageEmbed()
         .setTitle(cdList[Math.floor(Math.random() * cdList.length)])
-        .setDescription('That command can only be run once every 5 minutes')
+        .setDescription('That command can only be run once every 1 minute')
         .setColor('RED')
         interaction.reply({
             embeds: [embed],
@@ -66,7 +73,7 @@ exports.aiCmd = async function aiCmd(user,guild,interaction,prompt) {
             cooldown.add(`${user.id}--${cmdName}`);
             setTimeout(() => {
                 cooldown.delete(`${user.id}--${cmdName}`);
-            }, fiveMinCooldown);
+            }, oneMinCooldown);
 
         } catch (error) {
             if (error.response) {
