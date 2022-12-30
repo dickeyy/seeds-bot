@@ -12,7 +12,7 @@ exports.helpCmd = function helpCmd(user,guild,interaction) {
     .setThumbnail('https://seedsbot.xyz/images/logo.png')
     .setDescription('All Seeds commands use the prefix `\`/`\`\n\n[parameter] = Required\n{parameter} = Optional\n')
     .setFields([
-        { name: 'Moderation:', value: '`\`/ban [user] {reason}`\`, `\`/unban [user]`\`, `\`/kick [user] {reason}`\`, `\`/warn [user] [reason]`\`, `\`/cases [user]`\`, `\`/deletecase [case]`\`, `\`/setreportchannel [channel]`\`, `\`/report [reason] {user}`\`, `\`/log set_channel [log type] [channel]`\`, `\`/log toggle [log type] [event]`\`', inline: false },
+        { name: 'Moderation:', value: '`\`/ban [user] {reason}`\`, `\`/unban [user]`\`, `\`/kick [user] {reason}`\`, `\`/warn [user] [reason]`\`, `\`/cases [user]`\`, `\`/deletecase [case]`\`, `\`/setreportchannel [channel]`\`, `\`/report [reason] {user}`\`, `\`/log set_channel [log type] [channel]`\`, `\`/log toggle [log type] [event]`\`, `\`/purge [amount]`\`', inline: false },
         { name: 'Economy:', value: '`\`/balance`\`, `\`/daily`\`, `\`/beg`\`, `\`/highlow`\`, `\`/slots [bet > 10]`\`, `\`/rps [bet > 10] [move]`\`, `\`/fish`\`, `\`/mine`\`, `\`/shop`\`, `\`/buy [shop id]`\`, `\`/vote`\`', inline: false },
         { name: 'Fun:', value: '`\`/friend [message]`\`, `\`/tsh [topic]`\`, `\`/coinflip`\`', inline: false },
         { name: 'Utility: ', value: '`\`/stats`\`, `\`/rcolor`\`, `\`/poll [option 1] [option 2]`\`, `\`/botidea [idea]`\`', inline: false }

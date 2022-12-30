@@ -234,6 +234,19 @@ const commands = [
             }
         ]
     },
+    {
+        name: 'purge',
+        description: 'Purge a number of messages from a channel',
+        default_member_permissions: MODERATE_PERM,
+        options: [
+            {
+                name: 'amount',
+                description: 'The amount of messages you want to purge',
+                required: true,
+                type: Constants.ApplicationCommandOptionTypes.INTEGER
+            }
+        ]
+    },
 
     // Fun Commands
     { 
