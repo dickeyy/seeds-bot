@@ -1,0 +1,70 @@
+2022-8-17 3:54:39 | dickey#6969 - stats
+2022-8-17 3:55:8 | dickey#6969 - rcolor
+2022-8-17 3:57:37 | dickey#6969 - coinflip
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+Logged in as: Seeds#3962
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+Logged in as: Seeds#3962
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+Logged in as: Seeds#3962
+2022-8-17 4:14:33 | dickey#6969 - coinflip
+2022-8-17 4:14:41 | dickey#6969 - shop
+2022-8-17 4:14:46 | dickey#6969 - friend
+2022-8-17 4:14:52 | dickey#6969 - tsh
+TypeError: Cannot read properties of undefined (reading 'price')
+    at buyCmd (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/index.js:1468:30)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Client.<anonymous> (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/index.js:214:9)
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received undefined
+    at Object.writeFile (node:fs:2168:5)
+    at Object.appendFile (node:fs:2259:6)
+    at log (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/index.js:328:8)
+    at Client.<anonymous> (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/index.js:125:6)
+    at Client.emit (node:events:537:28)
+    at WebSocketManager.triggerClientReady (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/node_modules/discord.js/src/client/websocket/WebSocketManager.js:384:17)
+    at WebSocketManager.checkShardsReady (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/node_modules/discord.js/src/client/websocket/WebSocketManager.js:367:10)
+    at WebSocketShard.<anonymous> (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/node_modules/discord.js/src/client/websocket/WebSocketManager.js:189:14)
+    at WebSocketShard.emit (node:events:537:28)
+    at WebSocketShard.checkReady (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/node_modules/discord.js/src/client/websocket/WebSocketShard.js:475:12)
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received undefined
+    at Object.writeFile (node:fs:2168:5)
+    at Object.appendFile (node:fs:2259:6)
+    at log (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/index.js:328:8)
+    at Client.<anonymous> (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/index.js:125:6)
+    at Client.emit (node:events:537:28)
+    at WebSocketManager.triggerClientReady (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/node_modules/discord.js/src/client/websocket/WebSocketManager.js:384:17)
+    at WebSocketManager.checkShardsReady (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/node_modules/discord.js/src/client/websocket/WebSocketManager.js:367:10)
+    at WebSocketShard.<anonymous> (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/node_modules/discord.js/src/client/websocket/WebSocketManager.js:189:14)
+    at WebSocketShard.emit (node:events:537:28)
+    at WebSocketShard.checkReady (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/node_modules/discord.js/src/client/websocket/WebSocketShard.js:475:12)
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received undefined
+    at Object.writeFile (node:fs:2168:5)
+    at Object.appendFile (node:fs:2259:6)
+    at log (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/index.js:328:8)
+    at Client.<anonymous> (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/index.js:125:6)
+    at Client.emit (node:events:537:28)
+    at WebSocketManager.triggerClientReady (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/node_modules/discord.js/src/client/websocket/WebSocketManager.js:384:17)
+    at WebSocketManager.checkShardsReady (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/node_modules/discord.js/src/client/websocket/WebSocketManager.js:367:10)
+    at WebSocketShard.<anonymous> (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/node_modules/discord.js/src/client/websocket/WebSocketManager.js:189:14)
+    at WebSocketShard.emit (node:events:537:28)
+    at WebSocketShard.checkReady (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/node_modules/discord.js/src/client/websocket/WebSocketShard.js:475:12)
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+2022-8-17 4:19:18 | dickey#6969 - stats
+2022-8-17 4:19:22 | dickey#6969 - coinflip

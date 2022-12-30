@@ -1,0 +1,10 @@
+RangeError [EMBED_FIELD_NAME]: MessageEmbed field names must be non-empty strings.
+    at Util.verifyString (/Users/kyledickey/Documents/Code/seeds-bot/main-bot/node_modules/discord.js/src/util/Util.js:416:41)
+    at MessageEmbed.normalizeField (/Users/kyledickey/Documents/Code/seeds-bot/main-bot/node_modules/discord.js/src/structures/MessageEmbed.js:543:18)
+    at /Users/kyledickey/Documents/Code/seeds-bot/main-bot/node_modules/discord.js/src/structures/MessageEmbed.js:565:14
+    at Array.map (<anonymous>)
+    at MessageEmbed.normalizeFields (/Users/kyledickey/Documents/Code/seeds-bot/main-bot/node_modules/discord.js/src/structures/MessageEmbed.js:564:8)
+    at MessageEmbed.addFields (/Users/kyledickey/Documents/Code/seeds-bot/main-bot/node_modules/discord.js/src/structures/MessageEmbed.js:328:42)
+    at MessageEmbed.addField (/Users/kyledickey/Documents/Code/seeds-bot/main-bot/node_modules/discord.js/src/structures/MessageEmbed.js:319:17)
+    at guildMemberRemoveEvent (/Users/kyledickey/Documents/Code/seeds-bot/main-bot/events/guildMemberRemove.js:34:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)

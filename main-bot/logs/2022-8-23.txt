@@ -1,0 +1,132 @@
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+TypeError: Cannot read properties of undefined (reading 'memberCount')
+    at Client.<anonymous> (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/index.js:307:31)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Error: Field (second) cannot be parsed
+    at CT._parseField (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/node_modules/cron/lib/time.js:504:12)
+    at CT._parse (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/node_modules/cron/lib/time.js:423:10)
+    at new CT (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/node_modules/cron/lib/time.js:96:9)
+    at new CJ (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/node_modules/cron/lib/job.js:62:19)
+    at Object.<anonymous> (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/index.js:330:1)
+    at Module._compile (node:internal/modules/cjs/loader:1112:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1166:10)
+    at Module.load (node:internal/modules/cjs/loader:988:32)
+    at Module._load (node:internal/modules/cjs/loader:834:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Error: Too many fields
+    at CT._parse (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/node_modules/cron/lib/time.js:414:11)
+    at new CT (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/node_modules/cron/lib/time.js:96:9)
+    at new CJ (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/node_modules/cron/lib/job.js:62:19)
+    at Object.<anonymous> (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/index.js:330:22)
+    at Module._compile (node:internal/modules/cjs/loader:1112:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1166:10)
+    at Module.load (node:internal/modules/cjs/loader:988:32)
+    at Module._load (node:internal/modules/cjs/loader:834:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)
+    at node:internal/main/run_main_module:17:47
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Error: Field (hour) cannot be parsed
+    at CT._parseField (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/node_modules/cron/lib/time.js:504:12)
+    at CT._parse (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/node_modules/cron/lib/time.js:423:10)
+    at new CT (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/node_modules/cron/lib/time.js:96:9)
+    at new CJ (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/node_modules/cron/lib/job.js:62:19)
+    at Object.<anonymous> (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/index.js:330:22)
+    at Module._compile (node:internal/modules/cjs/loader:1112:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1166:10)
+    at Module.load (node:internal/modules/cjs/loader:988:32)
+    at Module._load (node:internal/modules/cjs/loader:834:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+MongoDB Connected
+Started refreshing application (/) commands.
+Successfully reloaded application (/) commands.
+2022-8-23 10:44:56 | dickey#6969 - stats
+DiscordAPIError: Unknown interaction
+    at RequestHandler.execute (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/node_modules/discord.js/src/rest/RequestHandler.js:350:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async RequestHandler.push (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/node_modules/discord.js/src/rest/RequestHandler.js:51:14)
+    at async CommandInteraction.reply (/Users/kyledickey/Documents/Code/seeds-bot/Discord-Bot/node_modules/discord.js/src/structures/interfaces/InteractionResponses.js:99:5)

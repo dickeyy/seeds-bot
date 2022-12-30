@@ -22,7 +22,7 @@ const OneWeekCooldown = OneDayCooldown * 7;
 const cdList = ['Chill Out', 'CHILLLLL', 'Stop.', 'Take a Breather', 'ok', 'Spamming commands is cringe', 'Slow it down', 'Wee-Woo-Wee-Woo Pull Over', 'No smile', '-_-', 'Why tho...', 'Yikes U Should Like Not', 'Slow it Cowboy', 'Take a Break Bro', 'Go Touch Some Grass']
 
 
-exports.coinflipCmd = async function botideaCmd(user, guild, interaction, idea) {
+exports.botideaCmd = async function botideaCmd(user, guild, interaction, idea) {
     const cmdName = 'botidea'
 
     if (cooldown.has(user.id + '--' + cmdName)) {

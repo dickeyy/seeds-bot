@@ -23,7 +23,7 @@ exports.unbanCmd = function unbanCmd(user,guild,interaction,unbanUser) {
         }).then(() => {
             const embed = new MessageEmbed()
             .setTitle('Unbanned Member')
-            .setDescription(`Unbanned <@${unbanUser.id}>`)
+            .setDescription(`Unbanned <@${unbanUser}>`)
             .setColor(mainHex)
     
             interaction.reply({
