@@ -34,7 +34,7 @@ exports.purgeCmd = async function purgeCmd(user,guild,interaction,count) {
         })
     }
 
-    await interaction.channel.bulkDelete(count + 1)
+    await interaction.channel.bulkDelete(count)
 
     const embed = new MessageEmbed()
     .setTitle(`Purged ${count} messages`)
