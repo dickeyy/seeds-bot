@@ -448,7 +448,7 @@ function logsCmd(user, guild, interaction, dateArg) {
       const embed = new MessageEmbed() 
       .setTitle('Logs for ' + date)
   
-      const file = new MessageAttachment('../Discord-Bot/logs/' + date + '.txt')
+      const file = new MessageAttachment('../main-bot/logs/' + date + '.txt')
   
       // interaction.reply("Logs For " + date + "`\`\`" + data + "`\`\`")
       interaction.reply({
@@ -462,7 +462,7 @@ function logsCmd(user, guild, interaction, dateArg) {
 
     var date = dateArg 
 
-    fs.readFile('../Discord-Bot/logs/' + date + '.txt', 'utf8', function (err, data) {
+    fs.readFile('../main-bot/logs/' + date + '.txt', 'utf8', function (err, data) {
       if (err) {
         const embed = new MessageEmbed()
         .setTitle('ERROR: No logs for that date.')
@@ -479,7 +479,7 @@ function logsCmd(user, guild, interaction, dateArg) {
       const embed = new MessageEmbed() 
       .setTitle('Logs for ' + date)
   
-      const file = new MessageAttachment('../Discord-Bot/logs/' + date + '.txt')
+      const file = new MessageAttachment('../main-bot/logs/' + date + '.txt')
   
       // interaction.reply("Logs For " + date + "`\`\`" + data + "`\`\`")
       interaction.reply({
