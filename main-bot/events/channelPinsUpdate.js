@@ -14,6 +14,8 @@ const channelPinsUpdateEvent = async (channel) => {
 
     let doc = await coll.findOne({ guildId: channel.guild.id })
 
+    let sent = false
+
     if (doc) {
         if (doc.channels.server && doc.toggles.serverEvents.channelPinsUpdate) {
 
@@ -25,10 +27,13 @@ const channelPinsUpdateEvent = async (channel) => {
             .setFooter({text: "/log toggle server_events Channel Pins Update"})
             .setTimestamp()
 
-            webhookClient.send({
-                avatarURL: client.user.avatarURL(),
-                embeds: [embed]
-            })
+            if (!sent) {
+                webhookClient.send({
+                    avatarURL: client.user.avatarURL(),
+                    embeds: [embed]
+                })
+                sent = true
+            }
 
             webhookClient.destroy()
         }

@@ -11,9 +11,23 @@ const coll = db.collection('logSettings')
 
 const messageDeleteBulkEvent = async (messages) => {
 
-    console.log('dick')
+    // process the messages. the messages are a collection of messages
+    guildId = ''
+    authId = ''
+    authTag = ''
+    authAvUrl = ''
+    contents = []
+    messages.map(message => {
+        guildId = message.guild.id
+        authId = message.author.id
+        authTag = message.author.tag
+        authAvUrl = message.author.avatarURL()
+        contents.push(message.content)
+    })
 
-    let doc = await coll.findOne({ guildId: messages.guild.id })
+    let doc = await coll.findOne({ guildId: guildId })
+
+    let sent = false
 
     if (doc) {
         if (doc.channels.message && doc.toggles.messageEvents.messageDeleteBulk) {
@@ -21,17 +35,20 @@ const messageDeleteBulkEvent = async (messages) => {
             const webhookClient = new WebhookClient({ url: doc.webhookUrls.message });
 
             const embed = new MessageEmbed()
-            .setTitle('Bulk Message Deleted')
-            .setAuthor({ name: message.author.tag, iconURL: message.author.avatarURL() })
-            .setDescription(`**Channel:** <#${message.channel.id}>\n\n**Message:** ${message.content}\n**Context:** [Jump](${message.url})\n\n**ID:** ${message.id}`)
-            .setFooter({text: "/log toggle message_events Message Delete"})
-            .setColor('#4CA99D')
+            .setTitle(`Bulk Message Delete in #${messages.first().channel.name}`)
+            .setAuthor({ name: authTag, iconURL: authAvUrl })
+            .setDescription(`${contents.join('\n')}`)
+            .setFooter({text: "/log toggle message_events Message Bulk Delete"})
+            .setColor('#373f69')
             .setTimestamp()
 
-            webhookClient.send({
-                avatarURL: client.user.avatarURL(),
-                embeds: [embed]
-            })
+            if (!sent) {
+                webhookClient.send({
+                    avatarURL: client.user.avatarURL(),
+                    embeds: [embed]
+                })
+                sent = true
+            }
 
             webhookClient.destroy()
         }

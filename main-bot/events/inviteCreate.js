@@ -14,6 +14,8 @@ const inviteCreateEvent = async (invite) => {
 
     let doc = await coll.findOne({ guildId: invite.guild.id })
 
+    let sent = false
+
     if (doc) {
         if (doc.channels.server && doc.toggles.serverEvents.inviteCreate) {
 
@@ -26,10 +28,13 @@ const inviteCreateEvent = async (invite) => {
             .setColor()
             .setTimestamp()
 
-            webhookClient.send({
-                avatarURL: client.user.avatarURL(),
-                embeds: [embed]
-            })
+            if (!sent) {
+                webhookClient.send({
+                    avatarURL: client.user.avatarURL(),
+                    embeds: [embed]
+                })
+                sent = true
+            }
 
             webhookClient.destroy()
         }

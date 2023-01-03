@@ -14,6 +14,8 @@ const guildScheduledEventCreateEvent = async (guildScheduledEvent) => {
 
     let doc = await coll.findOne({ guildId: guildScheduledEvent.guild.id })
 
+    let sent = false
+
     if (doc) {
         if (doc.channels.server && doc.toggles.serverEvents.guildScheduledEventCreate) {
 
@@ -25,10 +27,13 @@ const guildScheduledEventCreateEvent = async (guildScheduledEvent) => {
             .setColor()
             .setTimestamp()
 
-            webhookClient.send({
-                avatarURL: client.user.avatarURL(),
-                embeds: [embed]
-            })
+            if (!sent) {
+                webhookClient.send({
+                    avatarURL: client.user.avatarURL(),
+                    embeds: [embed]
+                })
+                sent = true
+            }
 
             webhookClient.destroy()
         }

@@ -13,6 +13,8 @@ const stickerUpdateEvent = async (oldSticker, newSticker) => {
 
     let doc = await coll.findOne({ guildId: oldSticker.guild.id })
 
+    let sent = false
+
     if (doc) {
         if (doc.channels.server && doc.toggles.serverEvents.stickerUpdate) {
 
@@ -30,10 +32,15 @@ const stickerUpdateEvent = async (oldSticker, newSticker) => {
             .setColor('DARK_BUT_NOT_BLACK')
             .setTimestamp()
 
-            webhookClient.send({
-                avatarURL: client.user.avatarURL(),
-                embeds: [embed]
-            })
+            if (embed.fields.length === 0) return
+
+            if (!sent) {
+                webhookClient.send({
+                    avatarURL: client.user.avatarURL(),
+                    embeds: [embed]
+                })
+                sent = true
+            }
 
             webhookClient.destroy()
         }

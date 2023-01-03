@@ -14,6 +14,8 @@ const channelUpdateEvent = async (oldChannel, newChannel) => {
 
     let doc = await coll.findOne({ guildId: oldChannel.guild.id })
 
+    let sent = false
+
     if (doc) {
         if (doc.channels.server && doc.toggles.serverEvents.channelUpdate) {
 
@@ -43,10 +45,15 @@ const channelUpdateEvent = async (oldChannel, newChannel) => {
             .setFooter({text: "/log toggle server_events Channel Delete"})
             .setTimestamp()
 
-            webhookClient.send({
-                avatarURL: client.user.avatarURL(),
-                embeds: [embed]
-            })
+            if (embed.fields.length === 0) return
+
+            if (!sent) {
+                webhookClient.send({
+                    avatarURL: client.user.avatarURL(),
+                    embeds: [embed]
+                })
+                sent = true
+            }
 
             webhookClient.destroy()
         }

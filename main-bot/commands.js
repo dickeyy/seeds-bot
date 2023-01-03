@@ -228,6 +228,7 @@ const commands = [
                         choices: [
                             { name: "Message Delete", value: "messageDelete" },
                             { name: "Message Update", value: "messageUpdate" },
+                            { name: "Message Bulk Delete", value: "messageDeleteBulk" },
                         ]
                     }
                 ]

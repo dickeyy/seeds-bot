@@ -18,6 +18,8 @@ const guildMemberAddEvent = async (member) => {
 
     let doc = await coll.findOne({ guildId: member.guild.id })
 
+    let sent = false
+
     if (doc) {
         if (doc.channels.member && doc.toggles.memberEvents.guildMemberAdd) {
 
@@ -31,10 +33,13 @@ const guildMemberAddEvent = async (member) => {
             .setColor('FUCHSIA')
             .setTimestamp()
 
-            webhookClient.send({
-                avatarURL: client.user.avatarURL(),
-                embeds: [embed]
-            })
+            if (!sent) {
+                webhookClient.send({
+                    avatarURL: client.user.avatarURL(),
+                    embeds: [embed]
+                })
+                sent = true
+            }
 
             webhookClient.destroy()
         }

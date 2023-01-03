@@ -14,6 +14,8 @@ const emojiDeleteEvent = async (emoji) => {
 
     let doc = await coll.findOne({ guildId: emoji.guild.id })
 
+    let sent = false
+
     if (doc) {
         if (doc.channels.server && doc.toggles.serverEvents.emojiDelete) {
 
@@ -26,10 +28,13 @@ const emojiDeleteEvent = async (emoji) => {
             .setColor('DARK_BUT_NOT_BLACK')
             .setTimestamp()
 
-            webhookClient.send({
-                avatarURL: client.user.avatarURL(),
-                embeds: [embed]
-            })
+            if (!sent) {
+                webhookClient.send({
+                    avatarURL: client.user.avatarURL(),
+                    embeds: [embed]
+                })
+                sent = true
+            }
 
             webhookClient.destroy()
         }

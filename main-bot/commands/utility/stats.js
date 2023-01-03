@@ -18,7 +18,7 @@ exports.statsCmd = function statsCmd(user,guild,interaction) {
         mem.info().then(info => {
             const embed = new MessageEmbed()
                 .setColor(mainHex)
-                .setTitle('Jams Stats')
+                .setTitle('Seeds Stats')
                 .setThumbnail('https://seedsbot.xyz/images/logo.png')
                 .addField("Servers:", `${guilds}`, true)
                 .addField('CPU %:', `${cpuPercentage}`, true)

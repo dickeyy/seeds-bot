@@ -13,6 +13,8 @@ const threadUpdateEvent = async (oldThread, newThread) => {
 
     let doc = await coll.findOne({ guildId: oldThread.guild.id })
 
+    let sent = false
+
     if (doc) {
         if (doc.channels.server && doc.toggles.serverEvents.threadUpdate) {
 
@@ -29,10 +31,15 @@ const threadUpdateEvent = async (oldThread, newThread) => {
             .setColor('#4CA99D')
             .setTimestamp()
 
-            webhookClient.send({
-                avatarURL: client.user.avatarURL(),
-                embeds: [embed]
-            })
+            if (embed.fields.length === 0) return
+
+            if (!sent) {
+                webhookClient.send({
+                    avatarURL: client.user.avatarURL(),
+                    embeds: [embed]
+                })
+                sent = true
+            }
 
             webhookClient.destroy()
         }

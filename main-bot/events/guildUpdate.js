@@ -14,6 +14,8 @@ const guildUpdateEvent = async (oldGuild, newGuild) => {
 
     let doc = await coll.findOne({ guildId: oldGuild.id })
 
+    let sent = false
+
     if (doc) {
         if (doc.channels.server && doc.toggles.serverEvents.guildUpdate) {
 
@@ -70,10 +72,15 @@ const guildUpdateEvent = async (oldGuild, newGuild) => {
             .setColor(mainHex)
             .setTimestamp()
 
-            webhookClient.send({
-                avatarURL: client.user.avatarURL(),
-                embeds: [embed]
-            })
+            if (embed.fields.length === 0) return
+
+            if (!sent) {
+                webhookClient.send({
+                    avatarURL: client.user.avatarURL(),
+                    embeds: [embed]
+                })
+                sent = true
+            }
 
             webhookClient.destroy()
         }

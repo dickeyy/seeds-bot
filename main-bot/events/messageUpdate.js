@@ -11,7 +11,7 @@ const coll = db.collection('logSettings')
 
 const messageUpdateEvent = async (oldMessage, newMessage) => {
 
-    console.log('dick')
+    let sent = false
 
     let doc = await coll.findOne({ guildId: oldMessage.guild.id })
 
@@ -23,17 +23,20 @@ const messageUpdateEvent = async (oldMessage, newMessage) => {
             const newContent = newMessage.content !== oldMessage.content
 
             const embed = new MessageEmbed()
-            .setTitle('Message Edited')
-            .setAuthor({ name: message.author.tag, iconURL: message.author.avatarURL() })
-            if (newContent) embed.setDescription(`**Channel:** <#${message.channel.id}>\n\n**- Old Message:** ${oldMessage.content}\n**+ New Message:** ${newMessage.content}\n**Context:** [Jump](${message.url})\n\n**ID:** ${message.id}`)
+            .setTitle(`Message Edited in #${oldMessage.channel.name}`)
+            .setAuthor({ name: oldMessage.author.tag, iconURL: oldMessage.author.avatarURL() })
+            .setDescription(`**- Before: **${oldMessage.content}\n**- After: **${newMessage.content}`)
             .setFooter({text: "/log toggle message_events Message Update"})
             .setColor('#4CA99D')
             .setTimestamp()
 
-            webhookClient.send({
-                avatarURL: client.user.avatarURL(),
-                embeds: [embed]
-            })
+            if (!sent) {
+                webhookClient.send({
+                    avatarURL: client.user.avatarURL(),
+                    embeds: [embed]
+                })
+                sent = true
+            }
 
             webhookClient.destroy()
         }

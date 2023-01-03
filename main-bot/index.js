@@ -1,5 +1,5 @@
 const { Client, Intents, MessageEmbed, Constants, MessageActionRow, MessageButton, Interaction, Permissions, Message, } = require('discord.js');
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_BANS, Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_BANS, Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_INVITES] });
 exports.client = client;
 const { REST } = require('@discordjs/rest');
 const { Routes, InteractionResponseType } = require('discord-api-types/v9');
@@ -42,6 +42,7 @@ const { threadUpdateEvent } = require('./events/threadUpdate.js');
 const { guildMemberUpdateEvent } = require('./events/guildMemberUpdate.js');
 const { messageDeleteEvent } = require('./events/messageDelete.js');
 const { messageUpdateEvent } = require('./events/messageUpdate.js');
+const { messageDeleteBulkEvent } = require('./events/messageDeleteBulk.js');
 // Import Commands
 const commands = require('./commands.js').commands
 
@@ -422,6 +423,11 @@ client.on('messageDelete', async message => {
 // message update
 client.on('messageUpdate', async (oldMessage, newMessage) => {
     messageUpdateEvent(oldMessage, newMessage)
+})
+
+// message delete bulk
+client.on('messageDeleteBulk', async messages => {
+    messageDeleteBulkEvent(messages)
 })
 
 // Cron Jobs

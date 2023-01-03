@@ -14,6 +14,8 @@ const roleCreateEvent = async (role) => {
 
     let doc = await coll.findOne({ guildId: role.guild.id })
 
+    let sent = false
+
     if (doc) {
         if (doc.channels.server && doc.toggles.serverEvents.roleCreate) {
 
@@ -26,10 +28,13 @@ const roleCreateEvent = async (role) => {
             .setColor('#A3FA87')
             .setTimestamp()
 
-            webhookClient.send({
-                avatarURL: client.user.avatarURL(),
-                embeds: [embed]
-            })
+            if (!sent) {
+                webhookClient.send({
+                    avatarURL: client.user.avatarURL(),
+                    embeds: [embed]
+                })
+                sent = true
+            }
 
             webhookClient.destroy()
         }

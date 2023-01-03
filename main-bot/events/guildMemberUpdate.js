@@ -13,6 +13,8 @@ const guildMemberUpdateEvent = async (oldMember, newMember) => {
 
     let doc = await coll.findOne({ guildId: oldMember.guild.id })
 
+    let sent = false
+
     if (doc) {
         if (doc.channels.member && doc.toggles.memberEvents.guildMemberUpdate) {
 
@@ -20,8 +22,6 @@ const guildMemberUpdateEvent = async (oldMember, newMember) => {
 
             const newNickname = newMember.nickname !== oldMember.nickname
             const newRoles = newMember.roles.cache.size !== oldMember.roles.cache.size
-            const newBoost = newMember.premiumSince !== oldMember.premiumSince
-            const newDisplayName = newMember.displayName !== oldMember.displayName
             const newAvatar = newMember.user.avatar !== oldMember.user.avatar
 
             const oldRolesList = oldMember.roles.cache.map(role => role.toString()).join(' ')
@@ -31,17 +31,20 @@ const guildMemberUpdateEvent = async (oldMember, newMember) => {
             .setTitle('Member Updated')
             if (newNickname) embed.addField('Nickname', `**Old:** ${oldMember.nickname}\n**New:** ${newMember.nickname}`)
             if (newRoles) embed.addField('Roles', `**Old:** ${oldRolesList}\n**New:** ${newRolesList}`)
-            if (newBoost) embed.addField('Boost', `**Old:** ${oldMember.premiumSince}\n**New:** ${newMember.premiumSince}`)
-            if (newDisplayName) embed.addField('Display Name', `**Old:** ${oldMember.displayName}\n**New:** ${newMember.displayName}`)
             if (newAvatar) embed.addField('Avatar', `**Old:** ${oldMember.user.avatar}\n**New:** ${newMember.user.avatar}`)
             .setFooter({text: "/log toggle server_events Member Update"})
             .setColor('#4CA99D')
             .setTimestamp()
 
-            webhookClient.send({
-                avatarURL: client.user.avatarURL(),
-                embeds: [embed]
-            })
+            if (!newNickname && !newRoles && !newAvatar) return
+
+            if (!sent) {
+                webhookClient.send({
+                    avatarURL: client.user.avatarURL(),
+                    embeds: [embed]
+                })
+                sent = true
+            }
 
             webhookClient.destroy()
         }

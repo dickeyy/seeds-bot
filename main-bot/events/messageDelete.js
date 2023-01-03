@@ -15,15 +15,14 @@ const messageDeleteEvent = async (message) => {
 
     if (doc) {
         if (doc.channels.message && doc.toggles.messageEvents.messageDelete) {
-
             const webhookClient = new WebhookClient({ url: doc.webhookUrls.message });
 
             const embed = new MessageEmbed()
-            .setTitle('Message Deleted')
+            .setTitle(`Message Deleted in #${message.channel.name}`)
             .setAuthor({ name: message.author.tag, iconURL: message.author.avatarURL() })
-            .setDescription(`**Channel:** <#${message.channel.id}>\n\n**Message:** ${message.content}\n**Context:** [Jump](${message.url})\n\n**ID:** ${message.id}`)
+            .setDescription(`**Content: **${message.content}\n\n**ID: **${message.id}`)
             .setFooter({text: "/log toggle message_events Message Delete"})
-            .setColor('#4CA99D')
+            .setColor('#914444')
             .setTimestamp()
 
             webhookClient.send({

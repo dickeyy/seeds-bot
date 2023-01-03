@@ -14,6 +14,8 @@ const guildBanRemoveEvent = async (ban) => {
 
     let doc = await coll.findOne({ guildId: ban.guild.id })
 
+    let sent = false
+
     if (doc) {
         if (doc.channels.server && doc.toggles.serverEvents.guildBanRemove) {
 
@@ -39,10 +41,13 @@ const guildBanRemoveEvent = async (ban) => {
             //     } 
             // }
 
-            webhookClient.send({
-                avatarURL: client.user.avatarURL(),
-                embeds: [embed]
-            })
+            if (!sent) {
+                webhookClient.send({
+                    avatarURL: client.user.avatarURL(),
+                    embeds: [embed]
+                })
+                sent = true
+            }
 
             webhookClient.destroy()
         }

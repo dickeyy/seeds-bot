@@ -13,6 +13,8 @@ const stickerDeleteEvent = async (sticker) => {
 
     let doc = await coll.findOne({ guildId: sticker.guild.id })
 
+    let sent = false
+
     if (doc) {
         if (doc.channels.server && doc.toggles.serverEvents.stickerDelete) {
 
@@ -25,10 +27,13 @@ const stickerDeleteEvent = async (sticker) => {
             .setColor('DARK_BUT_NOT_BLACK')
             .setTimestamp()
 
-            webhookClient.send({
-                avatarURL: client.user.avatarURL(),
-                embeds: [embed]
-            })
+            if (!sent) {
+                webhookClient.send({
+                    avatarURL: client.user.avatarURL(),
+                    embeds: [embed]
+                })
+                sent = true
+            }
 
             webhookClient.destroy()
         }
