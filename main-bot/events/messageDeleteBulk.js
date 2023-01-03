@@ -13,15 +13,11 @@ const messageDeleteBulkEvent = async (messages) => {
 
     // process the messages. the messages are a collection of messages
     guildId = ''
-    authId = ''
-    authTag = ''
-    authAvUrl = ''
+    authTags = []
     contents = []
     messages.map(message => {
         guildId = message.guild.id
-        authId = message.author.id
-        authTag = message.author.tag
-        authAvUrl = message.author.avatarURL()
+        authTags.push(message.author.tag)
         contents.push(message.content)
     })
 
@@ -34,10 +30,15 @@ const messageDeleteBulkEvent = async (messages) => {
 
             const webhookClient = new WebhookClient({ url: doc.webhookUrls.message });
 
+            let descString = ''
+
+            for (let i = 0; i < authTags.length; i++) {
+                descString += `**- ${authTags[i]}: **${contents[i]}\n`
+            }
+
             const embed = new MessageEmbed()
-            .setTitle(`Bulk Message Delete in #${messages.first().channel.name}`)
-            .setAuthor({ name: authTag, iconURL: authAvUrl })
-            .setDescription(`${contents.join('\n')}`)
+            .setTitle(`${contents.length} Messages Purged in #${messages.first().channel.name}`)
+            .setDescription(descString)
             .setFooter({text: "/log toggle message_events Message Bulk Delete"})
             .setColor('#373f69')
             .setTimestamp()

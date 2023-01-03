@@ -27,6 +27,8 @@ const guildMemberRemoveEvent = async (member) => {
             const webhookClient = new WebhookClient({ url: doc.webhookUrls.member });
 
             const roles = member.roles.cache.map(role => role.toString()).join(' ')
+            // remove @everyone
+            roles.replace('@everyone', '')
 
             const embed = new MessageEmbed()
             .setTitle('Member Left')

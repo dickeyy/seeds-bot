@@ -18,9 +18,9 @@ const messageUpdateEvent = async (oldMessage, newMessage) => {
     if (doc) {
         if (doc.channels.message && doc.toggles.messageEvents.messageUpdate) {
 
-            const webhookClient = new WebhookClient({ url: doc.webhookUrls.message });
+            if (oldMessage.author.bot) return;
 
-            const newContent = newMessage.content !== oldMessage.content
+            const webhookClient = new WebhookClient({ url: doc.webhookUrls.message });
 
             const embed = new MessageEmbed()
             .setTitle(`Message Edited in #${oldMessage.channel.name}`)

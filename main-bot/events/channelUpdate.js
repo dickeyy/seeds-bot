@@ -42,7 +42,7 @@ const channelUpdateEvent = async (oldChannel, newChannel) => {
             if (newUserLimit) embed.addField('User Limit', `**Old:** ${oldChannel.userLimit ? oldChannel.userLimit : 'None'}\n**New:** ${newChannel.userLimit ? newChannel.userLimit : 'None'}`)
             embed
             .setColor(lightYellowHex)
-            .setFooter({text: "/log toggle server_events Channel Delete"})
+            .setFooter({text: "/log toggle server_events Channel Update"})
             .setTimestamp()
 
             if (embed.fields.length === 0) return

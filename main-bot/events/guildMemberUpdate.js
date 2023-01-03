@@ -26,15 +26,19 @@ const guildMemberUpdateEvent = async (oldMember, newMember) => {
 
             const oldRolesList = oldMember.roles.cache.map(role => role.toString()).join(' ')
             const newRolesList = newMember.roles.cache.map(role => role.toString()).join(', ')
+            // remove @everyone from roles
+
 
             const embed = new MessageEmbed()
             .setTitle('Member Updated')
-            if (newNickname) embed.addField('Nickname', `**Old:** ${oldMember.nickname}\n**New:** ${newMember.nickname}`)
-            if (newRoles) embed.addField('Roles', `**Old:** ${oldRolesList}\n**New:** ${newRolesList}`)
-            if (newAvatar) embed.addField('Avatar', `**Old:** ${oldMember.user.avatar}\n**New:** ${newMember.user.avatar}`)
+            .setAuthor({ name: newMember.user.tag, iconURL: newMember.user.avatarURL() })
             .setFooter({text: "/log toggle server_events Member Update"})
             .setColor('#4CA99D')
             .setTimestamp()
+
+            if (newNickname) embed.addField('Nickname', `**Old:** ${oldMember.nickname}\n**New:** ${newMember.nickname}`)
+            if (newRoles) embed.addField('Roles', `**Old:** ${oldRolesList}\n**New:** ${newRolesList}`)
+            if (newAvatar) embed.addField('Avatar', `**Old:** ${oldMember.user.avatar}\n**New:** ${newMember.user.avatar}`)
 
             if (!newNickname && !newRoles && !newAvatar) return
 
