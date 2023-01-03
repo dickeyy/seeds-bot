@@ -442,7 +442,7 @@ function logsCmd(user, guild, interaction, dateArg) {
     var today = new Date(); 
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
-    fs.readFile('../Discord-Bot/logs/' + date + '.txt', 'utf8', function (err, data) {
+    fs.readFile('../main-bot/logs/' + date + '.txt', 'utf8', function (err, data) {
       if (err) throw err;
       
       const embed = new MessageEmbed() 
