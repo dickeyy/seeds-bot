@@ -1,3 +1,0 @@
-Error [DISALLOWED_INTENTS]: Privileged intent provided is not enabled or whitelisted.
-    at WebSocketManager.createShards (/Users/kyledickey/Documents/Code/seeds-bot/main-bot/node_modules/discord.js/src/client/websocket/WebSocketManager.js:250:15)
-    at async Client.login (/Users/kyledickey/Documents/Code/seeds-bot/main-bot/node_modules/discord.js/src/client/Client.js:254:7)

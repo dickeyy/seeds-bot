@@ -1,4 +1,4 @@
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const { MessageEmbed, WebhookClient, GuildAuditLogs } = require('discord.js');
 const { connectDb } = require('../utils/db.js')
 const client = require('../index.js').client
 
@@ -21,25 +21,32 @@ const guildBanAddEvent = async (ban) => {
 
             const webhookClient = new WebhookClient({ url: doc.webhookUrls.server });
 
-            // const auditLog = await ban.guild.fetchAuditLogs({
-            //     limit: 1,
-            //     type: AuditLogEvent.MemberBanAdd,
-            // });
+            const auditLog = await ban.guild.fetchAuditLogs({ 
+                type: GuildAuditLogs.Actions.MEMBER_BAN_ADD 
+            }).then(audit => audit.entries.first())
+
+            let banReason = 'No reason provided'
+            let moderator = ''
+
+            if (auditLog) {
+                const { executor, target, reason } = auditLog;
+
+                if (target.id === ban.user.id) {
+                    moderator = executor.tag
+                } 
+
+                if (reason) {
+                    banReason = reason
+                }
+            }
 
             const embed = new MessageEmbed()
             .setTitle('Member Banned')
-            .setDescription(`**Member:** ${ban.user.tag}\n**Reason:** ${ban.reason}\n\n**ID:** ${ban.user.id}`)
+            .setDescription(`**Member:** ${ban.user.tag}\n**Reason:** ${banReason}\n**Moderator:** ${moderator}\n\n**ID:** ${ban.user.id}`)
             .setFooter({text: "/log toggle server_events Member Ban"})
             .setColor(lightRedHex)
             .setTimestamp()
 
-            // if (auditLog) {
-            //     const { executor, target } = auditLog;
-
-            //     if (target.id === ban.user.id) {
-            //         embed.addField('Banned By', `<@${executor.id}> (${executor.tag})`)
-            //     } 
-            // }
 
             if (!sent) {
                 webhookClient.send({

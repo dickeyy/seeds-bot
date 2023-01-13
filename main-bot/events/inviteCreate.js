@@ -23,7 +23,7 @@ const inviteCreateEvent = async (invite) => {
 
             const embed = new MessageEmbed()
             .setTitle('Invite Created')
-            .setDescription(`**Created By:** ${invite.inviter}\n\n**Invite Code:** ${invite.code}\n\n**Channel:** ${invite.channel}\n\n**Temporary:** ${invite.temporary}\n\n**Max Uses:** ${invite.maxUses}\n\n**Max Age:** ${invite.maxAge} seconds`) 
+            .setDescription(`**Created By:** ${invite.inviter}\n**Invite Code:** ${invite.code}\n**Channel:** ${invite.channel}\n**Temporary:** ${invite.temporary}\n**Max Uses:** ${invite.maxUses}\n**Max Age:** ${invite.maxAge} seconds`) 
             .setFooter({text: "/log toggle server_events Invite Create"})
             .setColor()
             .setTimestamp()

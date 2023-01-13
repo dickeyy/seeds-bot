@@ -1,5 +1,6 @@
 const { cmdRun } = require('../../functions/cmdRun.js')
 const { MessageEmbed } = require('discord.js');
+const axios = require('axios')
 
 const mainHex = '#d79a61'
 

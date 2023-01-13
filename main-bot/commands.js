@@ -408,6 +408,46 @@ const commands = [
             }
         ] 
     },
+    // {
+    //     name: 'starboard',
+    //     description: 'Configure the starboard for the server',
+    //     default_member_permissions: MODERATE_PERM,
+    //     options: [
+    //         {
+    //             name: 'set',
+    //             description: 'Set settings for the starboard',
+    //             required: false,
+    //             type: 1,
+    //             options: [
+    //                 {
+    //                     name: 'channel',
+    //                     description: 'The channel to set the starboard to',
+    //                     required: true,
+    //                     type: Constants.ApplicationCommandOptionTypes.CHANNEL
+    //                 },
+    //                 {
+    //                     name: 'emoji',
+    //                     description: 'The emoji you want to require users to react with to star a message',
+    //                     required: true,
+    //                     type: Constants.ApplicationCommandOptionTypes.STRING
+    //                 },
+    //                 {
+    //                     name: 'amount',
+    //                     description: 'The amount of stars a message needs to be added to the starboard',
+    //                     required: true,
+    //                     type: Constants.ApplicationCommandOptionTypes.INTEGER
+    //                 }
+    //             ]
+
+    //         },
+    //         {
+    //             name: 'disable',
+    //             description: 'Disable the starboard',
+    //             required: false,
+    //             type: 1
+    //         },
+    //     ]
+    // }
 ]
 
 exports.commands = commands

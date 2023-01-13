@@ -25,7 +25,7 @@ const messageUpdateEvent = async (oldMessage, newMessage) => {
             const embed = new MessageEmbed()
             .setTitle(`Message Edited in #${oldMessage.channel.name}`)
             .setAuthor({ name: oldMessage.author.tag, iconURL: oldMessage.author.avatarURL() })
-            .setDescription(`**- Before: **${oldMessage.content}\n**- After: **${newMessage.content}`)
+            .setDescription(`**- Before: **${oldMessage.content}\n**+ After: **${newMessage.content}`)
             .setFooter({text: "/log toggle message_events Message Update"})
             .setColor('#4CA99D')
             .setTimestamp()
