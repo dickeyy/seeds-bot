@@ -6,18 +6,9 @@ const mainHex = '#d79a61'
 exports.qrCmd = async function qrCmd(user,guild,interaction,url) {
     const cmdName = 'qr'
 
-    // check that the URL is a valid URL
-    if (!url.match(/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/)) {
-        const embed2 = new MessageEmbed()
-        .setTitle('Invalid URL')
-        .setDescription('Please provide a valid URL.')
-        .setColor('RED')
-
-        interaction.reply({
-            embeds: [embed2],
-            ephemeral: true
-        })
-        return
+    // check if url starts with https:// or http://
+    if (!url.startsWith('https://') && !url.startsWith('http://')) {
+        url = 'https://' + url
     }
 
     const embed = new MessageEmbed()
@@ -26,6 +17,7 @@ exports.qrCmd = async function qrCmd(user,guild,interaction,url) {
     .setAuthor({name: user.tag, iconURL: user.avatarURL()})
     .setImage(`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${url}`)
     .setColor(mainHex)
+    .setTimestamp()
 
     interaction.reply({
         embeds: [embed]
