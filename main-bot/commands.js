@@ -296,6 +296,35 @@ const commands = [
         name: 'coinflip', 
         description: 'Flip a coin' 
     },
+    {
+        name: 'lovetest',
+        description: 'Test the love between you and another user',
+        options: [
+            {
+                name: 'user',
+                description: 'The user you want to test the love with',
+                required: true,
+                type: Constants.ApplicationCommandOptionTypes.USER
+            }
+        ]
+    },
+    {
+        name: 'todayinhistory',
+        description: 'Get a random event that happened on this day in history'
+
+    },
+    {
+        name: 'weather',
+        description: 'Get the weather for a given location',
+        options: [
+            {
+                name: 'location',
+                description: 'The location you want to get the weather for',
+                required: true,
+                type: Constants.ApplicationCommandOptionTypes.STRING
+            }
+        ]
+    },
 
     // Economy Commands
     { 
@@ -408,6 +437,18 @@ const commands = [
             }
         ] 
     },
+    {
+        name: 'qr',
+        description: 'Generate a QR code for a given URL',
+        options: [
+            {
+                name: 'url',
+                description: 'The URL you want to generate a QR code for',
+                required: true,
+                type: Constants.ApplicationCommandOptionTypes.STRING
+            }
+        ]
+    },
     // {
     //     name: 'starboard',
     //     description: 'Configure the starboard for the server',
@@ -448,6 +489,7 @@ const commands = [
     //         },
     //     ]
     // }
+
 ]
 
 exports.commands = commands

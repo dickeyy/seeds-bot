@@ -18,6 +18,9 @@ const purgeCmd = require('./commands/moderation/purge.js').purgeCmd
 const aiCmd = require('./commands/fun/ai.js').aiCmd
 const tshCmd = require('./commands/fun/tsh.js').tshCmd
 const coinflipCmd = require('./commands/fun/coinflip.js').coinflipCmd
+const lovetestCmd = require('./commands/fun/lovetest.js').lovetestCmd
+const todayinhistoryCmd = require('./commands/fun/todayinhistory.js').todayinhistoryCmd
+const weatherCmd = require('./commands/fun/weather.js').weatherCmd
 
 // Economy Commands
 const balanceCmd = require('./commands/economy/balance.js').balanceCmd
@@ -38,6 +41,7 @@ const pollCmd = require('./commands/utility/poll.js').pollCmd
 const rcolorCmd = require('./commands/utility/rcolor.js').rcolorCmd
 const statsCmd = require('./commands/utility/stats.js').statsCmd
 const starboardSetCmd = require('./commands/utility/starboardSet.js').starboardSetCmd
+const qrCmd = require('./commands/utility/qr.js').qrCmd
 
 // Recive slash commands
 exports.commandHandler = async (interaction) => {
@@ -207,6 +211,25 @@ exports.commandHandler = async (interaction) => {
 
             await starboardSetCmd(user,guild,interaction,starChannel,starEmoji,starAmount)
         }
+    }
+
+    if (commandName == 'qr') {
+        const qrUrl = options.getString('url')
+        await qrCmd(user,guild,interaction,qrUrl)
+    }
+
+    if (commandName == 'lovetest') {
+        const loveUser = options.getUser('user')
+        await lovetestCmd(user,guild,interaction,loveUser)
+    }
+
+    if (commandName == 'todayinhistory') {
+        await todayinhistoryCmd(user,guild,interaction)
+    }
+
+    if (commandName == 'weather') {
+        const location = options.getString('location')
+        await weatherCmd(user,guild,interaction,location)
     }
     
 }
