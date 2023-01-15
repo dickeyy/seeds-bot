@@ -8,6 +8,8 @@ const osu = require('node-os-utils');
 const axios = require('axios').default
 const { TwitterApi } = require('twitter-api-v2');;
 const cron = require('node-cron');
+const express = require('express');
+const expressApp = express();
 
 // Process errors
 process.on('uncaughtException', async function (error) {
@@ -23,6 +25,15 @@ const mClient = new MongoClient(MongoUri, { useNewUrlParser: true, useUnifiedTop
 mClient.connect();
 const db = mClient.db('main');
 console.log('MongoDB Connected')
+
+// Create a web server
+expressApp.get('/', (req, res) => {
+  res.send('https://seedsbot.xyz')
+})
+
+expressApp.listen(8181, () => {
+  console.log('Web server on port 8181')
+})
 
 // Define Colors
 const mainHex = '#d79a61'

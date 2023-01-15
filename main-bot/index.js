@@ -3,9 +3,20 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 const { REST } = require('@discordjs/rest');
 const { Routes, InteractionResponseType } = require('discord-api-types/v9');
 const dotenv = require('dotenv');
+const express = require('express');
+const expressApp = express();
 
 // Dotenv initialize 
 dotenv.config();
+
+// Start web server
+expressApp.get('/', (req, res) => {
+    res.send('https://seedsbot.xyz')
+  })
+  
+  expressApp.listen(8080, () => {
+    console.log('Web server on port 8080')
+  })
 
 // Export Client
 exports.client = client;
