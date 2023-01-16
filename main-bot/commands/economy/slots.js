@@ -138,7 +138,7 @@ exports.slotsCmd = async function slotsCmd(user,guild,interaction,bet) {
                     cooldown.delete(user.id + '--' + cmdName);
                 }, oneMinCooldown);
 
-                cmdRun(user,cmdName)
+                cmdRun(user,cmdName,guild,interaction)
             }
         }
     }

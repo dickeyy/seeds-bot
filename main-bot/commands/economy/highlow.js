@@ -252,6 +252,6 @@ exports.highlowCmd = async function highlowCmd(user,guild,interaction) {
             cooldown.delete(`${user.id}--${cmdName}`);
         }, fiveMinCooldown);
 
-        cmdRun(user,cmdName)
+        cmdRun(user,cmdName,guild,interaction)
     }
 }

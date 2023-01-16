@@ -30,7 +30,7 @@ exports.statsCmd = function statsCmd(user,guild,interaction) {
             interaction.reply({
                 embeds: [embed],
             })
-            cmdRun(user,cmdName)
+            cmdRun(user,cmdName,guild,interaction)
         });
     });
 } 

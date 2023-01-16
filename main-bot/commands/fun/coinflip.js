@@ -32,7 +32,7 @@ exports.coinflipCmd = function coinflipCmd(user, guild, interaction) {
         .setTitle('<:simp_coin:824720566241853460> Heads!')
         .setColor('GOLD')
         
-        cmdRun(user, cmdName)
+        cmdRun(user, cmdName,guild,interaction)
         
         interaction.reply({
             embeds: [embed]
@@ -43,7 +43,7 @@ exports.coinflipCmd = function coinflipCmd(user, guild, interaction) {
         .setTitle('<:fuck_coin:824720614543196220> Tails!')
         .setColor('GOLD')
         
-        cmdRun(user, cmdName)
+        cmdRun(user, cmdName,guild,interaction)
 
         interaction.reply({
             embeds: [embed]

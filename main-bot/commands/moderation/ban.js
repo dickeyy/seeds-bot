@@ -83,7 +83,7 @@ exports.banCmd = function banCmd(user,guild,interaction,banUser,reason) {
                     }).catch(error => { })
                 })
             }
-            cmdRun(user,cmdName)
+            cmdRun(user,cmdName,guild,interaction)
         }
 
     } else {

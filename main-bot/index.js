@@ -3,17 +3,12 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 const { REST } = require('@discordjs/rest');
 const { Routes, InteractionResponseType } = require('discord-api-types/v9');
 const dotenv = require('dotenv');
-const { connectRedis } = require('./utils/redis.js');
 
 // Dotenv initialize 
 dotenv.config();
 
 // Export Client
 exports.client = client;
-
-// redis test
-const redis = connectRedis();
-console.log(redis);
 
 // Import Functions
 const { log } = require('./functions/log.js');

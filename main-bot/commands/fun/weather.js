@@ -100,5 +100,5 @@ exports.weatherCmd = async function weatherCmd(user,guild,interaction,location) 
 
     interaction.reply({embeds: [embed]})
 
-    cmdRun(user,cmdName)
+    cmdRun(user,cmdName,guild,interaction)
 }

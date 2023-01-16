@@ -104,7 +104,53 @@ const commands = [
         type: Constants.ApplicationCommandOptionTypes.STRING
       }
     ]
-  }
+  },
+
+  // Alert Commadnds
+  {
+    name: "alert",
+    description: "Control the alerts",
+    default_member_permissions: ADMIN_PERM,
+    options: [
+      {
+        name: 'add',
+        description: 'Add an alert',
+        type: 1,
+        options: [
+          {
+            name: 'title',
+            description: 'The title of the alert',
+            required: true,
+            type: Constants.ApplicationCommandOptionTypes.STRING
+          },
+          {
+            name: 'description',
+            description: 'The description of the alert',
+            required: true,
+            type: Constants.ApplicationCommandOptionTypes.STRING
+          },
+        ]
+      },
+      {
+        name: 'remove',
+        description: 'Remove an alert',
+        type: 1,
+        options: [
+          {
+            name: 'id',
+            description: 'The id of the alert',
+            required: true,
+            type: Constants.ApplicationCommandOptionTypes.STRING
+          }
+        ]
+      },
+      {
+        name: 'list',
+        description: 'List all alerts',
+        type: 1
+      }
+    ]
+  },
 
 ]
 
@@ -159,6 +205,20 @@ client.on('interactionCreate', async interaction => {
 
     logsCmd(user, guild, interaction, dateArg)
   }
+
+	if (commandName == 'alert') {
+		const subCmd = options.getSubcommand()
+		if (subCmd === 'add') {
+			const title = options.getString('title')
+			const description = options.getString('description')
+			alertAddCmd(user, guild, interaction, title, description)
+		} else if (subCmd === 'remove') {
+			const id = options.getString('id')
+			alertRemoveCmd(user, guild, interaction, id)
+		} else {
+			alertListCmd(user, guild, interaction)
+		}
+	}
 })
 
 // Check if is bot owner
@@ -493,6 +553,125 @@ function logsCmd(user, guild, interaction, dateArg) {
 
   cmdRun(user, cmdName)
 }
+
+// alert commands
+async function alertAddCmd(user, guild, interaction, alertTitle, alertMessage) {
+	const cmdName = 'alert-add'
+
+	const coll = db.collection('alerts')
+
+	if (!isBotOwner(user.id)) {
+		interaction.reply({
+		embeds: [notOwnerEmbed],
+		ephemeral: true
+		})
+		return
+	}
+
+	// Generate a random id
+	const alertId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+
+	await coll.insertOne({ alertId: alertId, alertTitle: alertTitle, alertMessage: alertMessage, active: true, viewedBy: [] })
+
+	const embed = new MessageEmbed()
+	.setTitle('Created new alert.')
+	.setDescription('Alert ID: ' + alertId)
+	.setColor('GREEN')
+
+	interaction.reply({
+		embeds: [embed]
+	})
+
+	cmdRun(user, cmdName)
+}
+
+async function alertRemoveCmd(user, guild, interaction, alertId) {
+	const cmdName = 'alert-remove'
+
+	const coll = db.collection('alerts')
+
+	if (!isBotOwner(user.id)) {
+		interaction.reply({
+		embeds: [notOwnerEmbed],
+		ephemeral: true
+		})
+		return
+	}
+
+	const doc = await coll.findOne({ alertId: alertId })
+
+	if (doc === null) {
+		const embed = new MessageEmbed()
+		.setTitle('ERROR: Alert not found.')
+		.setColor('RED')
+
+		interaction.reply({
+		embeds: [embed],
+		ephemeral: true
+		})
+		return
+	}
+
+	await coll.deleteOne({ alertId: alertId })
+
+	const embed = new MessageEmbed()
+	.setTitle('Removed alert.')
+	.setDescription('Alert ID: ' + alertId)
+	.setColor('GREEN')
+
+	interaction.reply({
+		embeds: [embed]
+	})
+
+	cmdRun(user, cmdName)
+}
+
+async function alertListCmd(user, guild, interaction) {
+	const cmdName = 'alert-list'
+
+	const coll = db.collection('alerts')
+
+	if (!isBotOwner(user.id)) {
+		interaction.reply({
+		embeds: [notOwnerEmbed],
+		ephemeral: true
+		})
+		return
+	}
+
+	const docs = await coll.find({}).toArray()
+
+	if (docs.length === 0) {
+		const embed = new MessageEmbed()
+		.setTitle('ERROR: No alerts found.')
+		.setColor('RED')
+
+		interaction.reply({
+		embeds: [embed],
+		ephemeral: true
+		})
+		return
+	}
+
+	const embed = new MessageEmbed()
+	.setTitle('Alerts In DB')
+	.setTimestamp()
+
+  let desc = ''
+
+	for (let i = 0; i < docs.length; i++) {
+		desc = desc + `**Alert ID:** ${docs[i].alertId}\n**Alert Title:** ${docs[i].alertTitle}\n**Alert Message:** ${docs[i].alertMessage}\n**Active:** ${docs[i].active}\n**Viewed By:** ${docs[i].viewedBy.length.toLocaleString()}\n\n`
+	}
+
+  embed.setDescription(desc)
+
+	interaction.reply({
+		embeds: [embed]
+	})
+
+	cmdRun(user, cmdName)
+}
+
 
 // Run Bot
 client.login(process.env.TOKEN)

@@ -78,6 +78,6 @@ exports.dailyCmd = async function dailyCmd(user,guild,interaction) {
             cooldown.delete(`${user.id}--${cmdName}`);
         }, OneDayCooldown);
 
-        cmdRun(user,cmdName)
+        cmdRun(user,cmdName,guild,interaction)
     }
 }

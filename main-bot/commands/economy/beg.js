@@ -80,5 +80,5 @@ exports.begCmd = async function begCmd(user,guild,interaction) {
             cooldown.delete(`${user.id}--${cmdName}`);
         }, tenMinCooldown);
     }
-    cmdRun(user,cmdName)
+    cmdRun(user,cmdName,guild,interaction)
 }

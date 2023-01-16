@@ -46,5 +46,5 @@ exports.shopCmd = async function shopCmd(user,guild,interaction) {
         embeds: [embed]
     })
     
-    cmdRun(user,cmdName)
+    cmdRun(user,cmdName,guild,interaction)
 }

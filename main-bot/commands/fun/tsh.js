@@ -96,5 +96,5 @@ exports.tshCmd = async function tshCmd(user,guild,interaction,topic) {
 
     }
 
-    cmdRun(user,cmdName)
+    cmdRun(user,cmdName,guild,interaction)
 }

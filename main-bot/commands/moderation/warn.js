@@ -42,7 +42,7 @@ exports.warnCmd = async function warnCmd(user,guild,interaction,warnUser,reason)
             embeds: [embed2]
         }).catch(error => { })
 
-        cmdRun(user,cmdName)
+        cmdRun(user,cmdName,guild,interaction)
     } else {
         const embed = new MessageEmbed()
         .setTitle('Error: You do not have permission to do that')

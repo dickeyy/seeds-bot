@@ -19,5 +19,5 @@ exports.pollCmd = async function pollCmd(user,guild,interaction,option1,option2)
     message.react('1️⃣')
     message.react('2️⃣')
 
-    cmdRun(user,cmdName)
+    cmdRun(user,cmdName,guild,interaction)
 }

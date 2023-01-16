@@ -95,5 +95,5 @@ exports.aiCmd = async function aiCmd(user,guild,interaction,prompt) {
         }
     }
 
-    cmdRun(user,cmdName)
+    cmdRun(user,cmdName,guild,interaction)
 }

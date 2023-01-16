@@ -141,6 +141,6 @@ exports.setlogchannelCmd = async function setlogchannelCmd(user,guild,interactio
 
     
 
-    cmdRun(user, cmdName)
+    cmdRun(user, cmdName,guild,interaction)
     
 }

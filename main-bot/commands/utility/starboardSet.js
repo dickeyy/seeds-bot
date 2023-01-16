@@ -88,6 +88,6 @@ exports.starboardSetCmd = async function starboardSetCmd(user,guild,interaction,
 
     }
 
-    cmdRun(user,cmdName)
+    cmdRun(user,cmdName,guild,interaction)
 
 }

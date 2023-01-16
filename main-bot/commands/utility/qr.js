@@ -23,5 +23,5 @@ exports.qrCmd = async function qrCmd(user,guild,interaction,url) {
         embeds: [embed]
     })
 
-    cmdRun(user,cmdName)
+    cmdRun(user,cmdName,guild,interaction)
 }

@@ -79,7 +79,7 @@ exports.buyCmd = async function buyCmd(user,guild,interaction,shopId) {
                 embeds: [embed3]
             })
         }
-        cmdRun(user,cmdName)
+        cmdRun(user,cmdName,guild,interaction)
     }
 
 }

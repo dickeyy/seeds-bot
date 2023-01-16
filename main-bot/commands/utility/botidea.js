@@ -80,5 +80,5 @@ exports.botideaCmd = async function botideaCmd(user, guild, interaction, idea) {
         cooldown.delete(user.id + '--' + cmdName);
     }, OneWeekCooldown);
 
-    cmdRun(user, cmdName)
+    cmdRun(user, cmdName,guild,interaction)
 }

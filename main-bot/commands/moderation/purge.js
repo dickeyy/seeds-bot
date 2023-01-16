@@ -42,6 +42,6 @@ exports.purgeCmd = async function purgeCmd(user,guild,interaction,count) {
 
     interaction.reply({ embeds: [embed] })
 
-    cmdRun(user, cmdName)
+    cmdRun(user, cmdName,guild,interaction)
 
 }

@@ -21,7 +21,7 @@ exports.deletecaseCmd = async function deletecaseCmd(user,guild,interaction,case
                 embeds: [embed]
             })
     
-            cmdRun(user,cmdName)
+            cmdRun(user,cmdName,guild,interaction)
         })
     }
 }

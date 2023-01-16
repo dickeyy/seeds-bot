@@ -13,6 +13,8 @@ const reportCmd = require('./commands/moderation/report.js').reportCmd
 const setlogchannelCmd = require('./commands/moderation/logging/setlogchannel.js').setlogchannelCmd
 const toggleLogsCmd = require('./commands/moderation/logging/togglelogs.js').toggleLogsCmd
 const purgeCmd = require('./commands/moderation/purge.js').purgeCmd
+const lockdownCmd = require('./commands/moderation/lockdown.js').lockdownCmd
+const unlockCmd = require('./commands/moderation/unlock.js').unlockCmd
 
 // Fun Commands
 const aiCmd = require('./commands/fun/ai.js').aiCmd
@@ -42,6 +44,7 @@ const rcolorCmd = require('./commands/utility/rcolor.js').rcolorCmd
 const statsCmd = require('./commands/utility/stats.js').statsCmd
 const starboardSetCmd = require('./commands/utility/starboardSet.js').starboardSetCmd
 const qrCmd = require('./commands/utility/qr.js').qrCmd
+const alertCmd = require('./commands/utility/alert.js').alertCmd
 
 // Recive slash commands
 exports.commandHandler = async (interaction) => {
@@ -230,6 +233,20 @@ exports.commandHandler = async (interaction) => {
     if (commandName == 'weather') {
         const location = options.getString('location')
         await weatherCmd(user,guild,interaction,location)
+    }
+
+    if (commandName == 'lockdown') {
+        const lockChannel = options.getChannel('channel')
+        await lockdownCmd(user,guild,interaction,lockChannel)
+    }
+
+    if (commandName == 'unlock') {
+        const unlockChannel = options.getChannel('channel')
+        await unlockCmd(user,guild,interaction,unlockChannel)
+    }
+
+    if (commandName == 'alert') {
+        await alertCmd(user,guild,interaction)
     }
     
 }

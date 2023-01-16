@@ -110,6 +110,6 @@ exports.toggleLogsCmd = async function toggleLogsCmd(user,guild,interaction,serv
         embeds: [embed]
     })
 
-    cmdRun(user,guild,cmdName)
+    cmdRun(user,guild,cmdName,guild,interaction)
 
 }

@@ -44,7 +44,7 @@ exports.kickCmd = function kickCmd(user,guild,interaction,kickUser, reason) {
                     embeds: [embed]
                 }).catch(error => { })
 
-                cmdRun(user,cmdName)
+                cmdRun(user,cmdName,guild,interaction)
             })
         }
     } else {

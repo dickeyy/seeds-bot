@@ -134,6 +134,6 @@ exports.reportCmd = async function reportCmd(user, guild, interaction, member, r
 
     }
 
-    cmdRun(user, cmdName)
+    cmdRun(user, cmdName,guild,interaction)
 
 }

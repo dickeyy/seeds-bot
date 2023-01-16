@@ -57,5 +57,5 @@ exports.todayinhistoryCmd = async function todayinhistoryCmd(user,guild,interact
         })
     }
 
-    cmdRun(user,cmdName)
+    cmdRun(user,cmdName,guild,interaction)
 }

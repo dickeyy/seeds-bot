@@ -36,7 +36,7 @@ exports.casesCmd = async function casesCmd(user,guild,interaction,caseUser) {
             interaction.reply({
                 embeds: [embed]
             })
-            cmdRun(user,cmdName)
+            cmdRun(user,cmdName,guild,interaction)
         }
     }
 }

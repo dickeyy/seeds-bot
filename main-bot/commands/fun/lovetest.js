@@ -115,5 +115,5 @@ exports.lovetestCmd = async function lovetestCmd(user,guild,interaction,member) 
         })
     }, 1000)
 
-    cmdRun(user,cmdName)
+    cmdRun(user,cmdName,guild,interaction)
 }

@@ -248,6 +248,32 @@ const commands = [
             }
         ]
     },
+    {
+        name: 'lockdown',
+        description: 'Lockdown the current channel or a specified channel',
+        default_member_permissions: MODERATE_PERM,
+        options: [
+            {
+                name: 'channel',
+                description: 'The channel you want to lockdown',
+                required: false,
+                type: Constants.ApplicationCommandOptionTypes.CHANNEL
+            }
+        ]
+    },
+    {
+        name: 'unlock',
+        description: 'Unlock the current channel or a specified channel',
+        default_member_permissions: MODERATE_PERM,
+        options: [
+            {
+                name: 'channel',
+                description: 'The channel you want to unlock',
+                required: false,
+                type: Constants.ApplicationCommandOptionTypes.CHANNEL
+            }
+        ]
+    },
 
     // Fun Commands
     { 
@@ -448,6 +474,10 @@ const commands = [
                 type: Constants.ApplicationCommandOptionTypes.STRING
             }
         ]
+    },
+    {
+        name: 'alert',
+        description: 'View active alerts from the developers'
     },
     // {
     //     name: 'starboard',

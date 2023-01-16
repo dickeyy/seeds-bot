@@ -29,7 +29,7 @@ exports.unbanCmd = function unbanCmd(user,guild,interaction,unbanUser) {
             interaction.reply({
                 embeds: [embed]
             }).catch(error => { })
-            cmdRun(user,cmdName)
+            cmdRun(user,cmdName,guild,interaction)
         })
 
     } else {

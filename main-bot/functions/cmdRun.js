@@ -1,9 +1,11 @@
+const { client } = require('../index.js');
 const { connectDb } = require('../utils/db.js');
+const { MessageEmbed } = require('discord.js');
 const { log } = require('./log.js');
 
 const db = connectDb();
 
-const cmdRun = async (user,cmdName) => {
+const cmdRun = async (user,cmdName,guild,interaction) => {
     var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -28,6 +30,43 @@ const cmdRun = async (user,cmdName) => {
     }
 
     console.log(`${date} ${time} | ${user.tag} - ${cmdName}`)
+    
+    // Check if the user has any alerts
+    if (cmdName == 'alert') {
+        return
+    }
+
+    var alertColl = db.collection('alerts')
+
+    const alertDoc = await alertColl.find({ active: true }).toArray()
+
+    if (alertDoc.length == 0) {
+        return
+    }
+
+    for (var i = 0; i < alertDoc.length; i++) {
+        var alert = alertDoc[i]
+
+        if (alert.viewedBy.includes(user.id)) {
+            continue
+        } else {
+            const embed = new MessageEmbed()
+            .setTitle('You Have An Unread Alert!')
+            .setDescription('Use `\`/alert`\` to read it!')
+            .setAuthor({ name: user.tag, iconURL: user.displayAvatarURL() })
+            .setTimestamp()
+            .setThumbnail('https://cdn1.iconfinder.com/data/icons/aami-flat-emails/64/email-47-512.png')
+            .setColor('#23272A')
+
+            setTimeout(() => {
+                interaction.followUp({
+                    embeds: [embed],
+                    content: `<@${user.id}>`,
+                    ephemeral: true
+                })
+            }, 1000)
+        }
+    }
 }
 
 exports.cmdRun = cmdRun;

@@ -120,7 +120,7 @@ exports.rpsCmd = async function rpsCmd(user,guild,interaction,bet,move) {
                     cooldown.delete(user.id + '--' + cmdName);
                 }, oneMinCooldown);
 
-                cmdRun(user,cmdName)
+                cmdRun(user,cmdName,guild,interaction)
             }
         }
     }

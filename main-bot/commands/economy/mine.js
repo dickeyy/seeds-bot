@@ -149,6 +149,6 @@ exports.mineCmd = async function mineCmd(user, guild, interaction) {
         cooldown.delete(user.id + '--' + cmdName);
     }, twoMinCooldown);
 
-    cmdRun(user,cmdName)
+    cmdRun(user,cmdName,guild,interaction)
 
 }

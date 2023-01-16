@@ -109,5 +109,5 @@ exports.setreportchannelCmd = async function setreportchannelCmd(user, guild, in
 
     channel.send({ embeds: [embed2] })
 
-    cmdRun(user, cmdName)
+    cmdRun(user, cmdName,guild,interaction)
 }

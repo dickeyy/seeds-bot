@@ -33,5 +33,5 @@ exports.rcolorCmd = async function rcolorCmd(user,guild,interaction) {
         embeds: [embed]
     })
 
-    cmdRun(user,cmdName)
+    cmdRun(user,cmdName,guild,interaction)
 }

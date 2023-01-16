@@ -150,5 +150,5 @@ exports.voteCmd = async function voteCmd(user,guild,interaction) {
         cooldown.delete(user.id + '--' + cmdName);
     }, twelveHourCooldown);
 
-    cmdRun(user,cmdName)
+    cmdRun(user,cmdName,guild,interaction)
 }
