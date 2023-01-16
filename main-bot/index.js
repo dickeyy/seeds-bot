@@ -3,23 +3,17 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 const { REST } = require('@discordjs/rest');
 const { Routes, InteractionResponseType } = require('discord-api-types/v9');
 const dotenv = require('dotenv');
-const express = require('express');
-const expressApp = express();
+const { connectRedis } = require('./utils/redis.js');
 
 // Dotenv initialize 
 dotenv.config();
 
-// Start web server
-expressApp.get('/', (req, res) => {
-    res.send('https://seedsbot.xyz')
-  })
-  
-  expressApp.listen(8080, () => {
-    console.log('Web server on port 8080')
-  })
-
 // Export Client
 exports.client = client;
+
+// redis test
+const redis = connectRedis();
+console.log(redis);
 
 // Import Functions
 const { log } = require('./functions/log.js');
@@ -73,16 +67,16 @@ process.on('uncaughtException', async function (error) {
 });
 
 // Register slash commands
-const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
-// const rest = new REST({ version: '9' }).setToken(process.env.BETA_TOKEN);
+// const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
+const rest = new REST({ version: '9' }).setToken(process.env.BETA_TOKEN);
 
 (async () => {
     try {
       console.log('Started refreshing application (/) commands.');
   
       await rest.put(
-        // Routes.applicationGuildCommands(process.env.BETA_APP_ID, '1005778938108325970', '961272863363567636', '731445738290020442'),
-        Routes.applicationCommands(process.env.APP_ID),
+        Routes.applicationGuildCommands(process.env.BETA_APP_ID, '1005778938108325970', '961272863363567636', '731445738290020442'),
+        // Routes.applicationCommands(process.env.APP_ID),
         {body: commands},
       );    
       console.log('Successfully reloaded application (/) commands.');
@@ -256,5 +250,5 @@ client.on('messageReactionAdd', async (reaction, user) => {
 refreshHistory.start();
 
 // Run Bot
-// client.login(process.env.BETA_TOKEN);
-client.login(process.env.TOKEN)
+client.login(process.env.BETA_TOKEN);
+// client.login(process.env.TOKEN)
