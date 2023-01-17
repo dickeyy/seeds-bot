@@ -12,13 +12,13 @@ exports.client = client;
 
 // Import Functions
 const { log } = require('./functions/log.js');
+const { redis } = require('./utils/redis.js');
 
-// Import Utils
-// const { connectDb } = require('./utils/db.js');
-const { connectRedis } = require('./utils/redis.js');
+redis.on('connect', () => {
+    console.log('Redis connected')
+})
 
-// Init redis
-const redis = connectRedis();
+redis.connect()
 
 // Import Events
 const { readyEvent } = require('./events/ready.js');
@@ -252,21 +252,21 @@ client.on('messageReactionAdd', async (reaction, user) => {
 let ddcMessageCount = 0
 client.on('messageCreate', async message => {
     
-    if (message.guild.id != '772212146670141460') return;
-    if (message.channel.id != '934343950855184414') return;
+    if (message.guild.id != '1005778938108325970') return;
+    if (message.channel.id != '1005778939068813442') return;
     if (message.author.bot) return;
-
-    const ddcThreshold = await redis.hGet('ddcThresh', 'ddcThresh')
 
     ddcMessageCount++
 
-    let string = 'We are hosting an event soon, click <:dd_notifications:1064767318053371944> **Interested** to be notified!\n\nhttps://discord.gg/6Re94nFasF?event=1063601698867773510'
+    const ddcThresh = await redis.get('ddc-threshold')
 
-    if (ddcMessageCount >= ddcThreshold) {
-        client.channels.cache.get('934343950855184414').send({
+    let string = 'We are hosting an event soon, click <:dd_notifications:1064767318053371944> **Interested** to be notified!\n\nhttps://discord.gg/6Re94nFasF?event=1063601698867773510\n*Is this message spamming? Ping staff!*'
+    if (ddcMessageCount >= ddcThresh) {
+        client.channels.cache.get('1005778939068813442').send({
             content: string
         })
 
+        console.log('Sent DDC message - Threshold: ' + ddcThresh )
         ddcMessageCount = 0
     }
 

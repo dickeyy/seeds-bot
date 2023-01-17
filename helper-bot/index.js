@@ -24,12 +24,17 @@ mClient.connect();
 const db = mClient.db('main');
 console.log('MongoDB Connected')
 
+// Connect to Redis
+const redis = require('../main-bot/utils/redis.js').redis
+
+redis.on('connect', function () {
+    console.log('Redis Connected');
+});
+
+redis.connect();
+
 // Define Colors
 const mainHex = '#d79a61'
-
-// Connect redis
-const { connectRedis } = require('../main-bot/utils/redis.js');
-const redis = connectRedis();
 
 // Code for the counting bot
 const twitterClient = new TwitterApi({
@@ -240,7 +245,7 @@ client.on('interactionCreate', async interaction => {
 
   if (commandName == 'ddcthresh') {
     const threshold = options.getInteger('threshold')
-    ddcAutoFeedChangeCmd(user, guild, interaction, threshold)
+    await ddcAutoFeedChangeCmd(user, guild, interaction, threshold)
   }
 })
 
@@ -706,7 +711,7 @@ async function ddcAutoFeedChangeCmd(user, guild, interaction, threshold) {
     return
   }
 
-  await redis.hSet('ddcThresh', 'ddcThresh', threshold)
+  await redis.set('ddc-threshold', threshold)
 
   const embed = new MessageEmbed()
   .setTitle('Changed DDC Auto Feed Threshold')
