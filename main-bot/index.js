@@ -13,6 +13,13 @@ exports.client = client;
 // Import Functions
 const { log } = require('./functions/log.js');
 
+// Import Utils
+// const { connectDb } = require('./utils/db.js');
+const { connectRedis } = require('./utils/redis.js');
+
+// Init redis
+const redis = connectRedis();
+
 // Import Events
 const { readyEvent } = require('./events/ready.js');
 const { guildCreateEvent } = require('./events/guildCreate.js');
@@ -44,6 +51,7 @@ const { guildMemberUpdateEvent } = require('./events/guildMemberUpdate.js');
 const { messageDeleteEvent } = require('./events/messageDelete.js');
 const { messageUpdateEvent } = require('./events/messageUpdate.js');
 const { messageDeleteBulkEvent } = require('./events/messageDeleteBulk.js');
+const { messageReactionAddEvent } = require('./events/messageReactionAdd.js');
 
 // Import Commands
 const commands = require('./commands.js').commands
@@ -51,7 +59,6 @@ const { commandHandler } = require('./commandHandler.js');
 
 // Import Cron Jobs
 const { refreshHistory } = require('./cronJobs.js');
-const { messageReactionAddEvent } = require('./events/messageReactionAdd.js');
 
 // Process errors
 process.on('uncaughtException', async function (error) {
@@ -239,6 +246,30 @@ client.on('messageDeleteBulk', async messages => {
 // message reaction add
 client.on('messageReactionAdd', async (reaction, user) => {
     messageReactionAddEvent(reaction, user)
+})
+
+// message create
+let ddcMessageCount = 0
+client.on('messageCreate', async message => {
+    
+    if (message.guild.id != '772212146670141460') return;
+    if (message.channel.id != '934343950855184414') return;
+    if (message.author.bot) return;
+
+    const ddcThreshold = await redis.hGet('ddcThresh', 'ddcThresh')
+
+    ddcMessageCount++
+
+    let string = 'We are hosting an event soon, click <:dd_notifications:1064767318053371944> **Interested** to be notified!\n\nhttps://discord.gg/6Re94nFasF?event=1063601698867773510'
+
+    if (ddcMessageCount >= ddcThreshold) {
+        client.channels.cache.get('934343950855184414').send({
+            content: string
+        })
+
+        ddcMessageCount = 0
+    }
+
 })
 
 // Cron Jobs

@@ -1,4 +1,5 @@
 const cron = require('cron');
+const { MessageEmbed } = require('discord.js');
 const { client } = require('./index.js');
 const { connectDb } = require('./utils/db.js');
 

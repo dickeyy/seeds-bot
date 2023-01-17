@@ -27,6 +27,10 @@ console.log('MongoDB Connected')
 // Define Colors
 const mainHex = '#d79a61'
 
+// Connect redis
+const { connectRedis } = require('../main-bot/utils/redis.js');
+const redis = connectRedis();
+
 // Code for the counting bot
 const twitterClient = new TwitterApi({
   appKey: process.env.TWIT_API_KEY,
@@ -152,6 +156,20 @@ const commands = [
     ]
   },
 
+  {
+    name: 'ddcthresh',
+    description: 'Set the DDC threshold',
+    default_member_permissions: ADMIN_PERM,
+    options: [
+      {
+        name: 'threshold',
+        description: 'The threshold',
+        required: true,
+        type: Constants.ApplicationCommandOptionTypes.INTEGER
+      }
+    ]
+  }
+
 ]
 
 // Register slash commands
@@ -219,6 +237,11 @@ client.on('interactionCreate', async interaction => {
 			alertListCmd(user, guild, interaction)
 		}
 	}
+
+  if (commandName == 'ddcthresh') {
+    const threshold = options.getInteger('threshold')
+    ddcthreshCmd(user, guild, interaction, threshold)
+  }
 })
 
 // Check if is bot owner
@@ -672,6 +695,29 @@ async function alertListCmd(user, guild, interaction) {
 	cmdRun(user, cmdName)
 }
 
+async function ddcAutoFeedChangeCmd(user, guild, interaction, threshold) {
+  const cmdName = 'ddc-auto-feed-change'
+
+  if (!isBotOwner(user.id)) {
+    interaction.reply({
+    embeds: [notOwnerEmbed],
+    ephemeral: true
+    })
+    return
+  }
+
+  await redis.hSet('ddcThresh', 'ddcThresh', threshold)
+
+  const embed = new MessageEmbed()
+  .setTitle('Changed DDC Auto Feed Threshold')
+  .setDescription('New Threshold: ' + threshold)
+  .setColor('GREEN')
+
+  interaction.reply({
+    embeds: [embed]
+  })
+
+}
 
 // Run Bot
 client.login(process.env.TOKEN)
