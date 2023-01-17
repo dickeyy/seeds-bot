@@ -240,7 +240,7 @@ client.on('interactionCreate', async interaction => {
 
   if (commandName == 'ddcthresh') {
     const threshold = options.getInteger('threshold')
-    ddcthreshCmd(user, guild, interaction, threshold)
+    ddcAutoFeedChangeCmd(user, guild, interaction, threshold)
   }
 })
 
@@ -716,6 +716,8 @@ async function ddcAutoFeedChangeCmd(user, guild, interaction, threshold) {
   interaction.reply({
     embeds: [embed]
   })
+
+  cmdRun(user, cmdName)
 
 }
 
