@@ -351,6 +351,25 @@ const commands = [
             }
         ]
     },
+    {
+        name: 'game',
+        description: 'Choose from a variety of games to play',
+        options: [
+            {
+                name: 'tictactoe',
+                description: 'Play a game of tictactoe',
+                type: 1,
+                options: [
+                    {
+                        name: 'user',
+                        description: 'Who you want to play against',
+                        required: true,
+                        type: Constants.ApplicationCommandOptionTypes.USER
+                    }
+                ]
+            }
+        ]
+    },
 
     // Economy Commands
     { 

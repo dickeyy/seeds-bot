@@ -1,8 +1,11 @@
-const { Client, Intents, MessageEmbed, Constants, MessageActionRow, MessageButton, Interaction, Permissions, Message, } = require('discord.js');
+const { Client, Intents, MessageEmbed, Constants, MessageActionRow, MessageButton, Interaction, Permissions, Message, WebhookClient } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_BANS, Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_INVITES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS] });
 const { REST } = require('@discordjs/rest');
 const { Routes, InteractionResponseType } = require('discord-api-types/v9');
 const dotenv = require('dotenv');
+
+// Define Dev Mode
+const devMode = false
 
 // Dotenv initialize 
 dotenv.config();
@@ -14,6 +17,7 @@ exports.client = client;
 const { log } = require('./functions/log.js');
 const { redis } = require('./utils/redis.js');
 
+// Connect redis
 redis.on('connect', () => {
     console.log('Redis connected')
 })
@@ -69,21 +73,26 @@ process.on('uncaughtException', async function (error) {
 });
 
 // Register slash commands
-const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
-// const rest = new REST({ version: '9' }).setToken(process.env.BETA_TOKEN);
+if (devMode) var rest = new REST({ version: '9' }).setToken(process.env.BETA_TOKEN);
+else var rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
 
 (async () => {
     try {
-      console.log('Started refreshing application (/) commands.');
-  
-      await rest.put(
-        // Routes.applicationGuildCommands(process.env.BETA_APP_ID, '1005778938108325970', '961272863363567636', '731445738290020442'),
-        Routes.applicationCommands(process.env.APP_ID),
-        {body: commands},
-      );    
-      console.log('Successfully reloaded application (/) commands.');
+        console.log('Started refreshing application (/) commands.');
+        
+        if (devMode) await rest.put(
+            Routes.applicationGuildCommands(process.env.BETA_APP_ID, '1005778938108325970', '961272863363567636', '731445738290020442'),
+            {body: commands},
+        );
+        else {
+            await rest.put(
+                Routes.applicationCommands(process.env.APP_ID),
+                {body: commands},
+            );
+        }    
+        console.log('Successfully reloaded application (/) commands.');
     } catch (error) {
-      console.error(error);
+        console.error(error);
     }
 })();
 
@@ -252,17 +261,22 @@ client.on('messageReactionAdd', async (reaction, user) => {
 let ddcMessageCount = 0
 client.on('messageCreate', async message => {
     
-    if (message.guild.id != '1005778938108325970') return;
-    if (message.channel.id != '1005778939068813442') return;
-    if (message.author.bot) return;
+    if (message.guild.id != '772212146670141460') return;
+    if (message.channel.id != '934343950855184414') return;
+    if (message.author.bot) return;    
 
     ddcMessageCount++
 
+    const ddcWebhookClient = new WebhookClient({ url: process.env.DDC_WEBHOOK_URL });
+    let ddcIcon = client.guilds.cache.get('772212146670141460').iconURL()
     const ddcThresh = await redis.get('ddc-threshold')
 
-    let string = 'We are hosting an event soon, click <:dd_notifications:1064767318053371944> **Interested** to be notified!\n\nhttps://discord.gg/6Re94nFasF?event=1063601698867773510\n*Is this message spamming? Ping staff!*'
+    let string = 'We are hosting an event soon, click <:dd_notifications:1064767318053371944> **Interested** to be notified!\n\nhttps://discord.gg/6Re94nFasF?event=1063601698867773510'
+
     if (ddcMessageCount >= ddcThresh) {
-        client.channels.cache.get('1005778939068813442').send({
+        ddcWebhookClient.send({
+            avatarURL: ddcIcon,
+            username: 'Disdaycare Announcements',
             content: string
         })
 
@@ -276,5 +290,8 @@ client.on('messageCreate', async message => {
 refreshHistory.start();
 
 // Run Bot
-// client.login(process.env.BETA_TOKEN);
-client.login(process.env.TOKEN)
+if (devMode) {
+    client.login(process.env.BETA_TOKEN);
+} else {
+    client.login(process.env.TOKEN)
+}

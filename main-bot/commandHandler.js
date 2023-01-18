@@ -23,6 +23,7 @@ const coinflipCmd = require('./commands/fun/coinflip.js').coinflipCmd
 const lovetestCmd = require('./commands/fun/lovetest.js').lovetestCmd
 const todayinhistoryCmd = require('./commands/fun/todayinhistory.js').todayinhistoryCmd
 const weatherCmd = require('./commands/fun/weather.js').weatherCmd
+const tictactoeCmd = require('./commands/fun/games/tictactoe.js').tictactoeCmd
 
 // Economy Commands
 const balanceCmd = require('./commands/economy/balance.js').balanceCmd
@@ -247,6 +248,14 @@ exports.commandHandler = async (interaction) => {
 
     if (commandName == 'alert') {
         await alertCmd(user,guild,interaction)
+    }
+
+    if (commandName == 'game') {
+        const game = options.getSubcommand()
+        if (game == 'tictactoe') {
+            const tttUser = options.getUser('user')
+            await tictactoeCmd(user,guild,interaction,tttUser)
+        }
     }
     
 }
