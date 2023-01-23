@@ -10,8 +10,11 @@ const devMode = false
 // Dotenv initialize 
 dotenv.config();
 
-// Export Client
-exports.client = client;
+// register webhook client
+const consoleWebhookClient = new WebhookClient({ url: process.env.WEBHOOK_URL });
+
+// Export both client and webhookClient
+module.exports = { client, consoleWebhookClient };
 
 // Import Functions
 const { log } = require('./functions/log.js');
@@ -62,14 +65,27 @@ const commands = require('./commands.js').commands
 const { commandHandler } = require('./commandHandler.js');
 
 // Import Cron Jobs
-const { refreshHistory } = require('./cronJobs.js');
+const { refreshHistory, clearLogs } = require('./cronJobs.js');
 
 // Process errors
 process.on('uncaughtException', async function (error) {
-    console.log(error.stack);
+    console.log('error', error.stack)
+    log('error', error.stack)
+});
 
-    var logData = `${error.stack}\n`
-    await log(logData)
+process.on('unhandledRejection', async function (error) {
+    console.log('error', error.stack)
+    log('error', error.stack)
+});
+
+process.on('warning', async function (error) {
+    console.log('error', error.stack)
+    log('error', error.stack)
+});
+
+process.on('exit', async function (error) {
+    console.log('error', error.stack)
+    log('error', error.stack)
 });
 
 // Register slash commands
@@ -268,6 +284,7 @@ client.on('messageCreate', async message => {
     ddcMessageCount++
 
     const ddcWebhookClient = new WebhookClient({ url: process.env.DDC_WEBHOOK_URL });
+
     let ddcIcon = client.guilds.cache.get('772212146670141460').iconURL()
     const ddcThresh = await redis.get('ddc-threshold')
 
@@ -280,7 +297,13 @@ client.on('messageCreate', async message => {
             content: string
         })
 
-        console.log('Sent DDC message - Threshold: ' + ddcThresh )
+        consoleWebhookClient.send({
+            avatarUrl: client.user.avatarURL(),
+            username: 'Console',
+            content: `\`\`\`Sent DDC - Thresh: ${ddcThresh}\`\`\``
+        })
+
+
         ddcMessageCount = 0
     }
 
@@ -288,6 +311,7 @@ client.on('messageCreate', async message => {
 
 // Cron Jobs
 refreshHistory.start();
+clearLogs.start();
 
 // Run Bot
 if (devMode) {

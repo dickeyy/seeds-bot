@@ -4,6 +4,7 @@ const { Configuration, OpenAIApi } = require("openai");
 const { connectDb } = require('../../utils/db.js')
 const client = require('../../index.js').client
 const dotenv = require('dotenv');
+const { log } = require('../../functions/log.js');
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ const OneDayCooldown = twelveHourCooldown * 2;
 const OneWeekCooldown = OneDayCooldown * 7;
 
 const cdList = ['Chill Out', 'CHILLLLL', 'Stop.', 'Take a Breather', 'ok', 'Spamming commands is cringe', 'Slow it down', 'Wee-Woo-Wee-Woo Pull Over', 'No smile', '-_-', 'Why tho...', 'Yikes U Should Like Not', 'Slow it Cowboy', 'Take a Break Bro', 'Go Touch Some Grass']
+
 
 exports.tshCmd = async function tshCmd(user,guild,interaction,topic) { 
     const cmdName = 'tsh'

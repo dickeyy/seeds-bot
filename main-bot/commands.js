@@ -1,4 +1,12 @@
 const { Constants } = require('discord.js');
+const { log } = require('./functions/log');
+
+// Process errors
+process.on('uncaughtException', async function (error) {
+    console.log('error', error.stack)
+
+    log('error', error.stack)
+});
 
 // Permission Integers
 const BAN_MEMBERS_PERM = 0x0000000000000004

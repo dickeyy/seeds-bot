@@ -1,9 +1,16 @@
-const { client } = require('../index.js');
+const { client, consoleWebhookClient } = require('../index.js');
 const { connectDb } = require('../utils/db.js');
 const { MessageEmbed } = require('discord.js');
 const { log } = require('./log.js');
 
 const db = connectDb();
+
+// Process errors
+process.on('uncaughtException', async function (error) {
+    console.log('error', error.stack)
+
+    log('error', error.stack)
+});
 
 const cmdRun = async (user,cmdName,guild,interaction) => {
     var today = new Date();
@@ -13,8 +20,7 @@ const cmdRun = async (user,cmdName,guild,interaction) => {
     var collection = db.collection('commands')
     const doc = await collection.find({ name: cmdName }).toArray();
 
-    var logData = `${date} ${time} | ${user.tag} - ${cmdName}\n`
-    await log(logData)
+    log('info',`${user.tag} - ${cmdName}`)
 
     if (doc.length == 0) {
         const cmdData = {
@@ -30,6 +36,12 @@ const cmdRun = async (user,cmdName,guild,interaction) => {
     }
 
     console.log(`${date} ${time} | ${user.tag} - ${cmdName}`)
+
+    consoleWebhookClient.send({
+        avatarURL: client.user.displayAvatarURL(),
+        username: 'Console',
+        content: `\`\`\`${date} ${time} | ${user.tag} - ${cmdName}\`\`\``
+    })
     
     // Check if the user has any alerts
     if (cmdName == 'alert') {

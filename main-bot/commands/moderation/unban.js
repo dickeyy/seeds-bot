@@ -1,8 +1,10 @@
 const { cmdRun } = require('../../functions/cmdRun.js')
 const { MessageEmbed, Permissions } = require('discord.js');
+const { log } = require('../../functions/log.js');
 const client = require('../../index.js').client
 
 const mainHex = '#d79a61'
+
 
 exports.unbanCmd = function unbanCmd(user,guild,interaction,unbanUser) {
     const cmdName = 'unban'

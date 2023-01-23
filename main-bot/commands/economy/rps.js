@@ -1,6 +1,7 @@
 const { cmdRun } = require('../../functions/cmdRun.js')
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
-const { connectDb } = require('../../utils/db.js')
+const { connectDb } = require('../../utils/db.js');
+const { log } = require('../../functions/log.js');
 const client = require('../../index.js').client
 
 const db = connectDb()
@@ -20,6 +21,7 @@ const OneDayCooldown = twelveHourCooldown * 2;
 const OneWeekCooldown = OneDayCooldown * 7;
 
 const cdList = ['Chill Out', 'CHILLLLL', 'Stop.', 'Take a Breather', 'ok', 'Spamming commands is cringe', 'Slow it down', 'Wee-Woo-Wee-Woo Pull Over', 'No smile', '-_-', 'Why tho...', 'Yikes U Should Like Not', 'Slow it Cowboy', 'Take a Break Bro', 'Go Touch Some Grass']
+
 
 exports.rpsCmd = async function rpsCmd(user,guild,interaction,bet,move) {
     const cmdName = 'rps'

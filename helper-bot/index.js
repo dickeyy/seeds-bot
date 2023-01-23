@@ -105,14 +105,6 @@ const commands = [
     name: "logs",
     description: "Get logs for the bot",
     default_member_permissions: ADMIN_PERM,
-    options: [
-      {
-        name: 'date',
-        description: 'Specify a date (YYYY-MM-DD) if none, default to today',
-        required: false,
-        type: Constants.ApplicationCommandOptionTypes.STRING
-      }
-    ]
   },
 
   // Alert Commadnds
@@ -224,9 +216,8 @@ client.on('interactionCreate', async interaction => {
   }
 
   if (commandName == 'logs') {
-    const dateArg = options.getString('date')
 
-    logsCmd(user, guild, interaction, dateArg)
+    logsCmd(user, guild, interaction)
   }
 
 	if (commandName == 'alert') {
@@ -525,59 +516,21 @@ function logsCmd(user, guild, interaction, dateArg) {
     return
   }
 
-  if (dateArg === null) {
+  fs.readFile('../main-bot/logs/combined.log', function (err, data) {
+    if (err) {
+      console.log(err)
+      return
+    }
 
-    var today = new Date(); 
-    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    const file = new MessageAttachment('../main-bot/logs/combined.log', 'logs.json')
 
-    fs.readFile('../main-bot/logs/' + date + '.txt', 'utf8', function (err, data) {
-      if (err) throw err;
-      
-      const embed = new MessageEmbed() 
-      .setTitle('Logs for ' + date)
-  
-      const file = new MessageAttachment('../main-bot/logs/' + date + '.txt')
-  
-      // interaction.reply("Logs For " + date + "`\`\`" + data + "`\`\`")
-      interaction.reply({
-        content: 'Logs For **' + date + '**',
-        files: [file],
-      })
-  
+    // interaction.reply("Logs For " + date + "`\`\`" + data + "`\`\`")
+    interaction.reply({
+      content: 'Combined Logs',
+      files: [file],
     })
 
-  } else {
-
-    var date = dateArg 
-
-    fs.readFile('../main-bot/logs/' + date + '.txt', 'utf8', function (err, data) {
-      if (err) {
-        const embed = new MessageEmbed()
-        .setTitle('ERROR: No logs for that date.')
-        .setDescription('Please check the date and try again')
-        .setColor('RED')
-
-        interaction.reply({
-          embeds: [embed],
-          ephemeral: true
-        })
-        return
-      };
-      
-      const embed = new MessageEmbed() 
-      .setTitle('Logs for ' + date)
-  
-      const file = new MessageAttachment('../main-bot/logs/' + date + '.txt')
-  
-      // interaction.reply("Logs For " + date + "`\`\`" + data + "`\`\`")
-      interaction.reply({
-        content: 'Logs For **' + date + '**',
-        files: [file],
-      })
-  
-    })
-
-  }
+  })
 
   cmdRun(user, cmdName)
 }

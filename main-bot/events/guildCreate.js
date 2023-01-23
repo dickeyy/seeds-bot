@@ -1,9 +1,15 @@
 const { connectDb } = require('../utils/db.js');
 const { log } = require('../functions/log.js');
+const { consoleWebhookClient, client } = require('../index.js')
 
 const db = connectDb();
 
 const guildCreateEvent = async (guild) => {
+
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
     const isPartnered = guild.partnered
     var today = new Date();
     const guildData = {
@@ -28,7 +34,13 @@ const guildCreateEvent = async (guild) => {
     await collection.insertOne(guildData)
 
     var logData = `New Guild -- ${guild.name}\n`
-    await log(logData)
+    log('info',logData)
+
+    consoleWebhookClient.send({
+        avatarURL: client.user.displayAvatarURL(),
+        username: 'Console',
+        content: `\`\`\`${date} ${time} | ${logData}\`\`\``
+    })
 
     console.log(`New Guild -- ${guild.name}`)
 }

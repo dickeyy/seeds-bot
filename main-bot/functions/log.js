@@ -1,19 +1,27 @@
 const fs = require('fs')
+const winston = require('winston');
+const { consoleWebhookClient } = require('../index.js')
 
-const log = async (logData) => {
+const logger = winston.createLogger({
+    format: winston.format.json(),
+    transports: [
+      new winston.transports.File({ filename: './logs/error.log', level: 'error' }),
+      new winston.transports.File({ filename: './logs/combined.log' }),
+    ],
+});
 
-    var today = new Date();
-    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+const log = async (logLevel,logMessage) => {
 
-    if (logData == null) {
-        return
-    }
+    let today = new Date();
+    let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-    fs.appendFile('../logs/' + date + '.txt', logData, function (err) {
-        if (err !== null) {
-            fs.writeFile('./logs/' + date + '.txt', logData, function (err) {
-                if (err) throw err;
-            });
+    logger.log({
+        level: logLevel,
+        message: logMessage,
+        meta: {
+            date: date,
+            time: time
         }
     });
 

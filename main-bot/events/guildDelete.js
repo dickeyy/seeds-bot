@@ -1,5 +1,6 @@
 const { connectDb } = require('../utils/db.js');
 const { log } = require('../functions/log.js');
+const { consoleWebhookClient, client } = require('../index.js');
 
 const db = connectDb();
 
@@ -13,7 +14,13 @@ const guildDeleteEvent = async (guild) => {
     await db.collection('economy').deleteOne({ guildId: guild.id })
 
     var logData = `Left Guild -- ${guild.name}\n`
-    await log(logData)
+    log('info', logData)
+
+    consoleWebhookClient.send({
+        avatarURL: client.user.displayAvatarURL(),
+        username: 'Console',
+        content: `\`\`\`${date} ${time} | ${logData}\`\`\``
+    })
 
     console.log(`Left Guild -- ${guild.name}`)
 }

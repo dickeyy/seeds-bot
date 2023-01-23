@@ -1,3 +1,12 @@
+const { log } = require('./functions/log.js');
+
+// Process errors
+process.on('uncaughtException', async function (error) {
+    console.log('error', error.stack)
+
+    log('error', error.stack)
+});
+
 // Import Commands
 const helpCmd = require('./commands/help.js').helpCmd
 

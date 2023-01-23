@@ -1,10 +1,12 @@
 const { cmdRun } = require('../../functions/cmdRun.js')
 const { MessageEmbed } = require('discord.js');
-const { connectDb } = require('../../utils/db.js')
+const { connectDb } = require('../../utils/db.js');
+const { log } = require('../../functions/log.js');
 
 const mainHex = '#d79a61'
 
 const db = connectDb()
+
 
 exports.alertCmd = async function alertCmd(user,guild,interaction) {
     const cmdName = 'alert'

@@ -1,11 +1,13 @@
 const { cmdRun } = require('../../functions/cmdRun.js')
 const { MessageEmbed, Permissions } = require('discord.js');
-const { connectDb } = require('../../utils/db.js')
+const { connectDb } = require('../../utils/db.js');
+const { log } = require('../../functions/log.js');
 const client = require('../../index.js').client
 
 const db = connectDb()
 
 const mainHex = '#d79a61'
+
 
 exports.purgeCmd = async function purgeCmd(user,guild,interaction,count) {
     const cmdName = 'purge'

@@ -1,7 +1,9 @@
 const { cmdRun } = require('../functions/cmdRun.js')
 const { MessageEmbed } = require('discord.js');
+const { log } = require('../functions/log.js');
 
 const mainHex = '#d79a61'
+
 
 exports.helpCmd = function helpCmd(user,guild,interaction) {
     const cmdName = 'help'

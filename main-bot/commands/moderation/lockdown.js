@@ -1,8 +1,10 @@
 const { cmdRun } = require('../../functions/cmdRun.js')
 const { MessageEmbed, Permissions } = require('discord.js');
+const { log } = require('../../functions/log.js');
 const client = require('../../index.js').client
 
 const mainHex = '#d79a61'
+
 
 exports.lockdownCmd = async function lockdownCmd(user,guild,interaction,channel) {
     const cmdName = 'lockdown'

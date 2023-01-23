@@ -1,10 +1,12 @@
 const { cmdRun } = require('../../../functions/cmdRun.js')
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 const dotenv = require('dotenv');
+const { log } = require('../../../functions/log.js');
 
 dotenv.config();
 
 const mainHex = '#d79a61'
+
 
 exports.tictactoeCmd = async function tictactoeCmd(user,guild,interaction,member) {
     const cmdName = 'tictactoe'

@@ -1,8 +1,10 @@
 const { cmdRun } = require('../../functions/cmdRun.js')
 const { MessageEmbed } = require('discord.js');
-const axios = require('axios')
+const axios = require('axios');
+const { log } = require('../../functions/log.js');
 
 const mainHex = '#d79a61'
+
 
 exports.rcolorCmd = async function rcolorCmd(user,guild,interaction) {
     const cmdName = 'rcolor'

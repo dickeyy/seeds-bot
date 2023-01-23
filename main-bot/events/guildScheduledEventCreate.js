@@ -1,4 +1,5 @@
 const { MessageEmbed, WebhookClient } = require('discord.js');
+const { log } = require('../functions/log.js');
 const { connectDb } = require('../utils/db.js')
 const client = require('../index.js').client
 
