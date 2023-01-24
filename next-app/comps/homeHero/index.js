@@ -1,16 +1,36 @@
 import Head from 'next/head'
 import { Inter } from '@next/font/google'
-import { Box, Button, ButtonGroup, ChakraProvider, Heading, Image, Text } from '@chakra-ui/react'
+import { background, Box, Button, ButtonGroup, ChakraProvider, Heading, Image, Text } from '@chakra-ui/react'
 import dynamic from 'next/dynamic.js'
 
 const inter = Inter({ subsets: ['latin'] })
 import theme from '../../styles/theme.js'
 
 import Discord from '../heroDiscord/index.js'
+import React from 'react'
 
 const Messages = dynamic(() => import('../heroDiscord'), { ssr: false });
 
 export default function Hero() {
+
+    // make the background move with the mouse
+    const [bgPos, setBgPos] = React.useState({ x: 0, y: 0 });
+    React.useEffect(() => {
+        const handleMouseMove = (e) => {
+            // make the background drift a little bit when the mouse stops moving
+            setBgPos({
+                x: e.clientX / window.innerWidth * 15,
+                y: e.clientY / window.innerHeight * 15,
+            });
+
+        };
+        window.addEventListener('mousemove', handleMouseMove);
+        return () => {
+            window.removeEventListener('mousemove', handleMouseMove);
+        };
+    }, []);
+
+
 
   return (
     <ChakraProvider theme={theme}>
@@ -20,10 +40,11 @@ export default function Hero() {
             w={'100vw'}
             h={'100vh'}
             bgImage={'url(images/Sprinkle.png)'}
-            bgAttachment={'fixed'}
             bgBlendMode={'overlay'}
-            bgColor={'rgba(0,0,0,0.7)'}
+            bgColor={'rgba(0,0,0,0.6)'}
             flexDirection={'row'}
+
+            bgPosition={`${bgPos.x}% ${bgPos.y}%`}
         >
 
             <Box
@@ -70,7 +91,7 @@ export default function Hero() {
                 mt={'19rem'}
                 borderRadius={'10px'}
             >
-                <Messages />
+                    <Messages />
 
             </Box>
 

@@ -15,6 +15,7 @@ export default function App({ Component, pageProps }) {
         toggleColorMode
     }
   }, [])
+
   return (
     <ChakraProvider theme={theme}>
       <Component {...pageProps} />
