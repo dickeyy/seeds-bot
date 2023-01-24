@@ -28,7 +28,6 @@ export default function Discord() {
         if (random == 0) {
             return 1;
         }
-        console.log(random);
         return random;
     };
 
