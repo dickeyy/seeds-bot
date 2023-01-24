@@ -6,6 +6,7 @@ const inter = Inter({ subsets: ['latin'] })
 import theme from '../styles/theme.js'
 
 import NavBar from '../comps/navbar'
+import React from 'react'
 
 export default function InvitePage() {
 
