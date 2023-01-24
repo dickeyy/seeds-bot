@@ -1,15 +1,25 @@
 import Head from 'next/head'
 import { Inter } from '@next/font/google'
-import { Box, Button, ChakraProvider, Heading, Spinner, Text } from '@chakra-ui/react'
+import { Box, Button, ChakraProvider, Heading, Spinner, Text, useColorMode, useColorModeValue } from '@chakra-ui/react'
 
 const inter = Inter({ subsets: ['latin'] })
 import theme from '../styles/theme.js'
 
 import NavBar from '../comps/navbar'
+import React from 'react'
 
 export default function InvitePage() {
 
   const page = 'invite'
+
+  const { toggleColorMode } = useColorMode();
+  const text = useColorModeValue('dark', 'light');
+
+  React.useEffect(() => {
+    if (text === 'dark') {
+        toggleColorMode()
+    }
+  }, [])
 
   // Redirect to the invite link on page load
     if (typeof window !== 'undefined') {
