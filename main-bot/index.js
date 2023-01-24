@@ -288,7 +288,7 @@ client.on('messageCreate', async message => {
     let ddcIcon = client.guilds.cache.get('772212146670141460').iconURL()
     const ddcThresh = await redis.get('ddc-threshold')
 
-    let string = 'We are hosting an event soon, click <:dd_notifications:1064767318053371944> **Interested** to be notified!\n\nhttps://discord.gg/6Re94nFasF?event=1063601698867773510'
+    let string = 'We are hosting an event soon, click <:dd_notifications:1064767318053371944> **Interested** to be notified!\n\nhttps://discord.com/events/772212146670141460/1063601698867773510'
 
     if (ddcMessageCount >= ddcThresh) {
         ddcWebhookClient.send({
@@ -298,7 +298,7 @@ client.on('messageCreate', async message => {
         })
 
         consoleWebhookClient.send({
-            avatarUrl: client.user.avatarURL(),
+            avatarUrl: client.user.displayAvatarURL(),
             username: 'Console',
             content: `\`\`\`Sent DDC - Thresh: ${ddcThresh}\`\`\``
         })
