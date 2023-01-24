@@ -105,3 +105,15 @@ a {
     color-scheme: dark;
   }
 }
+
+/* configure scroll bar */
+::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+/* Change the color of the scroll thumb */
+::-webkit-scrollbar-thumb {
+  background: #19120b;
+  border-radius: 0.5rem;
+}

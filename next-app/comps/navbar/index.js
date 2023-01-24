@@ -28,13 +28,13 @@ export default function NavBar(props) {
 
     
   return (
-    <ChakraProvider theme={theme}>
+    <Box theme={theme}>
       
         <Box
             display={'flex'}
             w={'90vw'}
             p={'1rem'}
-            position={'sticky'}
+            position={'fixed'}
             top={'0'}
             left={'5vw'}
             height={'fit-content'}
@@ -98,7 +98,7 @@ export default function NavBar(props) {
                             Support
                         </Text>
                     </a>
-                    <a href='/commands' >
+                    {/* <a href='/commands' >
                         <Text
                             fontSize={'1rem'}
                             fontWeight={cmdsActive ? 'bold' : 'medium'}
@@ -112,7 +112,7 @@ export default function NavBar(props) {
                         >
                             Commands
                         </Text>
-                    </a>
+                    </a> */}
                     <a href='/invite' target={'_blank'} >
                         <Button 
                             colorScheme={'brand.brown'} 
@@ -173,11 +173,11 @@ export default function NavBar(props) {
                                     </Link>
                                 </a>
                                 <Box w={10} />
-                                <a href='/commands'>
+                                {/* <a href='/commands'>
                                     <Link fontSize={30} fontWeight={700}>
                                         Commands
                                     </Link>
-                                </a>
+                                </a> */}
                             </DrawerBody>
                         </DrawerContent>
                     </Drawer>
@@ -185,6 +185,6 @@ export default function NavBar(props) {
             </Show>
         </Box>
         
-    </ChakraProvider>
+    </Box>
   )
 }
