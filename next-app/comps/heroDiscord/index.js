@@ -101,7 +101,7 @@ function Messages(props) {
                         </DiscordEmbedField>
                         <DiscordEmbedField fieldTitle="Servers:" inline inlineIndex={1}>
                             {" "}
-                            {botStats.servers}
+                            {botStats.guilds}
                             {" "}
                         </DiscordEmbedField>
 
