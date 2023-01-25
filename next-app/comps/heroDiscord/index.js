@@ -15,6 +15,8 @@ import {
     DiscordEmbedFields,
     DiscordTime,
     DiscordInlineCode,
+    DiscordButton,
+    DiscordActionRow,
 } from "@skyra/discord-components-react";
 
 export default function Discord() {
@@ -43,11 +45,25 @@ export default function Discord() {
                 width: '100%',
                 borderRadius: '10px',
                 background: '#36393E',
+                paddingTop: '1rem',
+                paddingBottom: '1rem',
 
             }
         }>
 
         <Messages message={messages[0]} />
+
+        <DiscordMessage highlight author="Seeds" bot verified avatar="/images/seeds-logo.png">
+            <DiscordMention>Hey You!</DiscordMention>
+            <DiscordEmbed color="#d79a61" embedTitle="Want more?" >
+                <DiscordEmbedDescription slot="description">Invite me to your server today!</DiscordEmbedDescription>
+            </DiscordEmbed>
+            <DiscordAttachments slot="components">
+                <DiscordActionRow>
+                    <DiscordButton type={'primary'} url="https://seedsbot.xyz/invite">Click Here</DiscordButton>
+                </DiscordActionRow>
+            </DiscordAttachments>
+        </DiscordMessage>
 
 
         </DiscordMessages>

@@ -1,6 +1,5 @@
-import Head from 'next/head'
 import { Inter } from '@next/font/google'
-import { background, Box, Button, ButtonGroup, ChakraProvider, Heading, Image, Text } from '@chakra-ui/react'
+import { background, Box, Button, ButtonGroup, ChakraProvider, Heading, Hide, Image, Text } from '@chakra-ui/react'
 import dynamic from 'next/dynamic.js'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -40,6 +39,7 @@ export default function Hero() {
             w={'100vw'}
             h={'100vh'}
             bgImage={'url(images/Sprinkle.png)'}
+            bgPos={'static'}
             bgBlendMode={'overlay'}
             bgColor={'rgba(0,0,0,0.6)'}
             flexDirection={'row'}
@@ -51,27 +51,29 @@ export default function Hero() {
                 display={'flex'}
                 alignItems={'center'}
                 justifyContent={'center'}
-                textAlign={['center', 'center', 'left', 'left']}
-                w={['100vw', '100vw', '50vw', '50vw']}
-                h={'80vh'}
+                textAlign={['center', 'center', 'center', 'left']}
+                w={['100vw', '100vw', '100vw', '50vw']}
+                h={'70vh'}
                 pl={['1', '1', '10vw', '10vw']}
+                mt={['5rem', '5rem', '10vh', '20vh']}
+                pt={['10rem', '8rem', '0', '0']}
                 flexDirection={'column'}
             >
 
-                <Heading as={'h1'} fontSize={'7xl'}>
-                    The <Heading as={'span'} fontSize={'7xl'} color={'brand.brown.500'}>easiest</Heading> bot to use on Discord
+                <Heading as={'h1'} fontSize={['5xl','7xl','7xl','7xl']} pr={['5','5','5','0']} pl={['5','5','5','0']} >
+                    The <Heading as={'span'} fontSize={['5xl','7xl','7xl','7xl']} color={'brand.brown.500'}>easiest</Heading> bot to use on Discord
                 </Heading>
 
-                <Text fontSize={'xl'} pr={['2','2','0','0']} pl={['2','2','0','0']} w={['100vw', '100vw', '40vw', '40vw']}  mt={'8'} fontWeight={'medium'} color={'brand.gray.300'}>
-                    Moderation, fun, utility, and economy. <Text as={'span'} color={'brand.brown.900'} fontWeight={'bold'}>Seeds</Text> has it all!
+                <Text fontSize={'xl'} pr={['10','10','10','0']} pl={['10','10','10','0']} w={['100vw', '100vw', '100vw', '40vw']}  mt={'8'} fontWeight={'medium'} color={'brand.gray.300'}>
+                    Moderation, fun, utility, and economy. <Text as={'span'} color={'brand.brown.700'} fontWeight={'bold'}>Seeds</Text> has it all!
                 </Text>
 
-                <ButtonGroup w={['100vw', '100vw', '40vw', '40vw']} mt={'8'} spacing={'4'}>
+                <ButtonGroup flexDir={['column', 'column', 'row', 'row']} w={['100vw', '100vw', '40vw', '40vw']} justifyContent={['center','center','left','left']} mt={'8'} spacing={'4'}>
                     <a href='/invite' target={'_blank'}>
-                        <Button colorScheme={'brand.brown'} variant={'solid'} size={'lg'} fontSize={'3xl'} fontWeight={'bold'} p={'2.2rem 5rem'}>Invite</Button>
+                        <Button colorScheme={'brand.brown'} ml={['1rem', '1rem','0','0']} mb={'1rem'} variant={'solid'} size={'lg'} fontSize={'3xl'} fontWeight={'bold'} p={'2rem 4rem'}>Invite</Button>
                     </a>
                     <a href='/support' target={'_blank'}>
-                        <Button colorScheme={'brand.brown'} variant={'outline'} size={'lg'} fontSize={'3xl'} fontWeight={'bold'} p={'2.2rem 5rem'}>Support</Button>
+                        <Button colorScheme={'brand.brown'} variant={'outline'} size={'lg'} fontSize={'3xl'} fontWeight={'bold'} p={'2rem 4rem'}>Support</Button>
                     </a>
                 </ButtonGroup>
 
@@ -84,14 +86,15 @@ export default function Hero() {
                 alignItems={'center'}
                 justifyContent={'center'}
                 w={['100vw', '100vw', '50vw', '50vw']}
-                h={'20vh'}
+                mt={'5rem'}
                 pr={['1', '1', '10vw', '10vw']}
                 ml={'5rem'}
                 flexDirection={'column'}
-                mt={'19rem'}
                 borderRadius={'10px'}
             >
+                <Hide below={'1000px'}>
                     <Messages />
+                </Hide>
 
             </Box>
 
