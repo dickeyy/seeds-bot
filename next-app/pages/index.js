@@ -73,7 +73,7 @@ export default function Home() {
               <ImageFeature1 
                 title={'Advanced Economy'} 
                 text={"Seeds has a fully featured economy system with a wide range of commands to help you manage your server's economy."} 
-                image={'/images/discord/shop-showcase.png'} 
+                image={'/images/discord/shop-showcase.PNG'} 
               />
               
               <br></br>
@@ -83,7 +83,7 @@ export default function Home() {
               <ImageFeature2
                 title={'Easy Moderation'} 
                 text={"Seeds has a wide range of moderation commands to help you manage your server. From simple systems like kick and ban, to advanced features like full-fledged logging and report systems."} 
-                image={'/images/discord/moderation-showcase.png'} 
+                image={'/images/discord/moderation-showcase.PNG'} 
               />
 
               <br></br>
@@ -93,7 +93,7 @@ export default function Home() {
               <ImageFeature1 
                 title={'Diverse Fun'} 
                 text={"Seeds has a full suite of fun commands to help you and your server members have a good time, and keep users engaged."} 
-                image={'/images/discord/fun-showcase.png'} 
+                image={'/images/discord/fun-showcase.PNG'} 
               />
 
               <br></br>
@@ -103,7 +103,7 @@ export default function Home() {
               <ImageFeature2
                 title={'Engaging Games'} 
                 text={"Seeds has a developing plethora of games to play with your server members, host tournaments, compete for rewards, and more."} 
-                image={'/images/discord/game-showcase.png'} 
+                image={'/images/discord/game-showcase.PNG'} 
               />
             </Hide>
 
@@ -111,7 +111,7 @@ export default function Home() {
               <ImageFeature1 
                 title={'Advanced Economy'} 
                 text={"Seeds has a fully featured economy system with a wide range of commands to help you manage your server's economy."} 
-                image={'/images/discord/shop-showcase.png'} 
+                image={'/images/discord/shop-showcase.PNG'} 
               />
               
               <br></br>
@@ -121,7 +121,7 @@ export default function Home() {
               <ImageFeature1
                 title={'Easy Moderation'} 
                 text={"Seeds has a wide range of moderation commands to help you manage your server. From simple systems like kick and ban, to advanced features like full-fledged logging and report systems."} 
-                image={'/images/discord/moderation-showcase.png'} 
+                image={'/images/discord/moderation-showcase.PNG'} 
               />
 
               <br></br>
@@ -131,7 +131,7 @@ export default function Home() {
               <ImageFeature1 
                 title={'Diverse Fun'} 
                 text={"Seeds has a full suite of fun commands to help you and your server members have a good time, and keep users engaged."} 
-                image={'/images/discord/fun-showcase.png'} 
+                image={'/images/discord/fun-showcase.PNG'} 
               />
 
               <br></br>
@@ -141,7 +141,7 @@ export default function Home() {
               <ImageFeature1
                 title={'Engaging Games'} 
                 text={"Seeds has a developing plethora of games to play with your server members, host tournaments, compete for rewards, and more."} 
-                image={'/images/discord/game-showcase.png'} 
+                image={'/images/discord/game-showcase.PNG'} 
               />
             </Show>
 
