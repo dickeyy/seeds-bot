@@ -59,9 +59,9 @@ export default function Hero() {
                     justifyContent={'center'}
                     textAlign={['center', 'center', 'center', 'left']}
                     w={['100vw', '100vw', '100vw', '50vw']}
-                    h={'70vh'}
+                    h={'75vh'}
                     pl={['1', '1', '10vw', '10vw']}
-                    mt={['5rem', '5rem', '10vh', '20vh']}
+                    mt={['2rem', '5rem', '10vh', '15vh']}
                     pt={['10rem', '8rem', '0', '0']}
                     flexDirection={'column'}
                 >
@@ -92,7 +92,7 @@ export default function Hero() {
                     alignItems={'center'}
                     justifyContent={'center'}
                     w={['100vw', '100vw', '50vw', '50vw']}
-                    mt={'5rem'}
+                    mt={'10rem'}
                     pr={['1', '1', '10vw', '10vw']}
                     ml={'5rem'}
                     flexDirection={'column'}
