@@ -93,17 +93,17 @@ export default function Hero() {
                         </a>
                     </ButtonGroup>
 
-                    <Box zIndex={'5'} display={'flex'} flexDir={['column', 'column', 'column', 'column']} w={['100vw', '100vw', '40vw', '40vw']} justifyContent={['center','center','left','left']} >
+                    <Box zIndex={'5'} display={'flex'} flexDir={['column', 'column', 'column', 'column']} w={['100vw', '100vw', '40vw', '40vw']} justifyContent={['center','center','left','left']} mt={3} >
                         
                         <Text>
-                            <Text as={'span'} fontSize={'2xl'} fontWeight={'bold'} color={'brand.gray.300'}>Helping </Text>
-                            <Text as={'span'} fontSize={'2xl'} fontWeight={'bold'} color={'brand.brown.700'}>{botStats.guilds}</Text>
-                            <Text as={'span'} fontSize={'2xl'} fontWeight={'bold'} color={'brand.gray.300'}> servers</Text>
+                            <Text as={'span'} fontSize={'2xl'} fontWeight={'medium'} color={'brand.gray.300'}>Helping </Text>
+                            <Text as={'span'} fontSize={'2xl'} fontWeight={'bold'} color={'brand.gray.100'}>{users}</Text>
+                            <Text as={'span'} fontSize={'2xl'} fontWeight={'medium'} color={'brand.gray.300'}> users,</Text>
                         </Text>
                         <Text>
-                            <Text as={'span'} fontSize={'2xl'} fontWeight={'bold'} color={'brand.gray.300'}>And </Text>
-                            <Text as={'span'} fontSize={'2xl'} fontWeight={'bold'} color={'brand.brown.700'}>{users}</Text>
-                            <Text as={'span'} fontSize={'2xl'} fontWeight={'bold'} color={'brand.gray.300'}> users</Text>
+                            <Text as={'span'} fontSize={'2xl'} fontWeight={'medium'} color={'brand.gray.300'}>in </Text>
+                            <Text as={'span'} fontSize={'2xl'} fontWeight={'bold'} color={'brand.gray.100'}>{servers}</Text>
+                            <Text as={'span'} fontSize={'2xl'} fontWeight={'medium'} color={'brand.gray.300'}> servers</Text>
                         </Text>
 
                     </Box>
