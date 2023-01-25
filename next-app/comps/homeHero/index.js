@@ -20,7 +20,7 @@ export default function Hero() {
 
     React.useEffect(() => {
 
-        axios.get('http://localhost:3000/api/bot-stats').then((res) => {
+        axios.get('https://seedsbot.xyz/api/bot-stats').then((res) => {
             setBotStats(res.data);
             setUsers(res.data.users.toLocaleString());
             setServers(res.data.guilds.toLocaleString());
