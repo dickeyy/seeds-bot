@@ -5,6 +5,11 @@ const { consoleWebhookClient, client } = require('../index.js');
 const db = connectDb();
 
 const guildDeleteEvent = async (guild) => {
+
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
     const collection = db.collection('guilds');
     await collection.deleteOne({ _id: guild.id })
     await db.collection('logSettings').deleteOne({ guildId: guild.id })
@@ -23,6 +28,7 @@ const guildDeleteEvent = async (guild) => {
     })
 
     console.log(`Left Guild -- ${guild.name}`)
+    
 }
 
 exports.guildDeleteEvent = guildDeleteEvent;

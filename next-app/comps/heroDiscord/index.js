@@ -53,7 +53,7 @@ export default function Discord() {
 
         <Messages message={messages[0]} />
 
-        <DiscordMessage highlight author="Seeds" bot verified avatar="/images/seeds-logo.png">
+        <DiscordMessage highlight author="Seeds" bot verified avatar="/images/logo.png">
             <DiscordMention>Hey You!</DiscordMention>
             <DiscordEmbed color="#d79a61" embedTitle="Want more?" >
                 <DiscordEmbedDescription slot="description">Invite me to your server today!</DiscordEmbedDescription>
@@ -74,7 +74,7 @@ export default function Discord() {
 function Messages(props) {
     if (props.message == 1) {
         return (
-            <DiscordMessage author="Seeds" bot verified avatar="/images/seeds-logo.png">
+            <DiscordMessage author="Seeds" bot verified avatar="/images/logo.png">
                 <DiscordCommand
                     slot="reply"
                     profile="dickey"
@@ -86,7 +86,7 @@ function Messages(props) {
                     slot="embeds"
                     color="#d79a61"
                     embedTitle="Seeds Stats"
-                    thumbnail="/images/seeds-logo.png"
+                    thumbnail="/images/logo.png"
                 >
                     <DiscordEmbedFields slot="fields">
                         <DiscordEmbedField>
@@ -132,7 +132,7 @@ function Messages(props) {
         )
     } else if ( props.message == 2) {
         return(
-            <DiscordMessage author="Seeds" bot verified avatar="/images/seeds-logo.png">
+            <DiscordMessage author="Seeds" bot verified avatar="/images/logo.png">
                 <DiscordCommand
                     slot="reply"
                     profile="dickey"
@@ -161,7 +161,7 @@ function Messages(props) {
         )
     } else if ( props.message == 3 ) {
         return(
-            <DiscordMessage author="Seeds" bot verified avatar="/images/seeds-logo.png">
+            <DiscordMessage author="Seeds" bot verified avatar="/images/logo.png">
                 <DiscordCommand
                     slot="reply"
                     profile="dickey"
@@ -197,7 +197,7 @@ function Messages(props) {
         )
     } else if ( props.message == 4 ) {
         return(
-            <DiscordMessage author="Seeds" bot verified avatar="/images/seeds-logo.png">
+            <DiscordMessage author="Seeds" bot verified avatar="/images/logo.png">
                 <DiscordCommand
                     slot="reply"
                     profile="dickey"
