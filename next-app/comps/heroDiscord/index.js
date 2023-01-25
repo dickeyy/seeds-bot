@@ -21,7 +21,7 @@ import {
 } from "@skyra/discord-components-react";
 
 export default function Discord(props) {
-
+    console.log(props.stats);
     const [messages, setMessages] = useState([]);
 
     // choose a random function to add to the array
@@ -77,8 +77,6 @@ export default function Discord(props) {
 };
 
 function Messages(props) {
-    
-    const [botStats, setBotStats] = useState(props.stats);
 
     if (props.message == 1) {
         return (
@@ -101,7 +99,7 @@ function Messages(props) {
                         </DiscordEmbedField>
                         <DiscordEmbedField fieldTitle="Servers:" inline inlineIndex={1}>
                             {" "}
-                            {botStats.guilds}
+                            {props.stats.guilds}
                             {" "}
                         </DiscordEmbedField>
 
