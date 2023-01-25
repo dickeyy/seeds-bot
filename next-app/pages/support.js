@@ -8,9 +8,9 @@ import theme from '../styles/theme.js'
 import NavBar from '../comps/navbar'
 import React from 'react'
 
-export default function InvitePage() {
+export default function SupportPage() {
 
-  const page = 'invite'
+  const page = 'support'
 
   const { toggleColorMode } = useColorMode();
   const text = useColorModeValue('dark', 'light');
@@ -29,35 +29,43 @@ export default function InvitePage() {
 
   return (
     <ChakraProvider theme={theme}>
-      <Head>
-        <title>Seeds | Invite</title>
-        <meta name="description" content="Seeds is the easiest bot to use on Discord" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="images/seeds-logo-removebg.png" />
-      </Head>
+        <Head>
+            <title>Seeds | Support</title>
+            <meta name="description" content="Seeds is the easiest bot to use on Discord" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="icon" href="images/seeds-logo-removebg.png" />
+        </Head>
 
-      <Box>
-        <NavBar active={page}/>
-        <Box
-          display={'flex'}
-          flexDirection={'column'}
-            alignItems={'center'}
-            justifyContent={'center'}
-            w={'100vw'}
-            h={'100vh'}
-
-        >
-          
-          <Heading as={'h1'}>Redirecting...</Heading>
-          <br></br>
-          <Spinner colorScheme={'white'} size={'xl'} />
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <Button size={'lg'} colorScheme={'brand.brown'}>Click here if you are not redirected</Button>
-
-        </Box>
+        <Box>
+            <NavBar active={page}/>
+            <Box
+                display={'flex'}
+                flexDirection={'column'}
+                alignItems={'center'}
+                justifyContent={'center'}
+                w={'100vw'}
+                h={'100vh'}
+                textAlign={'center'}
+            >
+                <Heading as={'h1'}>Redirecting</Heading>
+                <br></br>
+                <Spinner colorScheme={'white'} size={'xl'} />
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <Text
+                    fontSize={'xl'}
+                    fontWeight={'bold'}
+                    color={'brand.gray.500'}
+                >
+                    If you are not redirected...
+                </Text>
+                <br></br>
+                <a href={'https://discord.gg/invite/AU3t2yVBBe'}>
+                    <Button size={'lg'} colorScheme={'brand.brown'}>Click Here</Button>
+                </a>
+            </Box>
       </Box>
         
     </ChakraProvider>

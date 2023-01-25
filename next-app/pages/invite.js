@@ -29,36 +29,46 @@ export default function InvitePage() {
 
   return (
     <ChakraProvider theme={theme}>
-      <Head>
-        <title>Seeds | Invite</title>
-        <meta name="description" content="Seeds is the easiest bot to use on Discord" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="images/seeds-logo-removebg.png" />
-      </Head>
+        <Head>
+            <title>Seeds | Invite</title>
+            <meta name="description" content="Seeds is the easiest bot to use on Discord" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="icon" href="images/seeds-logo-removebg.png" />
+        </Head>
 
-      <Box>
-        <NavBar active={page}/>
-        <Box
-          display={'flex'}
-          flexDirection={'column'}
-            alignItems={'center'}
-            justifyContent={'center'}
-            w={'100vw'}
-            h={'100vh'}
+        <Box>
+            <NavBar active={page}/>
+            <Box
+            display={'flex'}
+            flexDirection={'column'}
+                alignItems={'center'}
+                justifyContent={'center'}
+                w={'100vw'}
+                h={'100vh'}
 
-        >
-          
-          <Heading as={'h1'}>Redirecting...</Heading>
-          <br></br>
-          <Spinner colorScheme={'white'} size={'xl'} />
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <Button size={'lg'} colorScheme={'brand.brown'}>Click here if you are not redirected</Button>
+            >
+            
+            <Heading as={'h1'}>Redirecting...</Heading>
+            <br></br>
+            <Spinner colorScheme={'white'} size={'xl'} />
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <Text
+                fontSize={'xl'}
+                fontWeight={'bold'}
+                color={'brand.gray.500'}
+            >
+                If you are not redirected...
+            </Text>
+            <br></br>
+            <a href={'https://discord.com/oauth2/authorize?client_id=968198214450831370&permissions=1617004133494&scope=bot%20applications.commands'}>
+                <Button size={'lg'} colorScheme={'brand.brown'}>Click Here</Button>
+            </a>
 
+            </Box>
         </Box>
-      </Box>
         
     </ChakraProvider>
   )

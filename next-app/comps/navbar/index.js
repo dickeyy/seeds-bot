@@ -33,7 +33,7 @@ export default function NavBar(props) {
         <Box
             display={'flex'}
             w={'90vw'}
-            p={'1rem'}
+            p={'0.7rem'}
             position={'fixed'}
             top={'0'}
             left={'5vw'}
@@ -43,7 +43,6 @@ export default function NavBar(props) {
             boxShadow={'rgba(28, 28, 28, 0.2) 0px 0px 10px'}
             borderRadius={'8px'}
             margin={'1rem auto'}
-            zIndex={'1'}
         >
 
             <a href='/' >            
@@ -54,6 +53,8 @@ export default function NavBar(props) {
                     w={'fit-content'}
                     h={'fit-content'}
                     left={'0'}
+                    ml={['','5','5','2']}
+                    mt={'0.2rem'}
                 >
                     <Image src={'/images/seeds-logo-removebg.png'} alt={'logo'} w={'2.5rem'} h={'2.5rem'} p={0} />
 
@@ -62,6 +63,9 @@ export default function NavBar(props) {
                             fontSize={'1.5rem'}
                             fontWeight={'bold'}
                             ml={'0.5rem'}
+                            _hover={{
+                                opacity: '0.4',
+                            }}
                         >
                             Seeds
                         </Text>
@@ -78,10 +82,9 @@ export default function NavBar(props) {
                     w={'fit-content'}
                     h={'fit-content'}
                     // put this on the right side
-                    position={'absolute'}
-                    right={'0'}
-                    top={'3'}
-                    pr={'1rem'}
+                    width={'90vw'}
+                    mt={'0.2rem'}
+                    
                 >
                     <a href='/support' >
                         <Text
@@ -98,7 +101,7 @@ export default function NavBar(props) {
                             Support
                         </Text>
                     </a>
-                    {/* <a href='/commands' >
+                    <a href='/commands' >
                         <Text
                             fontSize={'1rem'}
                             fontWeight={cmdsActive ? 'bold' : 'medium'}
@@ -112,22 +115,23 @@ export default function NavBar(props) {
                         >
                             Commands
                         </Text>
-                    </a> */}
-                    <a href='/invite' target={'_blank'} >
-                        <Button 
-                            colorScheme={'brand.brown'} 
-                            variant={'solid'} 
-                            size={'lg'}
-                            fontSize={'1rem'}
-                            fontWeight={'bold'}
-                            p={'0.5rem 1.5rem'}
-                            borderRadius={'8px'}
-                            ml={'1rem'}
-                        >
-                            Invite
-                        </Button>
                     </a>
                 </Box>
+            </Hide>
+            
+            <Hide breakpoint='(max-width: 530px)'>
+                <a href='/invite' target={'_blank'} >
+                    <Button 
+                        colorScheme={'brand.brown'} 
+                        variant={'solid'} 
+                        size={'lg'}
+                        fontSize={'1rem'}
+                        fontWeight={'bold'}
+                        ml={'1rem'}
+                    >
+                        Invite
+                    </Button>
+                </a>
             </Hide>
 
             <Show breakpoint='(max-width: 530px)'>

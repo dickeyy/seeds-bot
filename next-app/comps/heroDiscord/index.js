@@ -17,6 +17,7 @@ import {
     DiscordInlineCode,
     DiscordButton,
     DiscordActionRow,
+    DiscordSystemMessage,
 } from "@skyra/discord-components-react";
 
 export default function Discord() {
@@ -43,27 +44,31 @@ export default function Discord() {
         <DiscordMessages style={
             {
                 width: '100%',
-                borderRadius: '10px',
+                borderRadius: '8px',
                 background: '#36393E',
                 paddingTop: '1rem',
                 paddingBottom: '1rem',
 
             }
         }>
+        
+            <DiscordSystemMessage type="join">
+                A wild <i>Seeds</i> appeared.
+            </DiscordSystemMessage>
 
-        <Messages message={messages[0]} />
+            <Messages message={messages[0]} />
 
-        <DiscordMessage highlight author="Seeds" bot verified avatar="/images/logo.png">
-            <DiscordMention>Hey You!</DiscordMention>
-            <DiscordEmbed color="#d79a61" embedTitle="Want more?" >
-                <DiscordEmbedDescription slot="description">Invite me to your server today!</DiscordEmbedDescription>
-            </DiscordEmbed>
-            <DiscordAttachments slot="components">
-                <DiscordActionRow>
-                    <DiscordButton type={'primary'} url="https://seedsbot.xyz/invite">Click Here</DiscordButton>
-                </DiscordActionRow>
-            </DiscordAttachments>
-        </DiscordMessage>
+            <DiscordMessage highlight author="Seeds" bot verified avatar="/images/logo.png">
+                <DiscordMention>Hey You!</DiscordMention>
+                <DiscordEmbed color="#d79a61" embedTitle="Want more?" >
+                    <DiscordEmbedDescription slot="description">Invite me to your server today!</DiscordEmbedDescription>
+                </DiscordEmbed>
+                <DiscordAttachments slot="components">
+                    <DiscordActionRow>
+                        <DiscordButton type={'primary'} url="https://seedsbot.xyz/invite">Click Here</DiscordButton>
+                    </DiscordActionRow>
+                </DiscordAttachments>
+            </DiscordMessage>
 
 
         </DiscordMessages>
