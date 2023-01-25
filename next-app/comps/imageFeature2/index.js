@@ -18,10 +18,17 @@ export default function ImageFeature2(props) {
         justifyContent={'center'}
         alignItems={'center'}
         textAlign={'center'}
+        transition={'all 0.2s ease-in-out'}
         w={'100vw'}
+        _hover={{
+            transform: 'scale(1.05)',
+        }}
+        borderRadius={'10px'}
     >
         
-        <Image src={props.image} borderRadius={'10px'} />
+        <Image src={props.image} 
+            borderRadius={'10px'}
+        />
         <Box w={'10vw'} />
         <Box 
         display={'flex'}

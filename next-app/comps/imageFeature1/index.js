@@ -18,6 +18,11 @@ export default function ImageFeature1(props) {
         justifyContent={'center'}
         alignItems={'center'}
         textAlign={'center'}
+        transition={'all 0.3s ease-in-out'}
+        _hover={{
+            transform: 'scale(1.05)',
+        }}
+        borderRadius={'10px'}
     >
         <Box 
             display={'flex'}
@@ -44,7 +49,11 @@ export default function ImageFeature1(props) {
             </Text>
         </Box>
         <Box w={'10vw'} />
-        <Image src={props.image} borderRadius={'10px'} ml={['2','2','2','0']} />
+        <Image src={props.image} 
+            borderRadius={'10px'} 
+            ml={['2','2','2','0']} 
+            
+        />
     </Box>
   )
 }

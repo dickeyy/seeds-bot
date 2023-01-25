@@ -42,6 +42,8 @@ export default function Hero() {
             bgPos={'static'}
             bgBlendMode={'overlay'}
             bgColor={'rgba(0,0,0,0.6)'}
+            // make the background parralax
+            bgAttachment={'fixed'}
             flexDirection={'column'}
             bgPosition={`${bgPos.x}% ${bgPos.y}%`}
         >  
