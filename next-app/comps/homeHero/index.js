@@ -1,5 +1,5 @@
 import { Inter } from '@next/font/google'
-import { background, Box, Button, ButtonGroup, ChakraProvider, Heading, Hide, Image, Stat, StatGroup, StatLabel, StatNumber, Text } from '@chakra-ui/react'
+import { background, Box, Button, ButtonGroup, ChakraProvider, Heading, Hide, Image, Spinner, Stat, StatGroup, StatLabel, StatNumber, Text } from '@chakra-ui/react'
 import dynamic from 'next/dynamic.js'
 import axios from 'axios'
 
@@ -20,7 +20,7 @@ export default function Hero() {
 
     React.useEffect(() => {
 
-        axios.get('https://seedsbot.xyz/api/bot-stats').then((res) => {
+        axios.get('http://localhost:3000/api/bot-stats').then((res) => {
             setBotStats(res.data);
             setUsers(res.data.users.toLocaleString());
             setServers(res.data.guilds.toLocaleString());
@@ -95,16 +95,21 @@ export default function Hero() {
 
                     <Box zIndex={'5'} display={'flex'} flexDir={['column', 'column', 'column', 'column']} w={['100vw', '100vw', '40vw', '40vw']} justifyContent={['center','center','left','left']} mt={3} >
                         
-                        <Text>
-                            <Text as={'span'} fontSize={'2xl'} fontWeight={'medium'} color={'brand.gray.300'}>Helping </Text>
-                            <Text as={'span'} fontSize={'2xl'} fontWeight={'bold'} color={'brand.gray.100'}>{users}</Text>
-                            <Text as={'span'} fontSize={'2xl'} fontWeight={'medium'} color={'brand.gray.300'}> users,</Text>
-                        </Text>
-                        <Text>
-                            <Text as={'span'} fontSize={'2xl'} fontWeight={'medium'} color={'brand.gray.300'}>in </Text>
-                            <Text as={'span'} fontSize={'2xl'} fontWeight={'bold'} color={'brand.gray.100'}>{servers}</Text>
-                            <Text as={'span'} fontSize={'2xl'} fontWeight={'medium'} color={'brand.gray.300'}> servers</Text>
-                        </Text>
+                        {users == 0 ? <Spinner /> : 
+
+                            <Box>
+                                <Text>
+                                    <Text as={'span'} fontSize={'2xl'} fontWeight={'medium'} color={'brand.gray.300'}>Helping </Text>
+                                    <Text as={'span'} fontSize={'2xl'} fontWeight={'bold'} color={'brand.gray.100'}>{users}</Text>
+                                    <Text as={'span'} fontSize={'2xl'} fontWeight={'medium'} color={'brand.gray.300'}> users,</Text>
+                                </Text>
+                                <Text>
+                                    <Text as={'span'} fontSize={'2xl'} fontWeight={'medium'} color={'brand.gray.300'}>in </Text>
+                                    <Text as={'span'} fontSize={'2xl'} fontWeight={'bold'} color={'brand.gray.100'}>{servers}</Text>
+                                    <Text as={'span'} fontSize={'2xl'} fontWeight={'medium'} color={'brand.gray.300'}> servers</Text>
+                                </Text>
+                            </Box>
+                        }
 
                     </Box>
 

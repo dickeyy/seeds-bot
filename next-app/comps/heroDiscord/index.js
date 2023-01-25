@@ -21,7 +21,6 @@ import {
 } from "@skyra/discord-components-react";
 
 export default function Discord(props) {
-    console.log(props.stats);
     const [messages, setMessages] = useState([]);
 
     // choose a random function to add to the array

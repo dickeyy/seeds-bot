@@ -4,8 +4,6 @@ const { MongoClient } = require('mongodb');
 const uri = process.env.MONGO_URI;
 const mClient = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-
-
 export default async function handler(req, res) {
   
   mClient.connect().then(() => {
@@ -27,5 +25,5 @@ export default async function handler(req, res) {
   })
 
   mClient.close();
-  
+
 }
