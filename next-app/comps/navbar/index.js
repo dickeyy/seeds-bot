@@ -43,6 +43,7 @@ export default function NavBar(props) {
             boxShadow={'rgba(28, 28, 28, 0.2) 0px 0px 10px'}
             borderRadius={'8px'}
             margin={'1rem auto'}
+            zIndex={'100'}
         >
 
             <a href='/' >            
