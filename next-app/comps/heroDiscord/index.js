@@ -20,7 +20,7 @@ import {
     DiscordSystemMessage,
 } from "@skyra/discord-components-react";
 
-export default function Discord() {
+export default function Discord(props) {
 
     const [messages, setMessages] = useState([]);
 
@@ -56,7 +56,7 @@ export default function Discord() {
                 A wild <i>Seeds</i> appeared.
             </DiscordSystemMessage>
 
-            <Messages message={messages[0]} />
+            <Messages message={messages[0]} stats={props.stats} />
 
             <DiscordMessage highlight author="Seeds" bot verified avatar="/images/logo.png">
                 <DiscordMention>Hey You!</DiscordMention>
@@ -77,6 +77,9 @@ export default function Discord() {
 };
 
 function Messages(props) {
+    
+    const [botStats, setBotStats] = useState(props.stats);
+
     if (props.message == 1) {
         return (
             <DiscordMessage author="Seeds" bot verified avatar="/images/logo.png">
@@ -98,7 +101,7 @@ function Messages(props) {
                         </DiscordEmbedField>
                         <DiscordEmbedField fieldTitle="Servers:" inline inlineIndex={1}>
                             {" "}
-                            ∞
+                            {botStats.servers}
                             {" "}
                         </DiscordEmbedField>
 

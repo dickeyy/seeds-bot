@@ -1,6 +1,7 @@
 import { Inter } from '@next/font/google'
-import { background, Box, Button, ButtonGroup, ChakraProvider, Heading, Hide, Image, Text } from '@chakra-ui/react'
+import { background, Box, Button, ButtonGroup, ChakraProvider, Heading, Hide, Image, Stat, StatGroup, StatLabel, StatNumber, Text } from '@chakra-ui/react'
 import dynamic from 'next/dynamic.js'
+import axios from 'axios'
 
 const inter = Inter({ subsets: ['latin'] })
 import theme from '../../styles/theme.js'
@@ -12,11 +13,20 @@ const Messages = dynamic(() => import('../heroDiscord'), { ssr: false });
 
 export default function Hero() {
 
-    // make the background move with the mouse
     const [bgPos, setBgPos] = React.useState({ x: 0, y: 0 });
+    const [botStats, setBotStats] = React.useState({});
+    const [users, setUsers] = React.useState(0);
+    const [servers, setServers] = React.useState(0);
+
     React.useEffect(() => {
+
+        axios.get('https://seedsbot.xyz/api/bot-stats').then((res) => {
+            setBotStats(res.data);
+            setUsers(res.data.users.toLocaleString());
+            setServers(res.data.guilds.toLocaleString());
+        })
+
         const handleMouseMove = (e) => {
-            // make the background drift a little bit when the mouse stops moving
             setBgPos({
                 x: e.clientX / window.innerWidth * 5,
                 y: e.clientY / window.innerHeight * 5,
@@ -83,6 +93,21 @@ export default function Hero() {
                         </a>
                     </ButtonGroup>
 
+                    <Box zIndex={'5'} display={'flex'} flexDir={['column', 'column', 'column', 'column']} w={['100vw', '100vw', '40vw', '40vw']} justifyContent={['center','center','left','left']} >
+                        
+                        <Text>
+                            <Text as={'span'} fontSize={'2xl'} fontWeight={'bold'} color={'brand.gray.300'}>Helping </Text>
+                            <Text as={'span'} fontSize={'2xl'} fontWeight={'bold'} color={'brand.brown.700'}>{botStats.guilds}</Text>
+                            <Text as={'span'} fontSize={'2xl'} fontWeight={'bold'} color={'brand.gray.300'}> servers</Text>
+                        </Text>
+                        <Text>
+                            <Text as={'span'} fontSize={'2xl'} fontWeight={'bold'} color={'brand.gray.300'}>And </Text>
+                            <Text as={'span'} fontSize={'2xl'} fontWeight={'bold'} color={'brand.brown.700'}>{users}</Text>
+                            <Text as={'span'} fontSize={'2xl'} fontWeight={'bold'} color={'brand.gray.300'}> users</Text>
+                        </Text>
+
+                    </Box>
+
                 </Box>      
 
                 
@@ -99,7 +124,7 @@ export default function Hero() {
                     borderRadius={'8px'}
                 >
                     <Hide below={'1000px'}>
-                        <Messages />
+                        <Messages stats={botStats} />
                     </Hide>
 
                 </Box>
