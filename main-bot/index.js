@@ -275,7 +275,33 @@ client.on('messageReactionAdd', async (reaction, user) => {
 
 // message create
 let ddcMessageCount = 0
+
+// const { Configuration, OpenAIApi } = require("openai");
+// const aiConfig = new Configuration({
+//     apiKey: process.env.OPENAI_API_KEY
+// })
+// const openai = new OpenAIApi(aiConfig)
+
 client.on('messageCreate', async message => {
+
+    // if (message.author.bot) return;
+
+    // const modResponse = await openai.createModeration({
+    //     input: message.content
+    // })
+
+    // console.log(modResponse.data.results[0])
+    // const embedModBot = new MessageEmbed()
+    //     .setColor('#ff0000')    
+    //     .setTitle('Message Deleted')
+    //     .setDescription("Your message was automatically deleted because it was flagged by our moderation tools.\n\n**Message:**" + "`\`" + message.content + "`\`")
+
+    // if (modResponse.data.results[0].flagged && !message.author.bot) {
+    //     message.delete()
+    //     message.channel.send({ embeds: [embedModBot] })
+        
+    // }
+    
     
     if (message.guild.id != '772212146670141460') return;
     if (message.channel.id != '934343950855184414') return;

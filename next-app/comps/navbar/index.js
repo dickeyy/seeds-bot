@@ -10,6 +10,8 @@ export default function NavBar(props) {
 
     const [cmdsActive, setCmdsActive] = useState(false)
     const [supportActive, setSupportActive] = useState(false)
+    const [donateActive, setDonateActive] = useState(false)
+
     const [size, setSize] = useState('')
 
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -21,8 +23,8 @@ export default function NavBar(props) {
     useEffect(() => {
         if (activePage === 'commands') {
             setCmdsActive(true)
-        } else if (activePage === 'support') {
-            setSupportActive(true)
+        } else if (activePage === 'donate') {
+            setDonateActive(true)
         }
     }, [])
 
@@ -87,21 +89,6 @@ export default function NavBar(props) {
                     mt={'0.2rem'}
                     
                 >
-                    <a href='/support' >
-                        <Text
-                            fontSize={'1rem'}
-                            fontWeight={supportActive ? 'bold' : 'medium'}
-                            p={'0.5rem 1rem'}
-                            _hover={{
-                                opacity: '0.4',
-                            }}
-                            color={supportActive ? 'brand.brown.50' : 'white'}
-                            backgroundColor={supportActive ? 'brand.brown.900' : 'rgba(0, 0, 0, 0)'}
-                            borderRadius={'8px'}
-                        >
-                            Support
-                        </Text>
-                    </a>
                     <a href='/commands' >
                         <Text
                             fontSize={'1rem'}
@@ -115,6 +102,21 @@ export default function NavBar(props) {
                             borderRadius={'8px'}
                         >
                             Commands
+                        </Text>
+                    </a>
+                    <a href='/donate' >
+                        <Text
+                            fontSize={'1rem'}
+                            fontWeight={donateActive ? 'bold' : 'medium'}
+                            p={'0.5rem 1rem'}
+                            _hover={{
+                                opacity: '0.4',
+                            }}
+                            color={donateActive ? 'brand.brown.50' : 'white'}
+                            backgroundColor={donateActive ? 'brand.brown.900' : 'rgba(0, 0, 0, 0)'}
+                            borderRadius={'8px'}
+                        >
+                            Donate
                         </Text>
                     </a>
                 </Box>
@@ -172,17 +174,17 @@ export default function NavBar(props) {
                             <DrawerCloseButton />
                             <DrawerHeader fontSize={50} fontWeight={700}>Menu</DrawerHeader>
                             <DrawerBody>
-                                <a href='/support'>
-                                    <Link fontSize={30} fontWeight={700}>
-                                        Support
-                                    </Link>
-                                </a>
-                                <Box w={10} />
-                                {/* <a href='/commands'>
+                                <a href='/commands'>
                                     <Link fontSize={30} fontWeight={700}>
                                         Commands
                                     </Link>
-                                </a> */}
+                                </a>
+                                <Box w={10} />
+                                <a href='/donate'>
+                                    <Link fontSize={30} fontWeight={700}>
+                                        Donate
+                                    </Link>
+                                </a>
                             </DrawerBody>
                         </DrawerContent>
                     </Drawer>

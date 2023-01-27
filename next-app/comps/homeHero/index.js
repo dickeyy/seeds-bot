@@ -1,9 +1,6 @@
-import { Inter } from '@next/font/google'
-import { background, Box, Button, ButtonGroup, ChakraProvider, Heading, Hide, Image, Spinner, Stat, StatGroup, StatLabel, StatNumber, Text } from '@chakra-ui/react'
+import { Box, Button, ButtonGroup, ChakraProvider, Heading, Hide, Image, Spinner, Text } from '@chakra-ui/react'
 import dynamic from 'next/dynamic.js'
-import axios from 'axios'
 
-const inter = Inter({ subsets: ['latin'] })
 import theme from '../../styles/theme.js'
 
 import Discord from '../heroDiscord/index.js'
@@ -11,7 +8,7 @@ import React from 'react'
 
 const Messages = dynamic(() => import('../heroDiscord'), { ssr: false });
 
-export default function Hero() {
+export default function Hero(props) {
 
     const [bgPos, setBgPos] = React.useState({ x: 0, y: 0 });
     const [botStats, setBotStats] = React.useState({});
@@ -20,11 +17,9 @@ export default function Hero() {
 
     React.useEffect(() => {
 
-        axios.get('https://seedsbot.xyz/api/bot-stats').then((res) => {
-            setBotStats(res.data);
-            setUsers(res.data.users.toLocaleString());
-            setServers(res.data.guilds.toLocaleString());
-        })
+        setBotStats(props.stats);
+        setUsers(props.stats.users.toLocaleString());
+        setServers(props.stats.guilds.toLocaleString());
 
         const handleMouseMove = (e) => {
             setBgPos({
@@ -37,6 +32,8 @@ export default function Hero() {
         return () => {
             window.removeEventListener('mousemove', handleMouseMove);
         };
+
+       
     }, []);
 
 
@@ -89,13 +86,13 @@ export default function Hero() {
                             <Button colorScheme={'brand.brown'} ml={['1rem', '1rem','0','0']} mb={'1rem'} variant={'solid'} size={'lg'} fontSize={'3xl'} fontWeight={'bold'} p={'2rem 4rem'}>Invite</Button>
                         </a>
                         <a href='/support' target={'_blank'}>
-                            <Button colorScheme={'brand.brown'} variant={'outline'} size={'lg'} fontSize={'3xl'} fontWeight={'bold'} p={'2rem 4rem'}>Support</Button>
+                            <Button colorScheme={'brand.brown'} variant={'outline'} size={'lg'} fontSize={'3xl'} fontWeight={'bold'} p={'2rem 4rem'}>Discord</Button>
                         </a>
                     </ButtonGroup>
 
                     <Box zIndex={'5'} display={'flex'} flexDir={['column', 'column', 'column', 'column']} w={['100vw', '100vw', '40vw', '40vw']} justifyContent={['center','center','left','left']} mt={3} >
                         
-                        {users == 0 ? <Spinner /> : 
+                        {botStats == {} ? <Spinner /> : 
 
                             <Box>
                                 <Text>

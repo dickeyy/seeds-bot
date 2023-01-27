@@ -32,7 +32,6 @@ const OneWeekCooldown = OneDayCooldown * 7;
 
 const cdList = ['Chill Out', 'CHILLLLL', 'Stop.', 'Take a Breather', 'ok', 'Spamming commands is cringe', 'Slow it down', 'Wee-Woo-Wee-Woo Pull Over', 'No smile', '-_-', 'Why tho...', 'Yikes U Should Like Not', 'Slow it Cowboy', 'Take a Break Bro', 'Go Touch Some Grass']
 
-
 exports.aiCmd = async function aiCmd(user,guild,interaction,prompt) {
     const cmdName = 'friend'
 
