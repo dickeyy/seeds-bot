@@ -275,37 +275,12 @@ client.on('messageReactionAdd', async (reaction, user) => {
 
 // message create
 let ddcMessageCount = 0
-
-// const { Configuration, OpenAIApi } = require("openai");
-// const aiConfig = new Configuration({
-//     apiKey: process.env.OPENAI_API_KEY
-// })
-// const openai = new OpenAIApi(aiConfig)
-
+let ddcSent = false
 client.on('messageCreate', async message => {
-
-    // if (message.author.bot) return;
-
-    // const modResponse = await openai.createModeration({
-    //     input: message.content
-    // })
-
-    // console.log(modResponse.data.results[0])
-    // const embedModBot = new MessageEmbed()
-    //     .setColor('#ff0000')    
-    //     .setTitle('Message Deleted')
-    //     .setDescription("Your message was automatically deleted because it was flagged by our moderation tools.\n\n**Message:**" + "`\`" + message.content + "`\`")
-
-    // if (modResponse.data.results[0].flagged && !message.author.bot) {
-    //     message.delete()
-    //     message.channel.send({ embeds: [embedModBot] })
-        
-    // }
-    
     
     if (message.guild.id != '772212146670141460') return;
     if (message.channel.id != '934343950855184414') return;
-    if (message.author.bot) return;    
+    if (message.author.bot) return;  
 
     ddcMessageCount++
 
@@ -313,10 +288,16 @@ client.on('messageCreate', async message => {
 
     let ddcIcon = client.guilds.cache.get('772212146670141460').iconURL()
     const ddcThresh = await redis.get('ddc-threshold')
+    let string = await redis.get('ddc-message')
 
-    let string = 'We are hosting an event soon, click <:dd_notifications:1064767318053371944> **Interested** to be notified!\n\nhttps://discord.com/events/772212146670141460/1063601698867773510'
+    // Process the string, there are \n's in the string and we need it to actually brreak the line
+    string = string.replace(/\\n/g, ' \r ')
 
-    if (ddcMessageCount >= ddcThresh) {
+    if (ddcMessageCount < ddcThresh) {
+        ddcSent = false
+    }
+
+    if (ddcMessageCount >= ddcThresh && !ddcSent) {
         ddcWebhookClient.send({
             avatarURL: ddcIcon,
             username: 'Disdaycare Announcements',
@@ -331,6 +312,7 @@ client.on('messageCreate', async message => {
 
 
         ddcMessageCount = 0
+        ddcSent = true
     }
 
 })

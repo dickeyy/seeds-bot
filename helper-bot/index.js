@@ -165,6 +165,19 @@ const commands = [
         type: Constants.ApplicationCommandOptionTypes.INTEGER
       }
     ]
+  },
+  {
+    name: 'ddcmessage',
+    description: 'Set the DDC message',
+    default_member_permissions: ADMIN_PERM,
+    options: [
+      {
+        name: 'message',
+        description: 'The message',
+        required: true,
+        type: Constants.ApplicationCommandOptionTypes.STRING
+      }
+    ]
   }
 
 ]
@@ -238,6 +251,13 @@ client.on('interactionCreate', async interaction => {
     const threshold = options.getInteger('threshold')
     await ddcAutoFeedChangeCmd(user, guild, interaction, threshold)
   }
+
+  if (commandName == 'ddcmessage') {
+    console.log('ddcmessage')
+    const message = options.getString('message')
+    await ddcMessageChangeCmd(user, guild, interaction, message)
+  }
+
 })
 
 // Check if is bot owner
@@ -669,6 +689,32 @@ async function ddcAutoFeedChangeCmd(user, guild, interaction, threshold) {
   const embed = new MessageEmbed()
   .setTitle('Changed DDC Auto Feed Threshold')
   .setDescription('New Threshold: ' + threshold)
+  .setColor('GREEN')
+
+  interaction.reply({
+    embeds: [embed]
+  })
+
+  cmdRun(user, cmdName)
+
+}
+
+async function ddcMessageChangeCmd(user, guild, interaction, message) {
+  const cmdName = 'ddc-message-change'
+
+  if (!isBotOwner(user.id)) {
+    interaction.reply({
+    embeds: [notOwnerEmbed],
+    ephemeral: true
+    })
+    return
+  }
+
+  await redis.set('ddc-message', message)
+
+  const embed = new MessageEmbed()
+  .setTitle('Changed DDC Auto Feed Message')
+  .setDescription('New Message: ' + message)
   .setColor('GREEN')
 
   interaction.reply({
