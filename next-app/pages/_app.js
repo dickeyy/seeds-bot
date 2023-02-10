@@ -15,7 +15,7 @@ export default function App({ Component, pageProps }) {
 
   React.useEffect(() => {
 
-    analytics.init('6yYFCaXt7HX9mMDJL8Cp8D')
+    analytics.init('NYzjBfMq8SeknUScXtrgDi')
 
     analytics.pageView()
 
