@@ -13,6 +13,9 @@ const client = new Client({ intents: intents });
 const { REST } = require('@discordjs/rest');
 const { Routes, InteractionResponseType } = require('discord-api-types/v9');
 const dotenv = require('dotenv');
+const { connectDb } = require('./utils/db.js');
+
+const db = connectDb()
 
 // Define Dev Mode
 const devMode = false
@@ -24,7 +27,7 @@ dotenv.config();
 const consoleWebhookClient = new WebhookClient({ url: process.env.WEBHOOK_URL });
 
 // Export both client and webhookClient
-module.exports = { client, consoleWebhookClient };
+module.exports = { client, consoleWebhookClient, devMode };
 
 // Import Functions
 const { log } = require('./functions/log.js');

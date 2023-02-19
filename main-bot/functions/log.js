@@ -1,6 +1,5 @@
 const fs = require('fs')
 const winston = require('winston');
-const { consoleWebhookClient } = require('../index.js')
 
 const logger = winston.createLogger({
     format: winston.format.json(),
