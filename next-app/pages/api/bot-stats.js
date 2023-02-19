@@ -17,7 +17,7 @@ export default async function handler(req, res) {
         })
     
         res.status(200).json({
-          guilds: (result.length - 1),
+          guilds: result.length,
           users: userCount
         })
       })
