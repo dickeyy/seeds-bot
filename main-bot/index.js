@@ -7,6 +7,7 @@ const intents = [
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.GuildMessageReactions,
     GatewayIntentBits.GuildInvites,
+    GatewayIntentBits.MessageContent
 ]
 const client = new Client({ intents: intents });
 const { REST } = require('@discordjs/rest');

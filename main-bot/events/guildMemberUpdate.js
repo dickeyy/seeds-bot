@@ -37,9 +37,9 @@ const guildMemberUpdateEvent = async (oldMember, newMember) => {
             .setColor('#4CA99D')
             .setTimestamp()
 
-            if (newNickname) embed.addField('Nickname', `**Old:** ${oldMember.nickname}\n**New:** ${newMember.nickname}`)
-            if (newRoles) embed.addField('Roles', `**Old:** ${oldRolesList}\n**New:** ${newRolesList}`)
-            if (newAvatar) embed.addField('Avatar', `**Old:** ${oldMember.user.avatar}\n**New:** ${newMember.user.avatar}`)
+            if (newNickname) embed.addFields({name:'Nickname', value:`**Old:** ${oldMember.nickname}\n**New:** ${newMember.nickname}`})
+            if (newRoles) embed.addFields({name:'Roles', value:`**Old:** ${oldRolesList}\n**New:** ${newRolesList}`})
+            if (newAvatar) embed.addFields({name:'Avatar', value:`**Old:** ${oldMember.user.avatar}\n**New:** ${newMember.user.avatar}`})
 
             if (!newNickname && !newRoles && !newAvatar) return
 
