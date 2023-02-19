@@ -55,7 +55,7 @@ const readyEvent = async function readyEvent() {
 
         })
 
-        if (client.guilds.cache.length < gIdArray.length) {
+        if (client.guilds.cache.size < gIdArray.length) {
             console.log('Removing extra guild from database...')
             log('info', 'Removing extra guilds from database...')
 
