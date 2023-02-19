@@ -33,7 +33,7 @@ const threadUpdateEvent = async (oldThread, newThread) => {
             .setColor('#4CA99D')
             .setTimestamp()
 
-            if (embed.data.fields.length === 0) return
+            if (embed.data.fields == undefined) return
 
             if (!sent) {
                 webhookClient.send({

@@ -35,7 +35,7 @@ const roleUpdateEvent = async (oldRole, newRole) => {
             .setFooter({text: "/log toggle server_events Role Update"})
             .setTimestamp()
 
-            if (embed.data.fields.length === 0) return
+            if (embed.data.fields == undefined) return
 
             if (!sent) {
                 webhookClient.send({

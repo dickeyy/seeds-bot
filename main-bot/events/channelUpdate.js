@@ -47,7 +47,7 @@ const channelUpdateEvent = async (oldChannel, newChannel) => {
             .setFooter({text: "/log toggle server_events Channel Update"})
             .setTimestamp()
 
-            if (embed.data.fields.length === 0) return
+            if (embed.data.fields == undefined) return
 
             if (!sent) {
                 webhookClient.send({

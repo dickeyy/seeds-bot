@@ -30,10 +30,10 @@ const stickerUpdateEvent = async (oldSticker, newSticker) => {
             if (newDescription) embed.addFields({name:'Description', value:`**Old:** ${oldSticker.description}\n**New:** ${newSticker.description}`})
             embed
             .setFooter({text: "/log toggle server_events Sticker Update"})
-            .setColor('DARK_BUT_NOT_BLACK')
+            .setColor('DarkButNotBlack')
             .setTimestamp()
 
-            if (embed.data.fields.length === 0) return
+            if (embed.data.fields === undefined) return
 
             if (!sent) {
                 webhookClient.send({

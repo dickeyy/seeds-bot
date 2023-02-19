@@ -32,6 +32,7 @@ const guildMemberUpdateEvent = async (oldMember, newMember) => {
 
             const embed = new EmbedBuilder()
             .setTitle('Member Updated')
+            .setThumbnail('https://cdn.discordapp.com/emojis/1064444245588578385.webp')
             .setAuthor({ name: newMember.user.tag, iconURL: newMember.user.avatarURL() })
             .setFooter({text: "/log toggle server_events Member Update"})
             .setColor('#4CA99D')

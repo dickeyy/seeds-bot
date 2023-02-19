@@ -51,7 +51,7 @@ const guildUpdateEvent = async (oldGuild, newGuild) => {
             if (newName) embed.addFields({name:'Name', value:`**- Old Name:** ${oldGuild.name}\n**+ New Name:** ${newGuild.name}`})
             if (newRegion) embed.addFields({name:'Region', value:`**- Old Region:** ${oldGuild.region}\n**+ New Region:** ${newGuild.region}`})
             if (newAfkChannel) embed.addFields({name:'AFK Channel', value:`**- Old AFK Channel:** ${oldGuild.afkChannel}\n**+ New AFK Channel:** ${newGuild.afkChannel}`})
-            if (newAfkTimeout) embed.addField({name:'AFK Timeout', value:`**- Old AFK Timeout:** ${oldGuild.afkTimeout}\n**+ New AFK Timeout:** ${newGuild.afkTimeout}`})
+            if (newAfkTimeout) embed.addFields({name:'AFK Timeout', value:`**- Old AFK Timeout:** ${oldGuild.afkTimeout}\n**+ New AFK Timeout:** ${newGuild.afkTimeout}`})
             if (newVerificationLevel) embed.addFields({name:'Verification Level', value:`**- Old Verification Level:** ${oldGuild.verificationLevel}\n**+ New Verification Level:** ${newGuild.verificationLevel}`})
             if (newExplicitContentFilter) embed.addFields({name:'Explicit Content Filter', value:`**- Old Explicit Content Filter:** ${oldGuild.explicitContentFilter}\n**+ New Explicit Content Filter:** ${newGuild.explicitContentFilter}`})
             if (newDefaultMessageNotifications) embed.addFields({name:'Default Message Notifications', value:`**- Old Default Message Notifications:** ${oldGuild.defaultMessageNotifications}\n**+ New Default Message Notifications:** ${newGuild.defaultMessageNotifications}`})
@@ -61,7 +61,7 @@ const guildUpdateEvent = async (oldGuild, newGuild) => {
             if (newPublicUpdatesChannel) embed.addFields({name:'Public Updates Channel', value:`**- Old Public Updates Channel:** ${oldGuild.publicUpdatesChannel}\n**+ New Public Updates Channel:** ${newGuild.publicUpdatesChannel}`})
             if (newMaxPresences) embed.addFields({name:'Max Presences', value:`**- Old Max Presences:** ${oldGuild.maxPresences}\n**+ New Max Presences:** ${newGuild.maxPresences}`})
             if (newMaxMembers) embed.addFields({name:'Max Members', value:`**- Old Max Members:** ${oldGuild.maxMembers}\n**+ New Max Members:** ${newGuild.maxMembers}`})
-            if (newVanityURLCode) embed.addField({name:'Vanity URL Code', value:`**- Old Vanity URL Code:** ${oldGuild.vanityURLCode}\n**+ New Vanity URL Code:** ${newGuild.vanityURLCode}`})
+            if (newVanityURLCode) embed.addFields({name:'Vanity URL Code', value:`**- Old Vanity URL Code:** ${oldGuild.vanityURLCode}\n**+ New Vanity URL Code:** ${newGuild.vanityURLCode}`})
             if (newDescription) embed.addFields({name:'Description', value:`**- Old Description:** ${oldGuild.description}\n**+ New Description:** ${newGuild.description}`})
             if (newBanner) embed.addFields({name:'Banner', value:`**- Old Banner:** ${oldGuild.banner}\n**+ New Banner:** ${newGuild.banner}`})
             if (newBannerColor) embed.addFields({name:'Banner Color', value:`**- Old Banner Color:** ${oldGuild.bannerColor}\n**+ New Banner Color:** ${newGuild.bannerColor}`})
@@ -73,7 +73,7 @@ const guildUpdateEvent = async (oldGuild, newGuild) => {
             .setColor(mainHex)
             .setTimestamp()
 
-            if (embed.data.fields.length === 0) return
+            if (embed.data.fields == undefined) return
 
             if (!sent) {
                 webhookClient.send({
