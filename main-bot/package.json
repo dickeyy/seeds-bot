@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "bot": "pm2 start index.js --name seeds-bot"
+    "bot": "pm2 start index.js --name seeds-bot -o ./logs/combined.log -e ./logs/error.log"
   },
   "keywords": [],
   "author": "",
