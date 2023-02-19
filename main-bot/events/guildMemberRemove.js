@@ -34,7 +34,7 @@ const guildMemberRemoveEvent = async (member) => {
             .setTitle('Member Left')
             .setThumbnail('https://cdn.discordapp.com/emojis/1064442673806704672.webp')
             .setAuthor({ name: member.user.tag, iconURL: member.user.avatarURL() })
-            .setDescription(`<@${member.user.id}> - Joined ${time(member.joinedAt, 'R')}\n\n**ID:** ${member.user.id}`)
+            .setDescription(`<@${member.user.id}> - Joined ${time(member.joinedAt, 'F')}\n\n**ID:** ${member.user.id}`)
 
             .addFields({name:'Roles', value:roles || 'None'})
 
