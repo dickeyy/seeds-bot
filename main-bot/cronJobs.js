@@ -1,5 +1,5 @@
 const cron = require('cron');
-const { MessageEmbed, MessageAttachment } = require('discord.js');
+const { EmbedBuilder, AttachmentBuilder } = require('discord.js');
 const { log } = require('./functions/log.js');
 const { client, consoleWebhookClient } = require('./index.js');
 const { connectDb } = require('./utils/db.js');
@@ -38,7 +38,7 @@ exports.refreshHistory = new cron.CronJob('0 0 * * *', async () => {
     console.log('Updated historical data')
 
 });
-
+// '0 0 * * *'
 exports.clearLogs = new cron.CronJob('0 0 * * *', async () => {
 
     var today = new Date();
@@ -51,7 +51,10 @@ exports.clearLogs = new cron.CronJob('0 0 * * *', async () => {
           return
         }
     
-        let file = new MessageAttachment(Buffer.from(data), 'combined-logs.json', { contentType: 'application/json' })
+        let file = new AttachmentBuilder(Buffer.from(data), {
+            name: 'combined-logs.json',
+            description: 'Combined logs'
+        })
     
         consoleWebhookClient.send({
             avatarURL: client.user.displayAvatarURL(),
@@ -68,7 +71,10 @@ exports.clearLogs = new cron.CronJob('0 0 * * *', async () => {
           return
         }
     
-        let file2 = new MessageAttachment(Buffer.from(data), 'error-logs.json', { contentType: 'application/json' })
+        let file2 = new AttachmentBuilder(Buffer.from(data), {
+            name: 'error-logs.json',
+            description: 'Error logs'
+        })
     
         consoleWebhookClient.send({
             avatarURL: client.user.displayAvatarURL(),

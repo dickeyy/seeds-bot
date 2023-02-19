@@ -8,55 +8,55 @@ process.on('uncaughtException', async function (error) {
 });
 
 // Import Commands
-const helpCmd = require('./commands/help.js').helpCmd
+const helpCmd = require('./cmds/help.js').helpCmd
 
 // Moderation Commands
-const banCmd = require('./commands/moderation/ban.js').banCmd
-const kickCmd = require('./commands/moderation/kick.js').kickCmd
-const unbanCmd = require('./commands/moderation/unban.js').unbanCmd
-const warnCmd = require('./commands/moderation/warn.js').warnCmd
-const deletecaseCmd = require('./commands/moderation/deletecase.js').deletecaseCmd
-const casesCmd = require('./commands/moderation/cases.js').casesCmd
-const setreportchannelCmd = require('./commands/moderation/setreportchannel.js').setreportchannelCmd
-const reportCmd = require('./commands/moderation/report.js').reportCmd
-const setlogchannelCmd = require('./commands/moderation/logging/setlogchannel.js').setlogchannelCmd
-const toggleLogsCmd = require('./commands/moderation/logging/togglelogs.js').toggleLogsCmd
-const purgeCmd = require('./commands/moderation/purge.js').purgeCmd
-const lockdownCmd = require('./commands/moderation/lockdown.js').lockdownCmd
-const unlockCmd = require('./commands/moderation/unlock.js').unlockCmd
+const banCmd = require('./cmds/moderation/ban.js').banCmd
+const kickCmd = require('./cmds/moderation/kick.js').kickCmd
+const unbanCmd = require('./cmds/moderation/unban.js').unbanCmd
+const warnCmd = require('./cmds/moderation/warn.js').warnCmd
+const deletecaseCmd = require('./cmds/moderation/deletecase.js').deletecaseCmd
+const casesCmd = require('./cmds/moderation/cases.js').casesCmd
+const setreportchannelCmd = require('./cmds/moderation/setreportchannel.js').setreportchannelCmd
+const reportCmd = require('./cmds/moderation/report.js').reportCmd
+const setlogchannelCmd = require('./cmds/moderation/logging/setlogchannel.js').setlogchannelCmd
+const toggleLogsCmd = require('./cmds/moderation/logging/togglelogs.js').toggleLogsCmd
+const purgeCmd = require('./cmds/moderation/purge.js').purgeCmd
+const lockdownCmd = require('./cmds/moderation/lockdown.js').lockdownCmd
+const unlockCmd = require('./cmds/moderation/unlock.js').unlockCmd
 
 // Fun Commands
-const aiCmd = require('./commands/fun/ai.js').aiCmd
-const tshCmd = require('./commands/fun/tsh.js').tshCmd
-const coinflipCmd = require('./commands/fun/coinflip.js').coinflipCmd
-const lovetestCmd = require('./commands/fun/lovetest.js').lovetestCmd
-const todayinhistoryCmd = require('./commands/fun/todayinhistory.js').todayinhistoryCmd
-const weatherCmd = require('./commands/fun/weather.js').weatherCmd
-const tictactoeCmd = require('./commands/fun/games/tictactoe.js').tictactoeCmd
+const aiCmd = require('./cmds/fun/ai.js').aiCmd
+const tshCmd = require('./cmds/fun/tsh.js').tshCmd
+const coinflipCmd = require('./cmds/fun/coinflip.js').coinflipCmd
+const lovetestCmd = require('./cmds/fun/lovetest.js').lovetestCmd
+const todayinhistoryCmd = require('./cmds/fun/todayinhistory.js').todayinhistoryCmd
+const weatherCmd = require('./cmds/fun/weather.js').weatherCmd
+const tictactoeCmd = require('./cmds/fun/games/tictactoe.js').tictactoeCmd
 
 // Economy Commands
-const balanceCmd = require('./commands/economy/balance.js').balanceCmd
-const begCmd = require('./commands/economy/beg.js').begCmd
-const dailyCmd = require('./commands/economy/daily.js').dailyCmd
-const slotsCmd = require('./commands/economy/slots.js').slotsCmd
-const mineCmd = require('./commands/economy/mine.js').mineCmd
-const fishCmd = require('./commands/economy/fish.js').fishCmd
-const rpsCmd = require('./commands/economy/rps.js').rpsCmd
-const shopCmd = require('./commands/economy/shop.js').shopCmd
-const buyCmd = require('./commands/economy/buy.js').buyCmd
-const highlowCmd = require('./commands/economy/highlow.js').highlowCmd
-const voteCmd = require('./commands/economy/vote.js').voteCmd
+const balanceCmd = require('./cmds/economy/balance.js').balanceCmd
+const begCmd = require('./cmds/economy/beg.js').begCmd
+const dailyCmd = require('./cmds/economy/daily.js').dailyCmd
+const slotsCmd = require('./cmds/economy/slots.js').slotsCmd
+const mineCmd = require('./cmds/economy/mine.js').mineCmd
+const fishCmd = require('./cmds/economy/fish.js').fishCmd
+const rpsCmd = require('./cmds/economy/rps.js').rpsCmd
+const shopCmd = require('./cmds/economy/shop.js').shopCmd
+const buyCmd = require('./cmds/economy/buy.js').buyCmd
+const highlowCmd = require('./cmds/economy/highlow.js').highlowCmd
+const voteCmd = require('./cmds/economy/vote.js').voteCmd
 
 // Utility Commands
-const botideaCmd = require('./commands/utility/botidea.js').botideaCmd
-const pollCmd = require('./commands/utility/poll.js').pollCmd
-const rcolorCmd = require('./commands/utility/rcolor.js').rcolorCmd
-const statsCmd = require('./commands/utility/stats.js').statsCmd
-const starboardSetCmd = require('./commands/utility/starboardSet.js').starboardSetCmd
-const qrCmd = require('./commands/utility/qr.js').qrCmd
-const alertCmd = require('./commands/utility/alert.js').alertCmd
+const botideaCmd = require('./cmds/utility/botidea.js').botideaCmd
+const pollCmd = require('./cmds/utility/poll.js').pollCmd
+const rcolorCmd = require('./cmds/utility/rcolor.js').rcolorCmd
+const statsCmd = require('./cmds/utility/stats.js').statsCmd
+const starboardSetCmd = require('./cmds/utility/starboardSet.js').starboardSetCmd
+const qrCmd = require('./cmds/utility/qr.js').qrCmd
+const alertCmd = require('./cmds/utility/alert.js').alertCmd
 
-// Recive slash commands
+// Recive slash cmds
 exports.commandHandler = async (interaction) => {
     if (!interaction.isCommand()) return;
     const { commandName, options, user, guild, channel, ChannelData } = interaction

@@ -1,4 +1,4 @@
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const { EmbedBuilder, WebhookClient } = require('discord.js');
 const { log } = require('../functions/log.js');
 const { connectDb } = require('../utils/db.js')
 const client = require('../index.js').client
@@ -21,11 +21,12 @@ const emojiCreateEvent = async (emoji) => {
         if (doc.channels.server && doc.toggles.serverEvents.emojiCreate) {
             const webhookClient = new WebhookClient({ url: doc.webhookUrls.server });
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
             .setTitle('Emoji Created')
+            .setThumbnail('https://cdn.discordapp.com/emojis/1064444258242793512.webp')
             .setDescription(`**Emoji:** <:${emoji.name}:${emoji.id}> ${emoji.name}\n\n**ID:** ${emoji.id}`)
             .setFooter({text: "/log toggle server_events Emoji Create"})
-            .setColor('DARK_BUT_NOT_BLACK')
+            .setColor('DarkButNotBlack')
             .setTimestamp()
 
             if (!sent) {

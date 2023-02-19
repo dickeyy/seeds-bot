@@ -1,6 +1,6 @@
 const { client, consoleWebhookClient } = require('../index.js');
 const { connectDb } = require('../utils/db.js');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const { log } = require('./log.js');
 
 const db = connectDb();
@@ -62,7 +62,7 @@ const cmdRun = async (user,cmdName,guild,interaction) => {
         if (alert.viewedBy.includes(user.id)) {
             continue
         } else {
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
             .setTitle('You Have An Unread Alert!')
             .setDescription('Use `\`/alert`\` to read it!')
             .setAuthor({ name: user.tag, iconURL: user.displayAvatarURL() })

@@ -1,4 +1,4 @@
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const { EmbedBuilder, WebhookClient } = require('discord.js');
 const { log } = require('../functions/log.js');
 const { connectDb } = require('../utils/db.js')
 const client = require('../index.js').client
@@ -31,8 +31,9 @@ const messageDeleteEvent = async (message) => {
                 hasAttachments = true
             }
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
             .setTitle(`Message Deleted in #${message.channel.name}`)
+            .setThumbnail('https://cdn.discordapp.com/emojis/1064444110334861373.webp')
             .setAuthor({ name: message.author.tag, iconURL: message.author.avatarURL() })
             .setFooter({text: "/log toggle message_events Message Delete"})
             .setColor('#914444')

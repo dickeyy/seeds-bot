@@ -1,4 +1,4 @@
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const { EmbedBuilder, WebhookClient } = require('discord.js');
 const { log } = require('../functions/log.js');
 const { connectDb } = require('../utils/db.js')
 const client = require('../index.js').client
@@ -37,8 +37,9 @@ const messageDeleteBulkEvent = async (messages) => {
                 descString += `**- ${authTags[i]}: **${contents[i]}\n`
             }
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
             .setTitle(`${contents.length} Messages Purged in #${messages.first().channel.name}`)
+            .setThumbnail('https://cdn.discordapp.com/emojis/1064444110334861373.webp')
             .setDescription(descString)
             .setFooter({text: "/log toggle message_events Message Bulk Delete"})
             .setColor('#373f69')

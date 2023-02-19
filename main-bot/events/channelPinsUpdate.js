@@ -1,4 +1,4 @@
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const { EmbedBuilder, WebhookClient } = require('discord.js');
 const { log } = require('../functions/log.js');
 const { connectDb } = require('../utils/db.js')
 const client = require('../index.js').client
@@ -21,7 +21,7 @@ const channelPinsUpdateEvent = async (channel) => {
 
             const webhookClient = new WebhookClient({ url: doc.webhookUrls.server });
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
             .setTitle('Channel Pins Updated')
             .setDescription(`**Channel:** <#${channel.id}>\nFor more information check the pin`)
             .setFooter({text: "/log toggle server_events Channel Pins Update"})

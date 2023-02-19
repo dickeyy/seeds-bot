@@ -1,4 +1,4 @@
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const { EmbedBuilder, WebhookClient } = require('discord.js');
 const { log } = require('../functions/log.js');
 const { connectDb } = require('../utils/db.js')
 const client = require('../index.js').client
@@ -30,7 +30,7 @@ const guildMemberUpdateEvent = async (oldMember, newMember) => {
             // remove @everyone from roles
 
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
             .setTitle('Member Updated')
             .setAuthor({ name: newMember.user.tag, iconURL: newMember.user.avatarURL() })
             .setFooter({text: "/log toggle server_events Member Update"})

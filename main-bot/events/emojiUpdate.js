@@ -1,4 +1,4 @@
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const { EmbedBuilder, WebhookClient } = require('discord.js');
 const { connectDb } = require('../utils/db.js')
 const client = require('../index.js').client
 
@@ -21,11 +21,12 @@ const emojiUpdateEvent = async (oldEmoji, newEmoji) => {
 
             const webhookClient = new WebhookClient({ url: doc.webhookUrls.server });
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
             .setTitle('Emoji Updated')
+            .setThumbnail('https://cdn.discordapp.com/emojis/1064443275311849513.webp')
             .setDescription(`**- Old Name:** ${oldEmoji.name}\n**+ New Name:** ${newEmoji.name}\n\n**ID:** ${newEmoji.id}`)
             .setFooter({text: "/log toggle server_events Emoji Update"})
-            .setColor('DARK_BUT_NOT_BLACK')
+            .setColor('DarkButNotBlack')
             .setTimestamp()
 
             if (!sent) {

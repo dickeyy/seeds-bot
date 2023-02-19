@@ -1,4 +1,4 @@
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const { EmbedBuilder, WebhookClient } = require('discord.js');
 const { log } = require('../functions/log.js');
 const { connectDb } = require('../utils/db.js')
 const client = require('../index.js').client
@@ -23,8 +23,9 @@ const messageUpdateEvent = async (oldMessage, newMessage) => {
 
             const webhookClient = new WebhookClient({ url: doc.webhookUrls.message });
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
             .setTitle(`Message Edited in #${oldMessage.channel.name}`)
+            .setThumbnail('https://cdn.discordapp.com/emojis/1065110917962022922.webp')
             .setAuthor({ name: oldMessage.author.tag, iconURL: oldMessage.author.avatarURL() })
             .setDescription(`**- Before: **${oldMessage.content}\n**+ After: **${newMessage.content}`)
             .setFooter({text: "/log toggle message_events Message Update"})

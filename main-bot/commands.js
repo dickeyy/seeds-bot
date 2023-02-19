@@ -1,4 +1,4 @@
-const { Constants } = require('discord.js');
+const { ApplicationCommandType, ApplicationCommandOptionType } = require('discord.js');
 const { log } = require('./functions/log');
 
 // Process errors
@@ -32,13 +32,13 @@ const commands = [
                 name: 'user',
                 description: 'The person you want to ban', 
                 required: true, 
-                type: Constants.ApplicationCommandOptionTypes.USER 
+                type: ApplicationCommandOptionType.User
             }, 
             { 
                 name: 'reason', 
                 description: 'The reason the person is being banned', 
                 required: false, 
-                type: Constants.ApplicationCommandOptionTypes.STRING 
+                type: ApplicationCommandOptionType.String 
             }
         ] 
     },
@@ -51,7 +51,7 @@ const commands = [
                 name: 'user', 
                 description: 'The id of the user you want to unban', 
                 required: true, 
-                type: Constants.ApplicationCommandOptionTypes.STRING 
+                type: ApplicationCommandOptionType.String 
             }
         ] 
     },
@@ -64,13 +64,13 @@ const commands = [
                 name: 'user', 
                 description: 'The person you want to kick', 
                 required: true, 
-                type: Constants.ApplicationCommandOptionTypes.USER 
+                type: ApplicationCommandOptionType.User 
             }, 
             {
                 name: 'reason', 
                 description: 'The reason the person is being kicked', 
                 required: false, 
-                type: Constants.ApplicationCommandOptionTypes.STRING 
+                type: ApplicationCommandOptionType.String 
             }
         ] 
     },
@@ -83,13 +83,13 @@ const commands = [
                 name: 'user', 
                 description: 'The person you want to warn', 
                 required: true, 
-                type: Constants.ApplicationCommandOptionTypes.USER 
+                type: ApplicationCommandOptionType.User 
             }, 
             { 
                 name: 'reason', 
                 description: 'The reason for the warn', 
                 required: true, 
-                type: Constants.ApplicationCommandOptionTypes.STRING 
+                type: ApplicationCommandOptionType.String 
             }
         ] 
     },
@@ -102,7 +102,7 @@ const commands = [
                 name: 'user', 
                 description: 'The person whos cases you want', 
                 required: true, 
-                type: Constants.ApplicationCommandOptionTypes.USER 
+                type: ApplicationCommandOptionType.User 
             }
         ] 
     },
@@ -115,7 +115,7 @@ const commands = [
                 name: 'case', 
                 description: 'The case ID that you want to delete', 
                 required: true, 
-                type: Constants.ApplicationCommandOptionTypes.INTEGER 
+                type: ApplicationCommandOptionType.Integer 
             }
         ] 
     },
@@ -128,7 +128,7 @@ const commands = [
                 name: 'channel', 
                 description: 'The channel you want to set as the report channel', 
                 required: true, 
-                type: Constants.ApplicationCommandOptionTypes.CHANNEL 
+                type: ApplicationCommandOptionType.Channel 
             }
         ] 
     },
@@ -140,13 +140,13 @@ const commands = [
                 name: 'reason', 
                 description: 'The reason for the report', 
                 required: true, 
-                type: Constants.ApplicationCommandOptionTypes.STRING 
+                type: ApplicationCommandOptionType.String 
             }, 
             { 
                 name: 'user', 
                 description: 'Optionally report a specific user', 
                 required: false, 
-                type: Constants.ApplicationCommandOptionTypes.USER 
+                type: ApplicationCommandOptionType.User 
             }
         ] 
     },
@@ -164,7 +164,7 @@ const commands = [
                         name: "type",
                         description: "The type of log you want to set",
                         required: true,
-                        type: Constants.ApplicationCommandOptionTypes.STRING,
+                        type: ApplicationCommandOptionType.String,
                         choices: [
                             { name: "Server Logs", value: "server" },
                             { name: "Member Logs", value: "member" },
@@ -175,7 +175,7 @@ const commands = [
                         name: "channel",
                         description: "The channel you want to set the log to",
                         required: true,
-                        type: Constants.ApplicationCommandOptionTypes.CHANNEL
+                        type: ApplicationCommandOptionType.Channel
                     }
                 ]
 
@@ -189,7 +189,7 @@ const commands = [
                         name: "server_events",
                         description: "Toggle specific server events",
                         required: false,
-                        type: Constants.ApplicationCommandOptionTypes.STRING,
+                        type: ApplicationCommandOptionType.String,
                         choices: [
                             { name: "Channel Create", value: "channelCreate" },
                             { name: "Channel Delete", value: "channelDelete" },
@@ -221,7 +221,7 @@ const commands = [
                         name: "member_events",
                         description: "Toggle specific member events",
                         required: false,
-                        type: Constants.ApplicationCommandOptionTypes.STRING,
+                        type: ApplicationCommandOptionType.String,
                         choices: [
                             { name: "Member Join", value: "guildMemberAdd" },
                             { name: "Member Leave", value: "guildMemberRemove" },
@@ -232,7 +232,7 @@ const commands = [
                         name: "message_events",
                         description: "Toggle specific message events",
                         required: false,
-                        type: Constants.ApplicationCommandOptionTypes.STRING,
+                        type: ApplicationCommandOptionType.String,
                         choices: [
                             { name: "Message Delete", value: "messageDelete" },
                             { name: "Message Update", value: "messageUpdate" },
@@ -252,7 +252,7 @@ const commands = [
                 name: 'amount',
                 description: 'The amount of messages you want to purge',
                 required: true,
-                type: Constants.ApplicationCommandOptionTypes.INTEGER
+                type: ApplicationCommandOptionType.Integer
             }
         ]
     },
@@ -265,7 +265,7 @@ const commands = [
                 name: 'channel',
                 description: 'The channel you want to lockdown',
                 required: false,
-                type: Constants.ApplicationCommandOptionTypes.CHANNEL
+                type: ApplicationCommandOptionType.Channel
             }
         ]
     },
@@ -278,7 +278,7 @@ const commands = [
                 name: 'channel',
                 description: 'The channel you want to unlock',
                 required: false,
-                type: Constants.ApplicationCommandOptionTypes.CHANNEL
+                type: ApplicationCommandOptionType.Channel
             }
         ]
     },
@@ -292,7 +292,7 @@ const commands = [
                 name: 'message', 
                 description: 'What you want to say to your friend', 
                 required: true, 
-                type: Constants.ApplicationCommandOptionTypes.STRING 
+                type: ApplicationCommandOptionType.String 
             }
         ] 
     },
@@ -304,7 +304,7 @@ const commands = [
                 name: 'topic', 
                 description: 'The topic of the horror story', 
                 required: true, 
-                type: Constants.ApplicationCommandOptionTypes.STRING 
+                type: ApplicationCommandOptionType.String 
             }
         ] 
     },
@@ -316,13 +316,13 @@ const commands = [
                 name: 'option1', 
                 description: 'First option for the poll', 
                 required: true, 
-                type: Constants.ApplicationCommandOptionTypes.STRING 
+                type: ApplicationCommandOptionType.String 
             }, 
             { 
                 name: 'option2', 
                 description: 'Second option for the poll', 
                 required: true, 
-                type: Constants.ApplicationCommandOptionTypes.STRING 
+                type: ApplicationCommandOptionType.String 
             }
         ] 
     },
@@ -338,7 +338,7 @@ const commands = [
                 name: 'user',
                 description: 'The user you want to test the love with',
                 required: true,
-                type: Constants.ApplicationCommandOptionTypes.USER
+                type: ApplicationCommandOptionType.User
             }
         ]
     },
@@ -355,7 +355,7 @@ const commands = [
                 name: 'location',
                 description: 'The location you want to get the weather for',
                 required: true,
-                type: Constants.ApplicationCommandOptionTypes.STRING
+                type: ApplicationCommandOptionType.String
             }
         ]
     },
@@ -372,7 +372,7 @@ const commands = [
                         name: 'user',
                         description: 'Who you want to play against',
                         required: true,
-                        type: Constants.ApplicationCommandOptionTypes.USER
+                        type: ApplicationCommandOptionType.User
                     }
                 ]
             }
@@ -404,7 +404,7 @@ const commands = [
                 name: 'bet', 
                 description: 'How much you want to bet, must be more than 10', 
                 required: true, 
-                type: Constants.ApplicationCommandOptionTypes.INTEGER 
+                type: ApplicationCommandOptionType.Integer 
             }
         ] 
     },
@@ -416,13 +416,13 @@ const commands = [
                 name: 'bet', 
                 description: 'How much you want to bet ont the game', 
                 required: true, 
-                type: Constants.ApplicationCommandOptionTypes.INTEGER 
+                type: ApplicationCommandOptionType.Integer 
             }, 
             { 
                 name: 'move', 
                 description: 'The move for the game (either rock, paper, or scissors)', 
                 required: true, 
-                type: Constants.ApplicationCommandOptionTypes.STRING, 
+                type: ApplicationCommandOptionType.String, 
                 choices: [
                     { 
                         name: 'rock', 
@@ -452,7 +452,7 @@ const commands = [
                 name: 'id', 
                 description: 'The shop id number, get this using /shop', 
                 required: true, 
-                type: Constants.ApplicationCommandOptionTypes.INTEGER 
+                type: ApplicationCommandOptionType.Integer 
             }
         ] 
     },
@@ -486,7 +486,7 @@ const commands = [
                 name: 'idea', 
                 description: 'The idea you want to suggest', 
                 required: true, 
-                type: Constants.ApplicationCommandOptionTypes.STRING 
+                type: ApplicationCommandOptionType.String 
             }
         ] 
     },
@@ -498,7 +498,7 @@ const commands = [
                 name: 'url',
                 description: 'The URL you want to generate a QR code for',
                 required: true,
-                type: Constants.ApplicationCommandOptionTypes.STRING
+                type: ApplicationCommandOptionType.String
             }
         ]
     },
@@ -521,19 +521,19 @@ const commands = [
     //                     name: 'channel',
     //                     description: 'The channel to set the starboard to',
     //                     required: true,
-    //                     type: Constants.ApplicationCommandOptionTypes.CHANNEL
+    //                     type: ApplicationCommandOptionType.Channel
     //                 },
     //                 {
     //                     name: 'emoji',
     //                     description: 'The emoji you want to require users to react with to star a message',
     //                     required: true,
-    //                     type: Constants.ApplicationCommandOptionTypes.STRING
+    //                     type: ApplicationCommandOptionType.String
     //                 },
     //                 {
     //                     name: 'amount',
     //                     description: 'The amount of stars a message needs to be added to the starboard',
     //                     required: true,
-    //                     type: Constants.ApplicationCommandOptionTypes.INTEGER
+    //                     type: ApplicationCommandOptionType.Integer
     //                 }
     //             ]
 

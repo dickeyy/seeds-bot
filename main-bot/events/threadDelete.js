@@ -1,4 +1,4 @@
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const { EmbedBuilder, WebhookClient } = require('discord.js');
 const { log } = require('../functions/log.js');
 const { connectDb } = require('../utils/db.js')
 const client = require('../index.js').client
@@ -20,8 +20,9 @@ const threadDeleteEvent = async (thread) => {
 
             const webhookClient = new WebhookClient({ url: doc.webhookUrls.server });
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
             .setTitle('Thread Deleted')
+            .setThumbnail('https://cdn.discordapp.com/emojis/1064444110334861373.webp')
             .setDescription(`**Thread:** ${thread.name}\n\n**ID:** ${thread.id}`)
             .setFooter({text: "/log toggle server_events Thread Delete"})
             .setColor('#006154')

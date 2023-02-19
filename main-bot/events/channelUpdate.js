@@ -1,4 +1,4 @@
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const { EmbedBuilder, WebhookClient } = require('discord.js');
 const { log } = require('../functions/log.js');
 const { connectDb } = require('../utils/db.js')
 const client = require('../index.js').client
@@ -31,22 +31,23 @@ const channelUpdateEvent = async (oldChannel, newChannel) => {
             const newBitrate = oldChannel.bitrate !== newChannel.bitrate
             const newUserLimit = oldChannel.userLimit !== newChannel.userLimit
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
             .setTitle('Channel Updated')
-            if (newName) embed.addField('Name', `**Old:** ${oldChannel.name}\n**New:** ${newChannel.name}`)
-            if (newType) embed.addField('Type', `**Old:** ${oldChannel.type}\n**New:** ${newChannel.type}`)
-            if (newCategory) embed.addField('Category', `**Old:** ${oldChannel.parent ? oldChannel.parent.name : 'None'}\n**New:** ${newChannel.parent ? newChannel.parent.name : 'None'}`)
-            if (newTopic) embed.addField('Topic', `**Old:** ${oldChannel.topic ? oldChannel.topic : 'None'}\n**New:** ${newChannel.topic ? newChannel.topic : 'None'}`)
-            if (newNSFW) embed.addField('NSFW', `**Old:** ${oldChannel.nsfw ? 'Yes' : 'No'}\n**New:** ${newChannel.nsfw ? 'Yes' : 'No'}`)
-            if (newSlowmode) embed.addField('Slowmode', `**Old:** ${oldChannel.rateLimitPerUser ? oldChannel.rateLimitPerUser : 'None'}\n**New:** ${newChannel.rateLimitPerUser ? newChannel.rateLimitPerUser : 'None'}`)
-            if (newBitrate) embed.addField('Bitrate', `**Old:** ${oldChannel.bitrate ? oldChannel.bitrate : 'None'}\n**New:** ${newChannel.bitrate ? newChannel.bitrate : 'None'}`)
-            if (newUserLimit) embed.addField('User Limit', `**Old:** ${oldChannel.userLimit ? oldChannel.userLimit : 'None'}\n**New:** ${newChannel.userLimit ? newChannel.userLimit : 'None'}`)
+            .setThumbnail('https://cdn.discordapp.com/emojis/1076747494668644442.webp')
+            if (newName) embed.addFields({name:'Name', value:`**Old:** ${oldChannel.name}\n**New:** ${newChannel.name}`})
+            if (newType) embed.addField({name:'Type', value:`**Old:** ${oldChannel.type}\n**New:** ${newChannel.type}`})
+            if (newCategory) embed.addField({name:'Category', value:`**Old:** ${oldChannel.parent ? oldChannel.parent.name : 'None'}\n**New:** ${newChannel.parent ? newChannel.parent.name : 'None'}`})
+            if (newTopic) embed.addField({name:'Topic', value:`**Old:** ${oldChannel.topic ? oldChannel.topic : 'None'}\n**New:** ${newChannel.topic ? newChannel.topic : 'None'}`})
+            if (newNSFW) embed.addField({name:'NSFW', value:`**Old:** ${oldChannel.nsfw ? 'Yes' : 'No'}\n**New:** ${newChannel.nsfw ? 'Yes' : 'No'}`})
+            if (newSlowmode) embed.addField({name:'Slowmode', value:`**Old:** ${oldChannel.rateLimitPerUser ? oldChannel.rateLimitPerUser : 'None'}\n**New:** ${newChannel.rateLimitPerUser ? newChannel.rateLimitPerUser : 'None'}`})
+            if (newBitrate) embed.addField({name:'Bitrate', value:`**Old:** ${oldChannel.bitrate ? oldChannel.bitrate : 'None'}\n**New:** ${newChannel.bitrate ? newChannel.bitrate : 'None'}`})
+            if (newUserLimit) embed.addField({name:'User Limit', value:`**Old:** ${oldChannel.userLimit ? oldChannel.userLimit : 'None'}\n**New:** ${newChannel.userLimit ? newChannel.userLimit : 'None'}`})
             embed
             .setColor(lightYellowHex)
             .setFooter({text: "/log toggle server_events Channel Update"})
             .setTimestamp()
 
-            if (embed.fields.length === 0) return
+            if (embed.data.fields.length === 0) return
 
             if (!sent) {
                 webhookClient.send({

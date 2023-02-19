@@ -1,6 +1,6 @@
 const { connectDb } = require('../utils/db.js');
 const { log } = require('../functions/log.js');
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const { EmbedBuilder, WebhookClient, time } = require('discord.js');
 const client = require('../index.js').client
 
 const db = connectDb()
@@ -30,61 +30,16 @@ const guildMemberRemoveEvent = async (member) => {
             // remove @everyone
             roles.replace('@everyone', '')
 
-            let joinedAgeMessage = ''
-            let joinedAge = Date.now() - member.joinedAt
-            let joinedAgeYears = joinedAge / 31536000000
-
-            // round the years
-            joinedAgeYears = Math.round(joinedAgeYears)
-            // remove the years from the account age
-            joinedAge = joinedAge - (joinedAgeYears * 31536000000)
-
-            // get the months
-            let joinedAgeMonths = joinedAge / 2592000000
-            // round the months
-            joinedAgeMonths = Math.round(joinedAgeMonths)
-            // remove the months from the account age
-            joinedAge = joinedAge - (joinedAgeMonths * 2592000000)
-
-            // get the days
-            let joinedAgeDays = joinedAge / 86400000
-            // round the days
-            joinedAgeDays = Math.round(joinedAgeDays)
-            // remove the days from the account age
-            joinedAge = joinedAge - (joinedAgeDays * 86400000)
-
-            // get the hours
-            let joinedAgeHours = joinedAge / 3600000
-            // round the hours
-            joinedAgeHours = Math.round(joinedAgeHours)
-            // remove the hours from the account age
-            joinedAge = joinedAge - (joinedAgeHours * 3600000)
-
-            // get the minutes
-            let joinedAgeMinutes = joinedAge / 60000
-            // round the minutes
-            joinedAgeMinutes = Math.round(joinedAgeMinutes)
-            // remove the minutes from the account age
-            joinedAge = joinedAge - (joinedAgeMinutes * 60000)
-
-            // get the seconds
-            let joinedAgeSeconds = joinedAge / 1000
-            // round the seconds
-            joinedAgeSeconds = Math.round(joinedAgeSeconds)
-            // remove the seconds from the account age
-            joinedAge = joinedAge - (joinedAgeSeconds * 1000)
-
-            joinedAgeMessage = `${joinedAgeYears} years, ${joinedAgeMonths} months, ${joinedAgeDays} days, ${joinedAgeHours} hours, ${joinedAgeMinutes} minutes, and ${joinedAgeSeconds} seconds`
-
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
             .setTitle('Member Left')
+            .setThumbnail('https://cdn.discordapp.com/emojis/1064442673806704672.webp')
             .setAuthor({ name: member.user.tag, iconURL: member.user.avatarURL() })
-            .setDescription(`<@${member.user.id}> - Joined ${joinedAgeMessage} ago\n\n**ID:** ${member.user.id}`)
+            .setDescription(`<@${member.user.id}> - Joined ${time(member.joinedAt, 'R')}\n\n**ID:** ${member.user.id}`)
 
-            .addField('Roles', roles || 'None')
+            .addFields({name:'Roles', value:roles || 'None'})
 
             .setFooter({text: "/log toggle member_events Member Leave"})
-            .setColor("BLURPLE")
+            .setColor("Blurple")
             .setTimestamp()
 
             if (!sent) {

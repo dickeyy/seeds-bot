@@ -1,4 +1,4 @@
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const { EmbedBuilder, WebhookClient } = require('discord.js');
 const { log } = require('../functions/log.js');
 const { connectDb } = require('../utils/db.js')
 const client = require('../index.js').client
@@ -23,11 +23,11 @@ const inviteCreateEvent = async (invite) => {
 
             const webhookClient = new WebhookClient({ url: doc.webhookUrls.server });
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
             .setTitle('Invite Created')
+            .setThumbnail('https://cdn.discordapp.com/emojis/1065111574471254118.webp')
             .setDescription(`**Created By:** ${invite.inviter}\n**Invite Code:** ${invite.code}\n**Channel:** ${invite.channel}\n**Temporary:** ${invite.temporary}\n**Max Uses:** ${invite.maxUses}\n**Max Age:** ${invite.maxAge} seconds`) 
             .setFooter({text: "/log toggle server_events Invite Create"})
-            .setColor()
             .setTimestamp()
 
             if (!sent) {

@@ -1,4 +1,4 @@
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const { EmbedBuilder, WebhookClient } = require('discord.js');
 const { log } = require('../functions/log.js');
 const { connectDb } = require('../utils/db.js')
 const client = require('../index.js').client
@@ -22,8 +22,9 @@ const guildScheduledEventCreateEvent = async (guildScheduledEvent) => {
 
             const webhookClient = new WebhookClient({ url: doc.webhookUrls.server });
             console.log(guildScheduledEvent)
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
             .setTitle('Scheduled Event Created')
+            .setThumbnail('https://cdn.discordapp.com/emojis/1064444112981463150.webp')
             .setFooter({text: "/log toggle server_events Server Event Create"})
             .setColor()
             .setTimestamp()

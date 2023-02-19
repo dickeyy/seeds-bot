@@ -1,4 +1,4 @@
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const { EmbedBuilder, WebhookClient } = require('discord.js');
 const { log } = require('../functions/log.js');
 const { connectDb } = require('../utils/db.js')
 const client = require('../index.js').client
@@ -24,15 +24,16 @@ const threadUpdateEvent = async (oldThread, newThread) => {
             const newName = oldThread.name != newThread.name
             const newAutoArchiveDuration = oldThread.autoArchiveDuration != newThread.autoArchiveDuration
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
             .setTitle('Thread Updated')
-            if (newName) embed.addField('Name', `**Old:** ${oldThread.name}\n**New:** ${newThread.name}`)
-            if (newAutoArchiveDuration) embed.addField('Auto Archive Duration', `**Old:** ${oldThread.autoArchiveDuration} mins\n**New:** ${newThread.autoArchiveDuration} mins`)
+            .setThumbnail('https://cdn.discordapp.com/emojis/1065110917962022922.webp')
+            if (newName) embed.addFields({name:'Name', value:`**Old:** ${oldThread.name}\n**New:** ${newThread.name}`})
+            if (newAutoArchiveDuration) embed.addFields({name:'Auto Archive Duration', value:`**Old:** ${oldThread.autoArchiveDuration} mins\n**New:** ${newThread.autoArchiveDuration} mins`})
             .setFooter({text: "/log toggle server_events Thread Update"})
             .setColor('#4CA99D')
             .setTimestamp()
 
-            if (embed.fields.length === 0) return
+            if (embed.data.fields.length === 0) return
 
             if (!sent) {
                 webhookClient.send({

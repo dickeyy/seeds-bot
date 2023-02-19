@@ -1,4 +1,4 @@
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const { EmbedBuilder, WebhookClient } = require('discord.js');
 const { log } = require('../functions/log.js');
 const { connectDb } = require('../utils/db.js')
 const client = require('../index.js').client
@@ -22,8 +22,9 @@ const roleCreateEvent = async (role) => {
 
             const webhookClient = new WebhookClient({ url: doc.webhookUrls.server });
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
             .setTitle('Role Created')
+            .setThumbnail('https://cdn.discordapp.com/emojis/1064444103850475580.webp')
             .setDescription(`**Role:** ${role.name}\n**Position:** ${role.position}\n\n**ID:** ${role.id}`)
             .setFooter({text: "/log toggle server_events Role Create"})
             .setColor('#A3FA87')

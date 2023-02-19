@@ -1,4 +1,4 @@
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const { EmbedBuilder, WebhookClient } = require('discord.js');
 const { connectDb } = require('../utils/db.js')
 const client = require('../index.js').client
 
@@ -26,11 +26,12 @@ const guildBanRemoveEvent = async (ban) => {
             //     type: AuditLogEvent.MemberBanAdd,
             // });
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
             .setTitle('Member Unbanned')
+            .setThumbnail('https://cdn.discordapp.com/emojis/1064442704936828968.webp')
             .setDescription(`**Member:** ${ban.user.tag}\n\n**ID:** ${ban.user.id}`)
             .setFooter({text: "/log toggle server_events Member Unban"})
-            .setColor('DARK_BUT_NOT_BLACK')
+            .setColor('DarkButNotBlack')
             .setTimestamp()
 
             // if (auditLog) {

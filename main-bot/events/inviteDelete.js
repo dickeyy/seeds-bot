@@ -1,4 +1,4 @@
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const { EmbedBuilder, WebhookClient } = require('discord.js');
 const { log } = require('../functions/log.js');
 const { connectDb } = require('../utils/db.js')
 const client = require('../index.js').client
@@ -22,8 +22,9 @@ const inviteDeleteEvent = async (invite) => {
 
             const webhookClient = new WebhookClient({ url: doc.webhookUrls.server });
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
             .setTitle('Invite Deleted')
+            .setThumbnail('https://cdn.discordapp.com/emojis/1065110916401729626.webp')
             .setDescription(`**Invite:** ${invite.code}`)
             .setFooter({text: "/log toggle server_events Invite Delete"})
             .setColor()

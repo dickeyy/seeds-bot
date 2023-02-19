@@ -1,5 +1,14 @@
-const { Client, Intents, MessageEmbed, Constants, MessageActionRow, MessageButton, Interaction, Permissions, Message, WebhookClient } = require('discord.js');
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_BANS, Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_INVITES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS] });
+const { Client, GatewayIntentBits, WebhookClient } = require('discord.js');
+const intents = [
+    GatewayIntentBits.Guilds, 
+    GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildModeration,
+    GatewayIntentBits.GuildEmojisAndStickers,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.GuildMessageReactions,
+    GatewayIntentBits.GuildInvites,
+]
+const client = new Client({ intents: intents });
 const { REST } = require('@discordjs/rest');
 const { Routes, InteractionResponseType } = require('discord-api-types/v9');
 const dotenv = require('dotenv');

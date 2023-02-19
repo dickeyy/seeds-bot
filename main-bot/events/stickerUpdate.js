@@ -1,4 +1,4 @@
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const { EmbedBuilder, WebhookClient } = require('discord.js');
 const { log } = require('../functions/log.js');
 const { connectDb } = require('../utils/db.js')
 const client = require('../index.js').client
@@ -23,16 +23,17 @@ const stickerUpdateEvent = async (oldSticker, newSticker) => {
             const newName = oldSticker.name !== newSticker.name
             const newDescription = oldSticker.description !== newSticker.description
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
             .setTitle('Sticker Updated')
-            if (newName) embed.addField('Name', `**Old:** ${oldSticker.name}\n**New:** ${newSticker.name}`)
-            if (newDescription) embed.addField('Description', `**Old:** ${oldSticker.description}\n**New:** ${newSticker.description}`)
+            .setThumbnail('https://cdn.discordapp.com/emojis/1064444283790307349.webp')
+            if (newName) embed.addFields({name:'Name', value:`**Old:** ${oldSticker.name}\n**New:** ${newSticker.name}`})
+            if (newDescription) embed.addFields({name:'Description', value:`**Old:** ${oldSticker.description}\n**New:** ${newSticker.description}`})
             embed
             .setFooter({text: "/log toggle server_events Sticker Update"})
             .setColor('DARK_BUT_NOT_BLACK')
             .setTimestamp()
 
-            if (embed.fields.length === 0) return
+            if (embed.data.fields.length === 0) return
 
             if (!sent) {
                 webhookClient.send({

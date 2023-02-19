@@ -1,4 +1,4 @@
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const { EmbedBuilder, WebhookClient } = require('discord.js');
 const { log } = require('../functions/log.js');
 const { connectDb } = require('../utils/db.js')
 const client = require('../index.js').client
@@ -22,8 +22,9 @@ const channelCreateEvent = async (channel) => {
 
             const webhookClient = new WebhookClient({ url: doc.webhookUrls.server });
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
             .setTitle('Channel Created')
+            .setThumbnail('https://cdn.discordapp.com/emojis/1076747519951908954.webp')
             .setDescription(`**Channel:** <#${channel.id}>\n**Type:** ${channel.type}\n**Category:** ${channel.parent ? channel.parent.name : 'None'}\n**ID:** ${channel.id}`)
             .setColor(lightGreenHex)
             .setFooter({text: "/log toggle server_events Channel Create"})

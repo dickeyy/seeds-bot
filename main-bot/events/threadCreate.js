@@ -1,4 +1,4 @@
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const { EmbedBuilder, WebhookClient } = require('discord.js');
 const { log } = require('../functions/log.js');
 const { connectDb } = require('../utils/db.js')
 const client = require('../index.js').client
@@ -21,8 +21,9 @@ const threadCreateEvent = async (thread) => {
 
             const webhookClient = new WebhookClient({ url: doc.webhookUrls.server });
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
             .setTitle('Thread Created')
+            .setThumbnail('https://cdn.discordapp.com/emojis/1065110721752477768.webp')
             .setDescription(`**Thread:** <#${thread.id}>\n\n**ID:** ${thread.id}`)
             .setFooter({text: "/log toggle server_events Thread Create"})
             .setColor('#00BBA1')
