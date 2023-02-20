@@ -1,16 +1,15 @@
-const { cmdRun } = require('../../functions/cmdRun.js')
+const { cmdRun } = require('../../../functions/cmdRun.js')
 const { EmbedBuilder, Permissions } = require('discord.js');
-const { connectDb } = require('../../utils/db.js');
-const { log } = require('../../functions/log.js');
-const client = require('../../index.js').client
+const { connectDb } = require('../../../utils/db.js');
+const { log } = require('../../../functions/log.js');
+const client = require('../../../index.js').client
 
 const db = connectDb()
 
 const mainHex = '#d79a61'
 
-
-exports.purgeCmd = async function purgeCmd(user,guild,interaction,count) {
-    const cmdName = 'purge'
+exports.purgeAllCmd = async function purgeAllCmd(user,guild,interaction,count) {
+    const cmdName = 'purge-all'
 
     if (count > 100) {
         const embed = new EmbedBuilder()
@@ -39,8 +38,16 @@ exports.purgeCmd = async function purgeCmd(user,guild,interaction,count) {
     await interaction.channel.bulkDelete(count)
 
     const embed = new EmbedBuilder()
-    .setTitle(`Purged ${count} messages`)
     .setColor(mainHex)
+    .setTimestamp()
+
+    if (count == 1) {
+        embed.setTitle('Purge All Messages')
+        embed.setDescription(`Purged \`${count}\` message in <#${interaction.channel.id}>.`)
+    } else {
+        embed.setTitle('Purge All')
+        embed.setDescription(`Purged \`${count}\` messages in <#${interaction.channel.id}>.`)
+    }
 
     interaction.reply({ embeds: [embed] })
 

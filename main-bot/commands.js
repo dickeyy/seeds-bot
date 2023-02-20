@@ -245,14 +245,130 @@ const commands = [
     },
     {
         name: 'purge',
-        description: 'Purge a number of messages from a channel',
+        description: 'Purge types of messages',
         default_member_permissions: MODERATE_PERM,
         options: [
             {
-                name: 'amount',
-                description: 'The amount of messages you want to purge',
-                required: true,
-                type: ApplicationCommandOptionType.Integer
+                name: 'all',
+                description: 'Purge all messages in the current channel',
+                type: 1,
+                options: [
+                    {
+                        name: 'amount',
+                        description: 'The amount of messages you want to purge',
+                        required: true,
+                        type: ApplicationCommandOptionType.Integer
+                    }
+                ]
+            },
+            {
+                name: 'user',
+                description: 'Purge all messages from a specific user in the current channel',
+                type: 1,
+                options: [
+                    {
+                        name: 'user',
+                        description: 'The user you want to purge messages from',
+                        required: true,
+                        type: ApplicationCommandOptionType.User
+                    },
+                    {
+                        name: 'amount',
+                        description: 'The amount of messages you want to purge',
+                        required: true,
+                        type: ApplicationCommandOptionType.Integer
+                    }
+                ]
+            },
+            {
+                name: 'bot',
+                description: 'Purge all messages from any bot in the current channel',
+                type: 1,
+                options: [
+                    {
+                        name: 'amount',
+                        description: 'The amount of messages you want to purge',
+                        required: true,
+                        type: ApplicationCommandOptionType.Integer
+                    }
+                ]
+            },
+            {
+                name: 'seeds',
+                description: 'Purge all messages from seeds in the current channel',
+                type: 1,
+                options: [
+                    {
+                        name: 'amount',
+                        description: 'The amount of messages you want to purge',
+                        required: true,
+                        type: ApplicationCommandOptionType.Integer
+                    }
+                ]
+            },
+            {
+                name: 'contains',
+                description: 'Purge all messages that contain a specific string in the current channel',
+                type: 1,
+                options: [
+                    {
+                        name: 'string',
+                        description: 'The string you want to purge messages containing',
+                        required: true,
+                        type: ApplicationCommandOptionType.String
+                    },
+                    {
+                        name: 'amount',
+                        description: 'The amount of messages you want to purge',
+                        required: true,
+                        type: ApplicationCommandOptionType.Integer
+                    }
+                ]
+            },
+            {
+                name: 'embeds',
+                description: 'Purge all messages with embeds in the current channel',
+                type: 1,
+                options: [
+                    {
+                        name: 'amount',
+                        description: 'The amount of messages you want to purge',
+                        required: true,
+                        type: ApplicationCommandOptionType.Integer
+                    }
+                ]
+            },
+            {
+                name: 'emoji',
+                description: 'Purge all messages with a specific emoji in the current channel',
+                type: 1,
+                options: [
+                    {
+                        name: 'emoji',
+                        description: 'The emoji you want to purge messages with',
+                        required: true,
+                        type: ApplicationCommandOptionType.String
+                    },
+                    {
+                        name: 'amount',
+                        description: 'The amount of messages you want to purge',
+                        required: true,
+                        type: ApplicationCommandOptionType.Integer
+                    }
+                ]
+            },
+            {
+                name: 'attachments',
+                description: 'Purge all messages with attachments in the current channel',
+                type: 1,
+                options: [
+                    {
+                        name: 'amount',
+                        description: 'The amount of messages you want to purge',
+                        required: true,
+                        type: ApplicationCommandOptionType.Integer
+                    }
+                ]
             }
         ]
     },

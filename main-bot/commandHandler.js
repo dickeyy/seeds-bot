@@ -21,9 +21,16 @@ const setreportchannelCmd = require('./cmds/moderation/setreportchannel.js').set
 const reportCmd = require('./cmds/moderation/report.js').reportCmd
 const setlogchannelCmd = require('./cmds/moderation/logging/setlogchannel.js').setlogchannelCmd
 const toggleLogsCmd = require('./cmds/moderation/logging/togglelogs.js').toggleLogsCmd
-const purgeCmd = require('./cmds/moderation/purge.js').purgeCmd
 const lockdownCmd = require('./cmds/moderation/lockdown.js').lockdownCmd
 const unlockCmd = require('./cmds/moderation/unlock.js').unlockCmd
+const purgeAllCmd = require('./cmds/moderation/purge/purgeAll.js').purgeAllCmd
+const purgeUserCmd = require('./cmds/moderation/purge/purgeUser.js').purgeUserCmd
+const purgeBotCmd = require('./cmds/moderation/purge/purgeBot.js').purgeBotCmd
+const purgeSeedsCmd = require('./cmds/moderation/purge/purgeSeeds.js').purgeSeedsCmd
+const purgeContainsCmd = require('./cmds/moderation/purge/purgeContains.js').purgeContainsCmd
+const purgeEmbedsCmd = require('./cmds/moderation/purge/purgeEmbeds.js').purgeEmbedsCmd
+const purgeEmojiCmd = require('./cmds/moderation/purge/purgeEmoji.js').purgeEmojiCmd
+const purgeAttachmentsCmd = require('./cmds/moderation/purge/purgeAttachments.js').purgeAttachmentsCmd
 
 // Fun Commands
 const aiCmd = require('./cmds/fun/ai.js').aiCmd
@@ -211,9 +218,36 @@ exports.commandHandler = async (interaction) => {
     }
 
     if (commandName == 'purge') {
-        const amount = options.getInteger('amount')
-        await purgeCmd(user,guild,interaction,amount)
-    }
+        const subCmd = options.getSubcommand()
+        if (subCmd == 'all') {
+            let amount = options.getInteger('amount')
+            await purgeAllCmd(user,guild,interaction,amount)
+        } else if (subCmd == 'user') {
+            let amount = options.getInteger('amount')
+            let purgeUser = options.getUser('user')
+            await purgeUserCmd(user,guild,interaction,purgeUser,amount)
+        } else if (subCmd == 'bot') {
+            let amount = options.getInteger('amount')
+            await purgeBotCmd(user,guild,interaction,amount)
+        } else if (subCmd == 'seeds') {
+            let amount = options.getInteger('amount')
+            await purgeSeedsCmd(user,guild,interaction,amount)
+        } else if (subCmd == 'contains') {
+            let amount = options.getInteger('amount')
+            let contains = options.getString('string')
+            await purgeContainsCmd(user,guild,interaction,contains,amount)
+        } else if (subCmd == 'embeds') {
+            let amount = options.getInteger('amount')
+            await purgeEmbedsCmd(user,guild,interaction,amount)
+        } else if (subCmd == 'emoji') {
+            let amount = options.getInteger('amount')
+            let emoji = options.getString('emoji')
+            await purgeEmojiCmd(user,guild,interaction,emoji,amount)
+        } else if (subCmd == 'attachments') {
+            let amount = options.getInteger('amount')
+            await purgeAttachmentsCmd(user,guild,interaction,amount)
+        }
+    } 
 
     if (commandName == 'starboard') {
         const subCmd = options.getSubcommand()
