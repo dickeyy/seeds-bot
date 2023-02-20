@@ -39,6 +39,12 @@ const commands = [
                 description: 'The reason the person is being banned', 
                 required: false, 
                 type: ApplicationCommandOptionType.String 
+            },
+            {
+                name: 'delete_hours',
+                description: 'The amount of hours of messages to delete from the banned user',
+                required: false,
+                type: ApplicationCommandOptionType.Integer
             }
         ] 
     },
@@ -52,6 +58,12 @@ const commands = [
                 description: 'The id of the user you want to unban', 
                 required: true, 
                 type: ApplicationCommandOptionType.String 
+            },
+            {
+                name: 'reason',
+                description: 'The reason for the unban',
+                required: false,
+                type: ApplicationCommandOptionType.String
             }
         ] 
     },

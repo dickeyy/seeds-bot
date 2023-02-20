@@ -18,7 +18,7 @@ const { connectDb } = require('./utils/db.js');
 const db = connectDb()
 
 // Define Dev Mode
-const devMode = false
+const devMode = true
 
 // Dotenv initialize 
 dotenv.config();

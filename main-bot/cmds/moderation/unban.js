@@ -6,11 +6,15 @@ const client = require('../../index.js').client
 const mainHex = '#d79a61'
 
 
-exports.unbanCmd = function unbanCmd(user,guild,interaction,unbanUser) {
+exports.unbanCmd = function unbanCmd(user,guild,interaction,unbanUser,reason) {
     const cmdName = 'unban'
 
     if (true) {
-        guild.members.unban(unbanUser).catch(error => {
+        if (reason == null) {
+            reason = 'No reason provided'
+        }
+
+        guild.members.unban(unbanUser, reason).catch(error => {
             if (error.code == 10026) {
                 const embed = new EmbedBuilder()
                 .setTitle('Error: That person is not banned')
@@ -25,7 +29,8 @@ exports.unbanCmd = function unbanCmd(user,guild,interaction,unbanUser) {
         }).then(() => {
             const embed = new EmbedBuilder()
             .setTitle('Unbanned Member')
-            .setDescription(`Unbanned <@${unbanUser}>`)
+            .setDescription(`Unbanned <@${unbanUser}>\nReason: \`${reason}\``)
+            .setTimestamp()
             .setColor(mainHex)
     
             interaction.reply({

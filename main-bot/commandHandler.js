@@ -75,12 +75,14 @@ exports.commandHandler = async (interaction) => {
     if (commandName == 'ban') {
         const banUser = options.getUser('user')
         const reason = options.getString('reason')
-        banCmd(user,guild,interaction,banUser,reason)
+        const deleteHours = options.getInteger('delete_hours')
+        banCmd(user,guild,interaction,banUser,reason,deleteHours)
     }
 
     if (commandName == 'unban') {
         const unbanUser = options.getString('user')
-        unbanCmd(user,guild,interaction,unbanUser)
+        const reason = options.getString('reason')
+        unbanCmd(user,guild,interaction,unbanUser,reason)
     }
 
     if (commandName == 'kick') {
