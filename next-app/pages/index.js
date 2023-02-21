@@ -29,7 +29,7 @@ export default function Home() {
         toggleColorMode()
     }
 
-    axios.get('https://seedsbot.xyz/api/bot-stats').then((res) => {
+    axios.get('http://localhost:3000/api/bot-stats').then((res) => {
       
       setBotStats(res.data);
 
