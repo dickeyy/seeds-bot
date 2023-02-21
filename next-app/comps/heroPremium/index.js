@@ -13,7 +13,7 @@ import React from 'react'
 export default function HeroPremium() {
 
     const handleBuy = (subType) => {
-        axios.post('http://localhost:3000/api/checkout_session', {
+        axios.post('https://seedsbot.xyz/api/checkout_session', {
             subType: subType
         }).then((res) => {
             console.log(res.data) 
