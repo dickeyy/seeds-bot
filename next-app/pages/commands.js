@@ -352,14 +352,14 @@ export default function CommandsPage() {
                 pl={5}
                 
             >
-              <Tabs  isFitted colorScheme={'brand.brown'} w={['120%', '120%', '70%', '70%']}>
+              <Tabs  isFitted colorScheme={'brand.brown'} w={['110%', '100%', '70%', '70%']}>
                   <TabList overflowX={'scroll'} overflowY={'hidden'} pr={'1rem'} pl={'1rem'}>
-                      <Tab>All</Tab>
-                      <Tab>Moderation</Tab>
-                      <Tab>Economy</Tab>
-                      <Tab>Fun</Tab>
-                      <Tab>Games</Tab>
-                      <Tab>Utility</Tab>
+                      <Tab fontWeight={'bold'} fontSize={'xl'}>All</Tab>
+                      <Tab fontWeight={'bold'} fontSize={'xl'}>Moderation</Tab>
+                      <Tab fontWeight={'bold'} fontSize={'xl'}>Economy</Tab>
+                      <Tab fontWeight={'bold'} fontSize={'xl'}>Fun</Tab>
+                      <Tab fontWeight={'bold'} fontSize={'xl'}>Games</Tab>
+                      <Tab fontWeight={'bold'} fontSize={'xl'}>Utility</Tab>
                   </TabList>
 
                   <TabPanels>
