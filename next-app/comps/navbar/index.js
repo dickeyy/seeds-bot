@@ -169,21 +169,35 @@ export default function NavBar(props) {
                     <Drawer onClose={onClose} isOpen={isOpen} size={'xs'}>
                         <DrawerOverlay />
                         <DrawerContent 
-                            backgroundColor={'#595755'}
+                            borderRadius={'8px'}
+                            height={'95vh'}
+                            mx={'auto'}
+                            my={'auto'}
+                            backgroundColor={'rgba(180, 180, 180, 0.2)'}
+                            backdropFilter={'blur(15px)'}
+                            boxShadow={'rgba(28, 28, 28, 0.2) 0px 0px 10px'}
                         >
-                            <DrawerCloseButton />
-                            <DrawerHeader fontSize={50} fontWeight={700}>Menu</DrawerHeader>
+                            <DrawerCloseButton size={'lg'} />
+                            <DrawerHeader fontSize={50} fontWeight={700}>Pages</DrawerHeader>
                             <DrawerBody>
-                                <a href='/commands'>
-                                    <Link fontSize={30} fontWeight={700}>
-                                        Commands
-                                    </Link>
+                                <a href='/'>
+                                    <Button colorScheme={'brand.brown'} w={'100%'} variant={'solid'} size={'lg'} fontSize={'20'} fontWeight={700}>
+                                        Home
+                                    </Button>
                                 </a>
-                                <Box w={10} />
+                                <br></br>
+                                <br></br>
+                                <a href='/commands'>
+                                    <Button colorScheme={'brand.brown'} w={'100%'} variant={'solid'} size={'lg'} fontSize={'20'} fontWeight={700}>
+                                        Commands
+                                    </Button>
+                                </a>
+                                <br></br>
+                                <br></br>
                                 <a href='/donate'>
-                                    <Link fontSize={30} fontWeight={700}>
+                                    <Button colorScheme={'brand.brown'} w={'100%'} variant={'solid'} size={'lg'} fontWeight={700}>
                                         Donate
-                                    </Link>
+                                    </Button>
                                 </a>
                             </DrawerBody>
                         </DrawerContent>
