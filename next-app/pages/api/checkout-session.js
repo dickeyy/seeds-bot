@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     if (subType === 'monthly') {
         priceId = 'price_1Me3TCGKFGesgQ29JlJKwrTY'
     } else if (subType === 'yearly') {
-        priceId = 'price_1Me4KbGKFGesgQ29TstxXtnV'
+        priceId = 'price_1MeJiTGKFGesgQ29KzmF4A45'
     } else if (subType === 'lifetime') {
         priceId = 'price_1Me4L5GKFGesgQ298EOOdpSK'
     }
@@ -30,7 +30,7 @@ export default async function handler(req, res) {
             ],
             mode: 'subscription',
             success_url: `${req.headers.origin}/upgrade?success=true&session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${req.headers.origin}/upgrade?success=false&session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `${req.headers.origin}/premium`,
             automatic_tax: {enabled: true},
           });
           res.json({url: session.url}) 

@@ -350,9 +350,10 @@ export default function CommandsPage() {
                 w={'100vw'}
                 pr={5}
                 pl={5}
+                
             >
-              <Tabs isFitted colorScheme={'brand.brown'} w={['fit-content', 'fit-content', '70%', '70%']}>
-                  <TabList >
+              <Tabs  isFitted colorScheme={'brand.brown'} w={['120%', '120%', '70%', '70%']}>
+                  <TabList overflowX={'scroll'} overflowY={'hidden'} pr={'1rem'} pl={'1rem'}>
                       <Tab>All</Tab>
                       <Tab>Moderation</Tab>
                       <Tab>Economy</Tab>

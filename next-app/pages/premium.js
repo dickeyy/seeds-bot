@@ -9,6 +9,7 @@ import theme from '../styles/theme.js'
 import NavBar from '../comps/navbar'
 import React from 'react'
 import HeroPremium from '@/comps/heroPremium/index.js'
+import PremiumFeatureList from '@/comps/premiumFeatureList/index.js'
 
 export default function Home() {
 
@@ -23,7 +24,7 @@ export default function Home() {
 
     <ChakraProvider theme={theme}>
       <Head>
-        <title>Seeds | Donate</title>
+        <title>Seeds | Premium</title>
         <meta name="description" content="Seeds is the easiest bot to use on Discord" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="images/seeds-logo-removebg.png" />
@@ -59,7 +60,9 @@ export default function Home() {
             textAlign={'center'}
         >
 
-            <HeroPremium/>
+            <HeroPremium />
+
+            <PremiumFeatureList />
 
         </Box>
     </Box>

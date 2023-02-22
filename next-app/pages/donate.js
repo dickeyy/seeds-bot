@@ -49,13 +49,9 @@ export default function Home() {
       </Head>
 
       <Box
-        bgImage={'url(images/contour-lines.png)'}
         h={'100vh'}
         w={'100vw'}
         bgPos={'static'}
-        bgBlendMode={'overlay'}
-        bgColor={'rgba(0,0,0,0.8)'}
-        bgAttachment={'fixed'}
         flexDirection={'column'}
 
       >
@@ -70,7 +66,7 @@ export default function Home() {
         >
             <Heading
                 as={'h1'}
-                fontSize={'8xl'}
+                fontSize={['5xl', '6xl', '8xl', '8xl']}
                 fontWeight={'bold'}
                 color={'#fff'}
                 mb={'2rem'}
@@ -79,8 +75,8 @@ export default function Home() {
             </Heading>
             <Text
                 as={'p'}
-                fontSize={'xl'}
-                w={'50%'}
+                fontSize={['lg', 'lg', 'xl', 'xl']}
+                w={['90%', '70%', '50%', '50%']}
                 mx={'auto'}
                 fontWeight={'normal'}
                 color={'brand.gray.100'}
@@ -104,7 +100,7 @@ export default function Home() {
                 target={'_blank'}
                 rel={'noopener noreferrer'}
                 colorScheme={'brand.brown'}
-                w={'20%'}
+                w={['70%', '70%', '20%', '20%']}
                 mt={'2rem'}
                 mx={'auto'}
                 mb={'2rem'}
