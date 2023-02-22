@@ -169,14 +169,13 @@ export default function NavBar(props) {
                     <Drawer onClose={onClose} isOpen={isOpen} size={'xs'}>
                         <DrawerOverlay />
                         <DrawerContent 
-                            borderRadius={'8px'}
-                            height={'95vh'}
-                            mx={'auto'}
-                            my={'auto'}
+                            borderLeftRadius={'8px'}
                             backgroundColor={'rgba(180, 180, 180, 0.2)'}
                             backdropFilter={'blur(15px)'}
                             boxShadow={'rgba(28, 28, 28, 0.2) 0px 0px 10px'}
-                        >
+                        >   
+                            <br></br>
+                            <br></br>
                             <DrawerCloseButton size={'lg'} />
                             <DrawerHeader fontSize={50} fontWeight={700}>Pages</DrawerHeader>
                             <DrawerBody>
