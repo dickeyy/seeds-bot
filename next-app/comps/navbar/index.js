@@ -1,16 +1,21 @@
 import { Box, Button, ChakraProvider, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, Heading, Hide, Image, Link, Show, Text, useDisclosure } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { GiHamburger, GiHamburgerMenu } from 'react-icons/gi';
+import Cookies from 'universal-cookie';
 
 import theme from '../../styles/theme.js'
 
 export default function NavBar(props) {
 
     const activePage = props.active
+    const cookies = new Cookies();
+
 
     const [cmdsActive, setCmdsActive] = useState(false)
     const [supportActive, setSupportActive] = useState(false)
     const [donateActive, setDonateActive] = useState(false)
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
 
     const [size, setSize] = useState('')
 
@@ -25,6 +30,10 @@ export default function NavBar(props) {
             setCmdsActive(true)
         } else if (activePage === 'donate') {
             setDonateActive(true)
+        }
+
+        if (cookies.get('seeds-session-id')) {
+            setIsLoggedIn(true)
         }
     }, [])
 
@@ -122,20 +131,37 @@ export default function NavBar(props) {
                 </Box>
             </Hide>
             
-            <Hide breakpoint='(max-width: 530px)'>
-                <a href='/invite' target={'_blank'} >
-                    <Button 
-                        colorScheme={'brand.brown'} 
-                        variant={'solid'} 
-                        size={'lg'}
-                        fontSize={'1rem'}
-                        fontWeight={'bold'}
-                        ml={'1rem'}
-                    >
-                        Invite
-                    </Button>
-                </a>
-            </Hide>
+            {!isLoggedIn ?
+                <Hide breakpoint='(max-width: 530px)'>
+                    <a href='/login' >
+                        <Button 
+                            colorScheme={'brand.brown'} 
+                            variant={'solid'} 
+                            size={'lg'}
+                            fontSize={'1rem'}
+                            fontWeight={'bold'}
+                            ml={'1rem'}
+                        >
+                            Login
+                        </Button>
+                    </a>
+                </Hide>
+            :
+                <Hide breakpoint='(max-width: 530px)'>
+                    <a href='/dashboard/select-server' >
+                        <Button
+                            colorScheme={'brand.brown'}
+                            variant={'solid'}
+                            size={'lg'}
+                            fontSize={'1rem'}
+                            fontWeight={'bold'}
+                            ml={'1rem'}
+                        >
+                            Dashboard
+                        </Button>
+                    </a>
+                </Hide>
+            }
 
             <Show breakpoint='(max-width: 530px)'>
                 <Box 
