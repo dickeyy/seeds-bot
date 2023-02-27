@@ -25,7 +25,7 @@ export default async function handler(req, res) {
 					client_secret: process.env.DISCORD_CLIENT_SECRET,
 					code,
 					grant_type: 'authorization_code',
-					redirect_uri: `https://seedsbot.xyz/dashboard/select-server`,
+					redirect_uri: `${process.env.REDIRECT}/dashboard/select-server`,
 					scope: 'identify guilds email guilds.members.read',
 				}).toString(),
 				headers: {
@@ -52,7 +52,7 @@ export default async function handler(req, res) {
             if (userDoc) {
                 // the user already exists in the database
                 // we want to request the api endpoint to update the session
-                const updateSessionRequest = await request('https://seedsbot.xyz/api/update-session', {
+                const updateSessionRequest = await request(`${process.env.REDIRECT}/api/update-session`, {
                     method: 'POST',
                     body: JSON.stringify({
                         userData,

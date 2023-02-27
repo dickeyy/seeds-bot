@@ -35,48 +35,56 @@ export default function DashSelectServer() {
         toggleColorMode()
     }
 
-    const cParams = new URLSearchParams(window.location.search);
-    const code = cParams.get('code');
-    window.history.replaceState({}, document.title, "/" + "dashboard/select-server");
-    if (code) {
+    // set a timeout to let the cookies load
+    setTimeout(() => {
+      const cParams = new URLSearchParams(window.location.search);
+      const code = cParams.get('code');
       window.history.replaceState({}, document.title, "/" + "dashboard/select-server");
-      window.history.replaceState({}, document.title, "/" + "dashboard/select-server");
-      window.history.replaceState({}, document.title, "/" + "dashboard/select-server");
-      window.history.replaceState({}, document.title, "/" + "dashboard/select-server");
-      axios.post(`https://seedsbot.xyz/api/discord-refresh-token`, {
-        code: code
-      }).then((res) => {
-        setUser(res.data.user)
-        setSessionId(res.data.session)
-        // set the session id cookie
-        cookies.set('seeds-session-id', res.data.session, { path: '/' });
+      if (code) {
         window.history.replaceState({}, document.title, "/" + "dashboard/select-server");
-        axios.post(`https://seedsbot.xyz/api/discord-get-guilds`, {
-          authData: {
-            accessToken: res.data.authData.accessToken,
-            refreshToken: res.data.authData.refreshToken,
-            tokenType: res.data.authData.tokenType
-          }
+        window.history.replaceState({}, document.title, "/" + "dashboard/select-server");
+        window.history.replaceState({}, document.title, "/" + "dashboard/select-server");
+        window.history.replaceState({}, document.title, "/" + "dashboard/select-server");
+        axios.post(`${process.env.REDIRECT}/api/discord-refresh-token`, {
+          code: code
         }).then((res) => {
-          setGuildsJoined(res.data.guildsInDb)
-          console.log(res.data.guildsNotInDb)
-          console.log(res.data.guildsInDb)
-          setGuildsNotJoined(res.data.guildsNotInDb)
+          setUser(res.data.user)
+          setSessionId(res.data.session)
+          // set the session id cookie
+          cookies.set('seeds-session-id', res.data.session, { path: '/' });
+          window.history.replaceState({}, document.title, "/" + "dashboard/select-server");
+          axios.post(`${process.env.REDIRECT}/api/discord-get-user`, {
+            sessionId: sessionId
+          }).then((res) => {
+            setUser(res.data.userData)
+            setGuildsJoined(res.data.guildsInDb)
+            setGuildsNotJoined(res.data.guildsNotInDb)
+
+            setLoading(false)
+          })
         })
-      })
-    } else if (sessionId) {
-      // get the user data
-      axios.post(`https://seedsbot.xyz/api/discord-get-user`, {
-        sessionId: sessionId
-      }).then((res) => {
-        setUser(res.data.userData)
-        setGuildsJoined(res.data.guildsInDb)
-        setGuildsNotJoined(res.data.guildsNotInDb)
+      } else if (sessionId) {
+        // get the user data
+        axios.post(`${process.env.REDIRECT}/api/discord-get-user`, {
+          sessionId: sessionId
+        }).then((res) => {
+          setUser(res.data.userData)
+          setGuildsJoined(res.data.guildsInDb)
+          setGuildsNotJoined(res.data.guildsNotInDb)
 
-        setLoading(false)
-      })
-    }
-
+          setLoading(false)
+        })
+      } 
+      
+      // set timeout to let cookie set
+      setTimeout(() => {
+        if (!sessionId && !code) {
+          // user is not logged in
+          window.location.href = `${process.env.REDIRECT}/login`
+        }
+      }, 5000)
+      
+    }, 1000)
   }, [])
 
   return (
@@ -120,6 +128,7 @@ export default function DashSelectServer() {
           justifyContent={'center'}
           height={'fit-content'}
           mt={'5rem'}
+          pt={'2rem'}
         >
           <Heading>
               Select a server
@@ -128,6 +137,7 @@ export default function DashSelectServer() {
           <Text 
             color={'brand.gray.300'}
             fontWeight={'medium'}
+            textAlign={'center'}
           >
             These are all the servers you can manage, that also have Seeds added
           </Text>
@@ -153,7 +163,7 @@ export default function DashSelectServer() {
                 guildsJoined.length > 0 ? guildsJoined.map((guild) => {
                   return (
                     <a
-                      href={`/dashboard/${guild.id}`}
+                      href={`/dashboard/${guild.id}/overview`}
                       key={guild.id}
                     >
                       <Box

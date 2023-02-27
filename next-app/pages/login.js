@@ -12,8 +12,8 @@ export default function InvitePage() {
 
   const page = 'login'
 
-  //const authUrl = 'https://discord.com/api/oauth2/authorize?client_id=968198214450831370&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fdashboard%2Fselect-server&response_type=code&scope=identify%20guilds%20email%20guilds.members.read'
-  const authUrl = 'https://discord.com/api/oauth2/authorize?client_id=968198214450831370&redirect_uri=https%3A%2F%2Fseedsbot.xyz%2Fdashboard%2Fselect-server&response_type=code&scope=identify%20guilds%20email'
+  const authUrl = process.env.DISCORD_AUTH_URL
+
   const { toggleColorMode } = useColorMode();
   const text = useColorModeValue('dark', 'light');
 

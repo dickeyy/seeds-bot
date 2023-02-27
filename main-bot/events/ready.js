@@ -26,23 +26,38 @@ const readyEvent = async function readyEvent() {
 
         client.guilds.cache.forEach(async (guild) => {
 
-            const isPartnered = guild.partnered
             const guildData = {
                 _id: guild.id,
-                id: guild.id,
                 name: guild.name,
-                description: guild.description,
-                memberCount: guild.memberCount,
                 large: guild.large,
                 vanityUrl: guild.vanityURLCode,
-                joinedAt: today,
-                ownerId: guild.ownerId,
-                shardId: guild.shardId,
+                description: guild.description,
                 bannerUrl: guild.banner,
-                features: guild.features,
                 icon: guild.icon,
+                splash: guild.splash,
+                shardId: guild.shardId,
+                discoverySplash: guild.discoverySplash,
+                owner: guild.ownerId,
+                afkChannel: guild.afkChannelId,
+                afkTimeout: guild.afkTimeout,
+                verificationLevel: guild.verificationLevel,
+                defaultMessageNotifications: guild.defaultMessageNotifications,
+                systemChannel: guild.systemChannelId,
+                rulesChannel: guild.rulesChannelId,
+                publicUpdatesChannel: guild.publicUpdatesChannelId,
                 maxMembers: guild.maximumMembers,
-                partnered: isPartnered,
+                premiumTier: guild.premiumTier,
+                premiumSubscriptionCount: guild.premiumSubscriptionCount,
+                explicitContentFilter: guild.explicitContentFilter,
+                preferredLocale: guild.preferredLocale,
+                features: guild.features,
+                mfaLevel: guild.mfaLevel,
+                applicationId: guild.applicationId,
+                widgetEnabled: guild.widgetEnabled,
+                widgetChannel: guild.widgetChannelId,
+                systemChannelFlags: guild.systemChannelFlags,
+                nsfwLevel: guild.nsfwLevel,
+                joinedAt: guild.joinedAt,
             }
 
             if (!gIdArray.includes(guild.id)) {
@@ -62,6 +77,8 @@ const readyEvent = async function readyEvent() {
             await db.collection('guilds').deleteMany({ id: { $nin: client.guilds.cache.map(g => g.id) } })
         }
     }
+
+    // then report that the guilds and db are synced
 
     console.log('Guilds and DB are synced.')
     log('info', 'Guilds and DB are synced.')

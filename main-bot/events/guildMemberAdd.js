@@ -43,6 +43,9 @@ const guildMemberAddEvent = async (member) => {
             }
 
             webhookClient.destroy()
+
+            // update the data in the database
+            await db.collection('guilds').updateOne({ id: member.guild.id }, { $set: { memberCount: member.guild.memberCount } })
         }
     }
 }

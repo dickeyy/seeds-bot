@@ -84,6 +84,43 @@ const guildUpdateEvent = async (oldGuild, newGuild) => {
             }
 
             webhookClient.destroy()
+
+            // update the data in the database
+            const isPartnered = newGuild.partnered
+            await db.updateGuild(newGuild.id, {
+                name: newGuild.name,
+                large: newGuild.large,
+                vanityUrl: newGuild.vanityURLCode,
+                description: newGuild.description,
+                bannerUrl: newGuild.banner,
+                icon: newGuild.icon,
+                splash: newGuild.splash,
+                shardId: newGuild.shardId,
+                discoverySplash: newGuild.discoverySplash,
+                owner: newGuild.ownerId,
+                afkChannel: newGuild.afkChannelId,
+                afkTimeout: newGuild.afkTimeout,
+                verificationLevel: newGuild.verificationLevel,
+                defaultMessageNotifications: newGuild.defaultMessageNotifications,
+                systemChannel: newGuild.systemChannelId,
+                rulesChannel: newGuild.rulesChannelId,
+                publicUpdatesChannel: newGuild.publicUpdatesChannelId,
+                maxMembers: newGuild.maximumMembers,
+                premiumTier: newGuild.premiumTier,
+                premiumSubscriptionCount: newGuild.premiumSubscriptionCount,
+                explicitContentFilter: newGuild.explicitContentFilter,
+                preferredLocale: newGuild.preferredLocale,
+                features: newGuild.features,
+                mfaLevel: newGuild.mfaLevel,
+                applicationId: newGuild.applicationId,
+                widgetEnabled: newGuild.widgetEnabled,
+                widgetChannel: newGuild.widgetChannelId,
+                systemChannelFlags: newGuild.systemChannelFlags,
+                nsfwLevel: newGuild.nsfwLevel,
+                joinedAt: newGuild.joinedAt,
+            })
+
+
         }
     }
 

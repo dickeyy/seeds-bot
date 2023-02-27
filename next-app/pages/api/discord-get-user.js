@@ -90,6 +90,13 @@ export default async function handler(req, res) {
                 }
             });
 
+            // from the guildsIndb array create a new array of just the ids
+            const guildIds = guildsInDb.map(guild => guild.id);
+            
+            // then update that on the user doc
+            await db.collection('webUsers').updateOne({discordId: sessionDoc.discordId}, {$set: {guilds: guildIds}});
+
+            // return the user data
             return res.status(200).json({
                 userData: {
                     email: decrypt(userDoc.email, decryptedPassword),
