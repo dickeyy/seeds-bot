@@ -237,6 +237,31 @@ export default function NavBar(props) {
                                         Donate
                                     </Button>
                                 </a>
+                                <br></br>
+                                <br></br>
+                                <a href='/dashboard/select-server'>
+                                    <Button colorScheme={'brand.brown'} w={'100%'} variant={'solid'} size={'lg'} fontWeight={700}>
+                                        Dashboard
+                                    </Button>
+                                </a>
+                                <br></br>
+                                <br></br>
+                                <br></br>
+                                <br></br>
+                                <br></br>
+                                <br></br>
+                                <a href='/invite'>
+                                    <Button colorScheme={'brand.brown'} w={'100%'} variant={'solid'} size={'lg'} fontWeight={700}>
+                                        Invite
+                                    </Button>
+                                </a>
+                                <br></br>
+                                <br></br>
+                                <a href='/support'>
+                                    <Button colorScheme={'brand.brown'} w={'100%'} variant={'solid'} size={'lg'} fontWeight={700}>
+                                        Discord
+                                    </Button>
+                                </a>
                             </DrawerBody>
                         </DrawerContent>
                     </Drawer>
