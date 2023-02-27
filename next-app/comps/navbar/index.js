@@ -177,20 +177,33 @@ export default function NavBar(props) {
                         leftIcon={<GiHamburgerMenu />} 
                     ></Button>
 
-                    <a href='/invite' target={'_blank'} >
-                        <Button
-                            colorScheme={'brand.brown'} 
-                            variant={'solid'} 
-                            size={'md'}
-                            fontSize={'1rem'}
-                            fontWeight={'bold'}
-                            p={'0.5rem 1.5rem'}
-                            borderRadius={'8px'}
-                            ml={'1rem'}
-                        >
-                            Invite
-                        </Button>
-                    </a>
+                    {!isLoggedIn ?
+                        <a href='/login' >
+                            <Button 
+                                colorScheme={'brand.brown'}
+                                variant={'solid'}
+                                size={'md'}
+                                fontSize={'1rem'}
+                                fontWeight={'bold'}
+                                ml={'0.5rem'}
+                            >
+                                Login
+                            </Button>
+                        </a>
+                    :
+                        <a href='/dashboard/select-server' >
+                            <Button
+                                colorScheme={'brand.brown'}
+                                variant={'solid'}
+                                size={'md'}
+                                fontSize={'1rem'}
+                                fontWeight={'bold'}
+                                ml={'0.5rem'}
+                            >
+                                Manage
+                            </Button>
+                        </a>
+                    }
 
                     <Drawer onClose={onClose} isOpen={isOpen} size={'xs'}>
                         <DrawerOverlay />

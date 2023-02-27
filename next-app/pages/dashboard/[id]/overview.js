@@ -42,6 +42,10 @@ export default function DashSelectServer() {
         // make a request to the api to get the guild data
         // set a timeout to make sure the guildId is set
         setTimeout(() => {
+            if (!sessionId) {
+                // user is not logged in
+                window.location.href = `${process.env.REDIRECT}/login`
+            }
             if (id) {
                 console.log('making request')
                 axios.get(`${process.env.REDIRECT}/api/discord-get-guild`, {

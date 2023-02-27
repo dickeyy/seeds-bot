@@ -54,7 +54,7 @@ export default function DashSelectServer() {
           cookies.set('seeds-session-id', res.data.session, { path: '/' });
           window.history.replaceState({}, document.title, "/" + "dashboard/select-server");
           axios.post(`${process.env.REDIRECT}/api/discord-get-user`, {
-            sessionId: sessionId
+            sessionId: res.data.session
           }).then((res) => {
             setUser(res.data.userData)
             setGuildsJoined(res.data.guildsInDb)
