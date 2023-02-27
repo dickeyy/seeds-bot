@@ -9,7 +9,8 @@ import { useRouter } from 'next/router';
 const inter = Inter({ subsets: ['latin'] })
 import theme from '../../../styles/theme.js'
 
-import NavBar from '../../../comps/navbar'
+import SidebarWithHeader from '../../../comps/dashboardSidbar/index.js'
+
 import React from 'react'
 import axios from 'axios'
 
@@ -86,11 +87,6 @@ export default function DashSelectServer() {
         </Head>
 
         <Box
-        display={'flex'}
-        flexDirection={'column'}
-        alignItems={'center'}
-        justifyContent={'center'}
-        height={'100vh'}
         >
             {loading ? 
                 <Spinner
@@ -101,19 +97,16 @@ export default function DashSelectServer() {
                 />
             :
                 <Box>
-                    <NavBar active={page}/>
+                    <SidebarWithHeader page={page} guild={guild} />
                     <Box
-                    display={'flex'}
-                    flexDirection={'column'}
-                    alignItems={'center'}
-                    justifyContent={'center'}
-                    height={'fit-content'}
-                    mt={'5rem'}
-                    pt={'2rem'}
+                        display={'flex'}
+                        flexDirection={'column'}
+                        alignItems={'center'}
+                        justifyContent={'center'}
+                        height={'fit-content'}
+                        mt={'5rem'}
+                        pt={'2rem'}
                     >
-                    <Heading>
-                        {guild.name} 
-                    </Heading>
                     
                     </Box>
                 </Box>
