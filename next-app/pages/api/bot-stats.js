@@ -12,7 +12,9 @@ export default async function handler(req, res) {
         if (err) throw err;
     
         let userCount = 0;
+        
         result.forEach(guild => {
+          if (guild.memberCount === undefined) return console.log('undefined')
           userCount += guild.memberCount
         })
     

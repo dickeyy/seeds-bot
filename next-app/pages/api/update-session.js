@@ -13,12 +13,16 @@ export default async function handler(req, res) {
     
     // get params from request body
     const { authData, userData } = req.body;
+
+    console.log('authData: ', authData);
+    console.log('userData: ', userData);
     
     if (req.method === 'POST') {
         try {
           // make a post request to discord to get the access token
           try {
-			
+
+            
             // connect to the database
             const db = mClient.db('main');
 
@@ -29,6 +33,7 @@ export default async function handler(req, res) {
 
                 // we are going to get the user's encryptKey
                 console.log('Decrypting user encryptKey...');
+                console.log('userDoc.encryptKey: ', userDoc);
                 const encryptKey = decrypt(userDoc.encryptKey, process.env.ENCRYPT_KEY);
 
                 // then we are going to get the users session id
@@ -74,4 +79,5 @@ export default async function handler(req, res) {
         res.setHeader('Allow', 'POST');
         res.status(405).end('Method Not Allowed');
     }
+
 };
