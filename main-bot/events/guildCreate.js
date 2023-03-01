@@ -10,7 +10,6 @@ const guildCreateEvent = async (guild) => {
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-    const isPartnered = guild.partnered
     var today = new Date();
     const guildData = {
         _id: guild.id,

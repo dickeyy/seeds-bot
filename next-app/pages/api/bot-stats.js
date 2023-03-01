@@ -14,7 +14,7 @@ export default async function handler(req, res) {
         let userCount = 0;
         
         result.forEach(guild => {
-          if (guild.memberCount === undefined) return console.log('undefined')
+          if (!guild.memberCount) return console.log('undefined')
           userCount += guild.memberCount
         })
     
