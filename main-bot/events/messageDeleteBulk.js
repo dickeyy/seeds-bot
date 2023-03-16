@@ -31,7 +31,7 @@ const messageDeleteBulkEvent = async (messages) => {
 
             const webhookClient = new WebhookClient({ url: doc.webhookUrls.message });
 
-            let descString = ''
+            let descString = ' '
 
             for (let i = 0; i < authTags.length; i++) {
                 descString += `**- ${authTags[i]}: **${contents[i]}\n`
@@ -40,7 +40,7 @@ const messageDeleteBulkEvent = async (messages) => {
             const embed = new EmbedBuilder()
             .setTitle(`${contents.length} Messages Purged in #${messages.first().channel.name}`)
             .setThumbnail('https://cdn.discordapp.com/emojis/1064444110334861373.webp')
-            .setDescription(descString)
+            .setDescription(`${descString}`)
             .setFooter({text: "/log toggle message_events Message Bulk Delete"})
             .setColor('#373f69')
             .setTimestamp()

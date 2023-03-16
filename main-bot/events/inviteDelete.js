@@ -27,7 +27,6 @@ const inviteDeleteEvent = async (invite) => {
             .setThumbnail('https://cdn.discordapp.com/emojis/1065110916401729626.webp')
             .setDescription(`**Invite:** ${invite.code}`)
             .setFooter({text: "/log toggle server_events Invite Delete"})
-            .setColor()
             .setTimestamp()
 
             if (!sent) {

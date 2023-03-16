@@ -87,7 +87,8 @@ const guildUpdateEvent = async (oldGuild, newGuild) => {
 
             // update the data in the database
             const isPartnered = newGuild.partnered
-            await db.updateGuild(newGuild.id, {
+            const guildData = {
+                id: newGuild.id,
                 name: newGuild.name,
                 large: newGuild.large,
                 vanityUrl: newGuild.vanityURLCode,
@@ -118,8 +119,9 @@ const guildUpdateEvent = async (oldGuild, newGuild) => {
                 systemChannelFlags: newGuild.systemChannelFlags,
                 nsfwLevel: newGuild.nsfwLevel,
                 joinedAt: newGuild.joinedAt,
-            })
+            }
 
+            await db.collection('guilds').updateOne({ id: newGuild.id }, { $set: guildData})
 
         }
     }
