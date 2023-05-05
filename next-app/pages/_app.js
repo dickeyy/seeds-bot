@@ -3,6 +3,7 @@ import { ChakraProvider, useColorMode, useColorModeValue } from '@chakra-ui/reac
 import { Analytics } from '@vercel/analytics/react';
 import React from 'react';
 import Mirky from 'mirky'
+import { GoogleAnalytics } from "nextjs-google-analytics";
 
 import theme from '../styles/theme.js'
 
@@ -26,6 +27,7 @@ export default function App({ Component, pageProps }) {
 
   return (
     <ChakraProvider theme={theme}>
+      <GoogleAnalytics trackPageViews />
       <Component {...pageProps} />
       <Analytics />
     </ChakraProvider>
