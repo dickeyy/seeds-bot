@@ -43,8 +43,8 @@ const guildCreateEvent = async (guild) => {
         joinedAt: guild.joinedAt,
     }
 
-    var collection = db.collection('guilds')
-    await collection.insertOne(guildData)
+    // var collection = db.collection('guilds')
+    // await collection.insertOne(guildData)
 
     var logData = `New Guild -- ${guild.name}\n`
     log('info',logData)
@@ -52,7 +52,13 @@ const guildCreateEvent = async (guild) => {
     consoleWebhookClient.send({
         avatarURL: client.user.displayAvatarURL(),
         username: 'Console',
-        content: `\`\`\`${date} ${time} | ${logData}\`\`\``
+        content: `\`\`\`
+        ${date} ${time} | ${logData}
+        ID: ${guild.id}
+        Shard ID: ${guild.shardId}
+        Owner ID: ${guild.ownerId}
+        Member Count: ${guild.memberCount.toLocaleString()}/${guild.maximumMembers.toLocaleString()}
+        \`\`\``
     })
 
     console.log(`New Guild -- ${guild.name}`)

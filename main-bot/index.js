@@ -14,8 +14,8 @@ const { REST } = require('@discordjs/rest');
 const { Routes, InteractionResponseType } = require('discord-api-types/v9');
 const dotenv = require('dotenv');
 const { connectDb, connectSql } = require('./utils/db.js');
-
-const db = connectDb()
+const { log } = require('./functions/log.js');
+const { redis } = require('./utils/redis.js');
 
 // Define Dev Mode
 const devMode = false
@@ -26,13 +26,12 @@ dotenv.config();
 // register webhook client
 const consoleWebhookClient = new WebhookClient({ url: process.env.WEBHOOK_URL });
 
-
-// Import Functions
-const { log } = require('./functions/log.js');
-const { redis } = require('./utils/redis.js');
+// Connect to Mongo
+const db = connectDb()
 
 // Connect redis
-redis.on('connect', () => {
+redis.on('connect', (err) => {
+    if (err) throw err;
     console.log('Redis connected')
 })
 
@@ -44,7 +43,7 @@ const sql = connectSql()
 // test sql 
 sql.query('SELECT * FROM `Guilds`', function (err, results, fields) {
     if (err) throw err;
-    console.log(results);
+    console.log('SQL connected');
 });
 
 // Export all stuff
