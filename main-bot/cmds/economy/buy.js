@@ -1,27 +1,8 @@
 const { cmdRun } = require('../../functions/cmdRun.js')
 const { EmbedBuilder, MessageActionRow, MessageButton } = require('discord.js');
-const { connectDb } = require('../../utils/db.js');
-const { log } = require('../../functions/log.js');
-const client = require('../../index.js').client
-
-const db = connectDb()
+const { db } = require('../../index.js')
 
 const mainHex = '#d79a61'
-
-// Set up cooldown stuff
-const cooldown = new Set();
-const oneMinCooldown = 60000;
-const twoMinCooldown = oneMinCooldown * 2;
-const fiveMinCooldown = oneMinCooldown * 5; 
-const tenMinCooldown = fiveMinCooldown * 2 ; 
-const thirtyMinCooldown = tenMinCooldown * 3;
-const oneHourCooldown = thirtyMinCooldown * 2;
-const twelveHourCooldown = oneHourCooldown * 12;
-const OneDayCooldown = twelveHourCooldown * 2;
-const OneWeekCooldown = OneDayCooldown * 7;
-
-const cdList = ['Chill Out', 'CHILLLLL', 'Stop.', 'Take a Breather', 'ok', 'Spamming commands is cringe', 'Slow it down', 'Wee-Woo-Wee-Woo Pull Over', 'No smile', '-_-', 'Why tho...', 'Yikes U Should Like Not', 'Slow it Cowboy', 'Take a Break Bro', 'Go Touch Some Grass']
-
 
 exports.buyCmd = async function buyCmd(user,guild,interaction,shopId) {
     const cmdName = 'buy'

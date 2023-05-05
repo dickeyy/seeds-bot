@@ -4,7 +4,6 @@ const dotenv = require('dotenv');
 const axios = require('axios');
 const jimp = require('jimp');
 const fs = require('fs');
-const { log } = require('../../functions/log.js');
 
 dotenv.config();
 

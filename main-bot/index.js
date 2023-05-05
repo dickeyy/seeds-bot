@@ -13,7 +13,7 @@ const client = new Client({ intents: intents });
 const { REST } = require('@discordjs/rest');
 const { Routes, InteractionResponseType } = require('discord-api-types/v9');
 const dotenv = require('dotenv');
-const { connectDb } = require('./utils/db.js');
+const { connectDb, connectSql } = require('./utils/db.js');
 
 const db = connectDb()
 
@@ -26,8 +26,6 @@ dotenv.config();
 // register webhook client
 const consoleWebhookClient = new WebhookClient({ url: process.env.WEBHOOK_URL });
 
-// Export both client and webhookClient
-module.exports = { client, consoleWebhookClient, devMode };
 
 // Import Functions
 const { log } = require('./functions/log.js');
@@ -39,6 +37,18 @@ redis.on('connect', () => {
 })
 
 redis.connect()
+
+// Connect to SQL
+const sql = connectSql()
+
+// test sql 
+sql.query('SELECT * FROM `Guilds`', function (err, results, fields) {
+    if (err) throw err;
+    console.log(results);
+});
+
+// Export all stuff
+module.exports = { client, consoleWebhookClient, devMode, redis, db, sql };
 
 // Import Events
 const { readyEvent } = require('./events/ready.js');
@@ -72,13 +82,14 @@ const { messageDeleteEvent } = require('./events/messageDelete.js');
 const { messageUpdateEvent } = require('./events/messageUpdate.js');
 const { messageDeleteBulkEvent } = require('./events/messageDeleteBulk.js');
 const { messageReactionAddEvent } = require('./events/messageReactionAdd.js');
+const { messageCreateEvent } = require('./events/messageCreate.js');
 
 // Import Commands
 const commands = require('./commands.js').commands
 const { commandHandler } = require('./commandHandler.js');
 
 // Import Cron Jobs
-const { refreshHistory, clearLogs } = require('./cronJobs.js');
+const { refreshHistory, clearLogs, redisBackup } = require('./cronJobs.js');
 
 // Process errors
 process.on('uncaughtException', async function (error) {
@@ -290,6 +301,8 @@ client.on('messageReactionAdd', async (reaction, user) => {
 let ddcMessageCount = 0
 let ddcSent = false
 client.on('messageCreate', async message => {
+
+    // messageCreateEvent(message)
     
     if (message.guild.id != '772212146670141460') return;
     if (message.channel.id != '934343950855184414') return;
@@ -333,6 +346,7 @@ client.on('messageCreate', async message => {
 // Cron Jobs
 refreshHistory.start();
 clearLogs.start();
+redisBackup.start();
 
 // Run Bot
 if (devMode) {

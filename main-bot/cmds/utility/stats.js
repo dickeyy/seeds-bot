@@ -1,7 +1,6 @@
 const { cmdRun } = require('../../functions/cmdRun.js')
 const { EmbedBuilder } = require('discord.js');
 const osu = require('node-os-utils');
-const { log } = require('../../functions/log.js');
 const client = require('../../index.js').client
 
 const mainHex = '#d79a61'

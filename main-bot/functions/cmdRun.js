@@ -1,9 +1,6 @@
-const { client, consoleWebhookClient } = require('../index.js');
-const { connectDb } = require('../utils/db.js');
+const { client, consoleWebhookClient, db } = require('../index.js');
 const { EmbedBuilder } = require('discord.js');
 const { log } = require('./log.js');
-
-const db = connectDb();
 
 // Process errors
 process.on('uncaughtException', async function (error) {

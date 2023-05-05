@@ -1,9 +1,6 @@
-const client = require('../index.js').client
-const devMode = require('../index.js').devMode
-const { connectDb } = require('../utils/db.js');
+const { ActivityType } = require('discord.js');
 const { log } = require('../functions/log.js');
-
-const db = connectDb();
+const { client, db, devMode } = require('../index.js')
 
 const readyEvent = async function readyEvent() {
 
@@ -83,7 +80,14 @@ const readyEvent = async function readyEvent() {
     console.log('Guilds and DB are synced.')
     log('info', 'Guilds and DB are synced.')
 
-    client.user.setActivity('/help', { type: 'LISTENING' }); 
+    // Set the bots activity
+    client.user.setPresence({
+        activities: [{
+            name: '/help | seedsbot.xyz',
+            type: ActivityType.Watching,
+            status: 'online'
+        }]
+    })
 
     console.log(`Logged in as: ${client.user.tag}`)
     log('info', `Logged in as: ${client.user.tag}`)

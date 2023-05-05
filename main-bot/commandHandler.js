@@ -63,6 +63,11 @@ const starboardSetCmd = require('./cmds/utility/starboardSet.js').starboardSetCm
 const qrCmd = require('./cmds/utility/qr.js').qrCmd
 const alertCmd = require('./cmds/utility/alert.js').alertCmd
 
+// Levels Commands
+const rankCmd = require('./cmds/levels/rank.js').rankCmd
+const levelsToggleCmd = require('./cmds/levels/levels/toggle.js').levelsToggleCmd
+const levelsSettingsCmd = require('./cmds/levels/levels/settings.js').levelsSettingsCmd
+
 // Recive slash cmds
 exports.commandHandler = async (interaction) => {
     if (!interaction.isCommand()) return;
@@ -302,5 +307,23 @@ exports.commandHandler = async (interaction) => {
             await tictactoeCmd(user,guild,interaction,tttUser)
         }
     }
+
+    if (commandName == 'rank') {
+        const rankUser = options.getUser('user')
+        await rankCmd(user,guild,interaction,rankUser)
+    }
+
+    if (commandName == 'levels') {
+        const subCmd = options.getSubcommand()
+
+        if (subCmd == 'toggle') {
+            await levelsToggleCmd(user,guild,interaction)
+        }
+
+        if (subCmd == 'settings') {
+            await levelsSettingsCmd(user,guild,interaction)
+        }
+    }
+    
     
 }

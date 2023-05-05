@@ -1,11 +1,8 @@
 const cron = require('cron');
 const { EmbedBuilder, AttachmentBuilder } = require('discord.js');
 const { log } = require('./functions/log.js');
-const { client, consoleWebhookClient } = require('./index.js');
-const { connectDb } = require('./utils/db.js');
+const { client, consoleWebhookClient, redis, db } = require('./index.js');
 const fs = require('fs');
-
-const db = connectDb()
 
 // Process errors
 process.on('uncaughtException', async function (error) {
@@ -100,4 +97,40 @@ exports.clearLogs = new cron.CronJob('0 0 * * *', async () => {
             content: `\`\`\`${date} ${time} | Cleared logs\`\`\``,
         })
     }, 3000)
+});
+
+// redis backup to mongo every 20 minutes
+exports.redisBackup = new cron.CronJob('*/30 * * * *', async () => {
+
+    // for now, we know that we only need to update guildXpData
+    let guildXpData = await redis.hGetAll('guildXpData')
+
+    const coll = db.collection('levels')
+
+    for (let [key, value] of Object.entries(guildXpData)) {
+
+        // convert the value to an object
+        value = JSON.parse(value)
+
+        // check if the guild exists in the database 
+        if (await coll.findOne({ guildId: key }) === null) {
+            // if it doesn't exist, create it
+            await coll.insertOne({
+                _id: key,
+                guildId: key,
+                ...value,
+            })
+        } else {
+            // if it does exist, delete it and create a new one
+            // delete the document from the database
+            await coll.deleteOne({ guildId: key })
+
+            await coll.insertOne({
+                _id: key,
+                guildId: key,
+                ...value,
+            })
+        }
+    }
+
 });

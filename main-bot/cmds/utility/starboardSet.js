@@ -1,10 +1,7 @@
 const { cmdRun } = require('../../functions/cmdRun.js')
 const { EmbedBuilder, Permissions } = require('discord.js');
-const { connectDb } = require('../../utils/db.js');
 const { log } = require('../../functions/log.js');
-const client = require('../../index.js').client
-
-const db = connectDb()
+const { client, db } = require('../../index.js')
 
 const mainHex = '#d79a61'
 

@@ -1,8 +1,6 @@
 const { EmbedBuilder, WebhookClient, AuditLogEvent } = require('discord.js');
-const { connectDb } = require('../utils/db.js')
-const client = require('../index.js').client
+const { client, db } = require('../index.js')
 
-const db = connectDb()
 
 // Colors
 const mainHex = '#d79a61'

@@ -1,10 +1,7 @@
 const { cmdRun } = require('../../functions/cmdRun.js')
-const { EmbedBuilder, Permissions } = require('discord.js');
-const { log } = require('../../functions/log.js');
-const client = require('../../index.js').client
+const { EmbedBuilder } = require('discord.js');
 
 const mainHex = '#d79a61'
-
 
 exports.unlockCmd = async function unlockCmd(user,guild,interaction,channel) {
     const cmdName = 'unlock'

@@ -1,6 +1,7 @@
 const dotenv = require('dotenv');
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const { log } = require('../functions/log');
+const mysql = require('mysql2');
 
 // Dotenv initialize 
 dotenv.config();
@@ -27,4 +28,12 @@ const connectDb = () => {
     }
 };
 
+// Connect to SQL
+const connectSql = () => {
+    const sql = mysql.createConnection(process.env.SQL_URL)
+
+    return sql;
+}
+
+exports.connectSql = connectSql;
 exports.connectDb = connectDb;

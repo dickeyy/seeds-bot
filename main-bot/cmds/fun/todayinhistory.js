@@ -2,12 +2,10 @@ const { cmdRun } = require('../../functions/cmdRun.js')
 const { EmbedBuilder } = require('discord.js');
 const dotenv = require('dotenv');
 const axios = require('axios');
-const { log } = require('../../functions/log.js');
 
 dotenv.config();
 
 const mainHex = '#d79a61'
-
 
 exports.todayinhistoryCmd = async function todayinhistoryCmd(user,guild,interaction,member) {
     const cmdName = 'todayinhistory'

@@ -674,6 +674,38 @@ const commands = [
     //         },
     //     ]
     // }
+    // Level Commands
+    // {
+    //     name: 'rank', 
+    //     description: 'Check your rank in the server',
+    //     options: [
+    //         {
+    //             name: 'user',
+    //             description: 'The user you want to check the rank of',
+    //             required: false,
+    //             type: ApplicationCommandOptionType.User
+    //         }
+    //     ]
+    // },
+    // {
+    //     name: 'levels',
+    //     description: 'Edit the level settings for the server',
+    //     default_member_permissions: MODERATE_PERM,
+    //     options: [
+    //         {
+    //             name: 'toggle',
+    //             description: 'Toggle the levels / xp system for the server',
+    //             required: false,
+    //             type: 1,
+    //         },
+    //         {
+    //             name: 'settings',
+    //             description: 'View the settings for the server',
+    //             required: false,
+    //             type: 1,
+    //         }
+    //     ]
+    // }
 
 ]
 
