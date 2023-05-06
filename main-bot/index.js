@@ -30,23 +30,20 @@ const consoleWebhookClient = new WebhookClient({ url: process.env.WEBHOOK_URL })
 const db = connectDb()
 
 // Connect redis
+redis.connect()
 redis.on('connect', (err) => {
     if (err) throw err;
     console.log('Redis connected')
 })
 
-redis.connect()
-
 // Connect to SQL
 const sql = connectSql()
-
-// test sql 
-sql.query('SELECT * FROM `Guilds`', function (err, results, fields) {
+sql.on('connect', (err) => {
     if (err) throw err;
-    console.log('SQL connected');
-});
+    console.log('SQL connected')
+})
 
-// Export all stuff
+// Export stuff
 module.exports = { client, consoleWebhookClient, devMode, redis, db, sql };
 
 // Import Events
@@ -315,7 +312,7 @@ client.on('messageCreate', async message => {
     const ddcThresh = await redis.get('ddc-threshold')
     let string = await redis.get('ddc-message')
 
-    // Process the string, there are \n's in the string and we need it to actually brreak the line
+    // Process the string, there are \n's in the string and we need it to actually break the line
     string = string.replace(/\\n/g, ' \r ')
 
     if (ddcMessageCount < ddcThresh) {
@@ -329,13 +326,6 @@ client.on('messageCreate', async message => {
             content: string
         })
 
-        consoleWebhookClient.send({
-            avatarUrl: client.user.displayAvatarURL(),
-            username: 'Console',
-            content: `\`\`\`Sent DDC - Thresh: ${ddcThresh}\`\`\``
-        })
-
-
         ddcMessageCount = 0
         ddcSent = true
     }
@@ -345,7 +335,7 @@ client.on('messageCreate', async message => {
 // Cron Jobs
 refreshHistory.start();
 clearLogs.start();
-redisBackup.start();
+// redisBackup.start();
 
 // Run Bot
 if (devMode) {
