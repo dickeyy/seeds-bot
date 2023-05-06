@@ -38,7 +38,8 @@ redis.on('connect', (err) => {
 
 // Connect to SQL
 const sql = connectSql()
-sql.on('connect', (err) => {
+// test sql connection
+sql.query('SELECT * FROM `Guilds`', (err, rows) => {
     if (err) throw err;
     console.log('SQL connected')
 })
