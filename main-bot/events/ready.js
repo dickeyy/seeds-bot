@@ -25,6 +25,7 @@ const readyEvent = async function readyEvent() {
 
             const guildData = {
                 _id: guild.id,
+                id: guild.id,
                 name: guild.name,
                 large: guild.large,
                 vanityUrl: guild.vanityURLCode,
