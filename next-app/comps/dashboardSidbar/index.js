@@ -314,8 +314,11 @@ export default function SidebarWithHeader(props) {
                   ml={2}
                 />
                 <MenuList bgColor={'#161515'} p={5} justifyContent={'center'} alignContent={'center'}>
+                  <Text fontSize={"md"} color={'brand.gray.200'}>Member Count:</Text>
+                  <Text fontSize={"xl"} fontWeight={'bold'} mb={3}>{props.guild.memberCount.toLocaleString()}</Text>
+                  <MenuDivider />
                   <a href={`${process.env.REDIRECT}/dashboard/select-server`}>
-                    <Button colorScheme={'brand.brown'} w={'100%'}>Switch Server</Button>
+                    <Button colorScheme={'brand.brown'} w={'100%'} mt={2} mb={2}>Switch Server</Button>
                   </a>
                   
                 </MenuList>

@@ -66,6 +66,8 @@ export default function DashSelectServer() {
                 console.log('guildId not set')
             }
         }, 1000)
+
+        console.log(guild)
     }, [router])
 
     const newNicknameSubmit = (newNickname) => {
@@ -147,7 +149,7 @@ export default function DashSelectServer() {
                         flexWrap={'wrap'}
                     >
                         <DashboardModule
-                            title={"Server Settings"}
+                            title={"Basic Settings"}
                             icon={<FiSettings
                                 style={{
                                     marginRight: '0.5rem',
@@ -175,14 +177,14 @@ export default function DashSelectServer() {
                                         Change the nickname of the bot in your server
                                     </Text>
                                         
-                                    <InputGroup size='md'>
+                                    <InputGroup size='lg'>
                                         <Input
                                             pr='4.5rem'
                                             type={'text'}
                                             placeholder='New Nickname'
                                         />
                                         <InputRightElement width='4.5rem'>
-                                            <Button h='1.8rem' size='sm' colorScheme={'brand.brown'} onClick={() => {
+                                            <Button size='md' mr={1} colorScheme={'brand.brown'} onClick={() => {
                                                 let nick = document.querySelector('input').value
                                                 newNicknameSubmit(nick)
                                             }}>
