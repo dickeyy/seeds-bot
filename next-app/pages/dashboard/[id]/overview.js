@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import { Inter } from '@next/font/google'
 import { Box, Button, ChakraProvider, Grid, Heading, Hide, Image, Input, InputGroup, InputRightAddon, InputRightElement, Show, Spinner, Text, useColorMode, useColorModeValue, useToast } from '@chakra-ui/react'
-import { FaShieldAlt, FaStar } from 'react-icons/fa'
-import { RiRadioButtonLine } from 'react-icons/ri'
+import React from 'react'
+import axios from 'axios'
 import Cookies from 'universal-cookie';
 import { useRouter } from 'next/router';
 
@@ -10,9 +10,10 @@ const inter = Inter({ subsets: ['latin'] })
 import theme from '../../../styles/theme.js'
 
 import SidebarWithHeader from '../../../comps/dashboardSidbar/index.js'
+import DashboardModule from '../../../comps/dashboardModule/index.js'
 
-import React from 'react'
-import axios from 'axios'
+import { FaShieldAlt, FaStar } from 'react-icons/fa'
+import { RiRadioButtonLine } from 'react-icons/ri'
 import { FiSettings } from 'react-icons/fi'
 
 export default function DashSelectServer() {
@@ -145,147 +146,105 @@ export default function DashSelectServer() {
                         pt={'2rem'}
                         flexWrap={'wrap'}
                     >
-                        <Box 
-                            display={'flex'}
-                            flexDirection={'column'}
-                            bgColor={'#161515'}
-                            borderRadius={'10px'}
-                            width={'100%'}
-                            maxWidth={'800px'}
-                            p={'1.5rem'}
-                            mb={'2rem'}
-                            mr={'1rem'}
-                            borderColor={'#2f2f2f'}
-                            borderWidth={'2px'}
-                        >
-                            
-                            <Box
-                                borderBottom={'2px solid #2f2f2f'}
-                                mb={'1rem'}
-                                flexDir={'row'}
-                                display={'flex'}
-                                alignItems={'center'}
-                                justifyContent={'flex-start'}
-                                width={'100%'}
-
-                            >
-                                <FiSettings style={{
+                        <DashboardModule
+                            title={"Server Settings"}
+                            icon={<FiSettings
+                                style={{
                                     marginRight: '0.5rem',
                                     fontSize: '1.2rem',
                                     color: "#9d9d9d",
                                     marginBottom: '0.9rem'
-                                }} />
-                                <Heading
-                                    as={'h1'}
-                                    fontSize={'1.2rem'}
-                                    mb={'1rem'}
-                                    color={'brand.gray.100'}
-                                >
-                                    Basic Settings
-                                </Heading>
-                            </Box>  
+                                }}
+                            />}
 
-                            <Heading
-                                as={'h1'}
-                                fontSize={'1.7rem'}
-                                mb={'0rem'}
-                            >
-                                Nickname
-                            </Heading>
-                            <Text
-                                fontSize={'md'}
-                                mb={'0.5rem'}
-                                color={'brand.gray.100'}
-                                fontWeight={'medium'}
-                            >
-                                Change the nickname of the bot in your server
-                            </Text>
-                                
-                            <InputGroup size='md'>
-                                <Input
-                                    pr='4.5rem'
-                                    type={'text'}
-                                    placeholder='New Nickname'
-                                />
-                                <InputRightElement width='4.5rem'>
-                                    <Button h='1.8rem' size='sm' colorScheme={'brand.brown'} onClick={() => {
-                                        let nick = document.querySelector('input').value
-                                        newNicknameSubmit(nick)
-                                    }}>
-                                        Apply
-                                    </Button>
-                                </InputRightElement>
-                            </InputGroup>
-                                    
-                            <br />
-                            <br />
-                            <Heading
-                                as={'h1'}
-                                fontSize={'1.7rem'}
-                                mb={'0rem'}
-                            >
-                                Premium Status
-                            </Heading>
-                            <Text
-                                fontSize={'md'}
-                                mb={'0.5rem'}
-                                color={'brand.gray.100'}
-                                fontWeight={'medium'}
-                            >
-                                Check the Seeds+ status of your server
-                            </Text>
-                            
-                            <a href={'https://seedsbot.xyz/premium'}>
-                                <Box
-                                    bgColor={'red.900'}
-                                    width={'100%'}
-                                    height={'2rem'}
-                                    borderRadius={'10px'}
-                                    display={'flex'}
-                                    textAlign={'center'}
-                                    alignItems={'center'}
-                                    justifyContent={'center'}
-                                    borderColor={'red.500'}
-                                    borderWidth={'2px'}
-                                    p={'1.8rem'}
-                                    transition={'all 0.2s ease-in-out'}
-                                    _hover={{
-                                        borderColor: 'red.400',
-                                        bgColor: 'red.800',
-                                        cursor: 'pointer'
-                                    }}
-                                >
-                                    <Text
-                                        fontSize={'2xl'}
-                                        fontWeight={'bold'}
-                                        color={"red.200"}
+                            content={
+                                <Box>
+                                    <Heading
+                                        as={'h1'}
+                                        fontSize={'1.7rem'}
+                                        mb={'0rem'}
                                     >
-                                        Inactive - Upgrade Now!
+                                        Nickname
+                                    </Heading>
+                                    <Text
+                                        fontSize={'md'}
+                                        mb={'0.5rem'}
+                                        color={'brand.gray.100'}
+                                        fontWeight={'medium'}
+                                    >
+                                        Change the nickname of the bot in your server
                                     </Text>
+                                        
+                                    <InputGroup size='md'>
+                                        <Input
+                                            pr='4.5rem'
+                                            type={'text'}
+                                            placeholder='New Nickname'
+                                        />
+                                        <InputRightElement width='4.5rem'>
+                                            <Button h='1.8rem' size='sm' colorScheme={'brand.brown'} onClick={() => {
+                                                let nick = document.querySelector('input').value
+                                                newNicknameSubmit(nick)
+                                            }}>
+                                                Apply
+                                            </Button>
+                                        </InputRightElement>
+                                    </InputGroup>
+                                            
+                                    <br />
+                                    <br />
+                                    <Heading
+                                        as={'h1'}
+                                        fontSize={'1.7rem'}
+                                        mb={'0rem'}
+                                    >
+                                        Premium Status
+                                    </Heading>
+                                    <Text
+                                        fontSize={'md'}
+                                        mb={'0.5rem'}
+                                        color={'brand.gray.100'}
+                                        fontWeight={'medium'}
+                                    >
+                                        Check the Seeds+ status of your server
+                                    </Text>
+                                    
+                                    <a>
+                                        <Box
+                                            bgColor={'red.900'}
+                                            width={'100%'}
+                                            height={'2rem'}
+                                            borderRadius={'10px'}
+                                            display={'flex'}
+                                            textAlign={'center'}
+                                            alignItems={'center'}
+                                            justifyContent={'center'}
+                                            borderColor={'red.500'}
+                                            borderWidth={'2px'}
+                                            p={'1.8rem'}
+                                            transition={'all 0.2s ease-in-out'}
+                                            _hover={{
+                                                borderColor: 'red.400',
+                                                bgColor: 'red.800',
+                                                cursor: 'pointer'
+                                            }}
+                                        >
+                                            <Text
+                                                fontSize={'2xl'}
+                                                fontWeight={'bold'}
+                                                color={"red.200"}
+                                            >
+                                                Inactive - Upgrade Now!
+                                            </Text>
+                                        </Box>
+                                    </a>
                                 </Box>
-                            </a>
+                            }
 
-
-                        </Box>
-                        
-                        <Box 
-                            display={'flex'}
-                            flexDirection={'column'}
-                            bgColor={'#161515'}
-                            borderRadius={'10px'}
-                            width={'100%'}
-                            maxWidth={'800px'}
-                            p={'1rem'}
-                            mb={'2rem'}
-                            borderColor={'#2f2f2f'}
-                            borderWidth={'2px'}
-                        >
-
-                            
-
-                        </Box>
+                        />
                     
                     </Box>
+                    <Heading textAlign={'center'}>More Coming Soon...</Heading>
                 </Box>
             }
         </Box>
