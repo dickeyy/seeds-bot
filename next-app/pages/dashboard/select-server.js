@@ -3,6 +3,7 @@ import { Inter } from '@next/font/google'
 import { Box, Button, ChakraProvider, Grid, Heading, Hide, Image, Show, Spinner, Text, useColorMode, useColorModeValue } from '@chakra-ui/react'
 import { FaShieldAlt, FaStar } from 'react-icons/fa'
 import { RiRadioButtonLine } from 'react-icons/ri'
+import {signIn, signOut, useSession} from 'next-auth/react'
 import Cookies from 'universal-cookie';
 
 const inter = Inter({ subsets: ['latin'] })
@@ -19,73 +20,26 @@ export default function DashSelectServer() {
 
   const [loading, setLoading] = React.useState(true)
 
+  const { data: session } = useSession()
+
   const { toggleColorMode } = useColorMode();
   const text = useColorModeValue('dark', 'light');
 
-  const authUrl = 'https://discord.com/api/oauth2/authorize?client_id=968198214450831370&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fdashboard%2Fselect-server&response_type=code&scope=identify%20guilds%20email%20guilds.members.read'
-  const [authCode , setAuthCode] = React.useState(undefined)
-
   const [user, setUser] = React.useState(undefined)
-  const [sessionId, setSessionId] = React.useState(cookies.get('seeds-session-id'))
   const [guildsJoined, setGuildsJoined] = React.useState(undefined)
-  const [guildsNotJoined, setGuildsNotJoined] = React.useState(undefined)
 
   React.useEffect(() => {
     if (text === 'dark') {
         toggleColorMode()
     }
-
-    // set a timeout to let the cookies load
     setTimeout(() => {
-      const cParams = new URLSearchParams(window.location.search);
-      const code = cParams.get('code');
-      window.history.replaceState({}, document.title, "/" + "dashboard/select-server");
-      if (code) {
-        window.history.replaceState({}, document.title, "/" + "dashboard/select-server");
-        window.history.replaceState({}, document.title, "/" + "dashboard/select-server");
-        window.history.replaceState({}, document.title, "/" + "dashboard/select-server");
-        window.history.replaceState({}, document.title, "/" + "dashboard/select-server");
-        axios.post(`${process.env.REDIRECT}/api/discord-refresh-token`, {
-          code: code
-        }).then((res) => {
-          setUser(res.data.user)
-          setSessionId(res.data.session)
-          // set the session id cookie
-          cookies.set('seeds-session-id', res.data.session, { path: '/' });
-          window.history.replaceState({}, document.title, "/" + "dashboard/select-server");
-          axios.post(`${process.env.REDIRECT}/api/discord-get-user`, {
-            sessionId: res.data.session
-          }).then((res) => {
-            setUser(res.data.userData)
-            setGuildsJoined(res.data.guildsInDb)
-            setGuildsNotJoined(res.data.guildsNotInDb)
+      if (!session) return
+      setUser(session.user)
+      setGuildsJoined(session.guilds)
+      setLoading(false)
+    }, 2000)
 
-            setLoading(false)
-          })
-        })
-      } else if (sessionId) {
-        // get the user data
-        axios.post(`${process.env.REDIRECT}/api/discord-get-user`, {
-          sessionId: sessionId
-        }).then((res) => {
-          setUser(res.data.userData)
-          setGuildsJoined(res.data.guildsInDb)
-          setGuildsNotJoined(res.data.guildsNotInDb)
-
-          setLoading(false)
-        })
-      } 
-      
-      // set timeout to let cookie set
-      setTimeout(() => {
-        if (!sessionId && !code) {
-          // user is not logged in
-          window.location.href = `${process.env.REDIRECT}/login`
-        }
-      }, 5000)
-      
-    }, 1000)
-  }, [])
+  }, [session])
 
   return (
 

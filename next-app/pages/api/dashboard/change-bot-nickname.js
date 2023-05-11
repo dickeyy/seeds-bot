@@ -39,37 +39,13 @@ export default async function handler(req, res) {
             }
 
             // get the session data from the database
-            let sessionDoc = await db.collection('sessions').findOne({sessionId: sessionId});
+            let userDoc = await db.collection('webUsers').findOne({jti: sessionId});
 
-            if (!sessionDoc) {
+            if (!userDoc) {
                 return res.status(401).json({
                     error: 'Invalid session id'
                 });
             }
-
-            // make the request to discord api to change the nickname of the bot
-            const { accessToken, tokenType } = sessionDoc;
-
-            // get the userdoc
-            const userDoc = await db.collection('webUsers').findOne({discordId: sessionDoc.discordId});
-
-            if (!userDoc) {
-                return res.status(401).json({
-                    error: 'Cant find user'
-                });
-            }
-
-            // get the encryption key from the user doc
-            const { encryptKey } = userDoc;
-
-            // decrypt the encryption key
-            const decryptedKey = decrypt(encryptKey, process.env.ENCRYPT_KEY);
-
-            // decrypt the access token
-            const decryptedAccessToken = decrypt(accessToken, decryptedKey);
-
-            // decrypt the token type
-            const decryptedTokenType = decrypt(tokenType, decryptedKey);
 
             // use the user's access token to make the request
             

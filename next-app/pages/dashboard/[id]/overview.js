@@ -3,7 +3,7 @@ import { Inter } from '@next/font/google'
 import { Box, Button, ChakraProvider, Grid, Heading, Hide, Image, Input, InputGroup, InputRightAddon, InputRightElement, Show, Spinner, Text, useColorMode, useColorModeValue, useToast } from '@chakra-ui/react'
 import React from 'react'
 import axios from 'axios'
-import Cookies from 'universal-cookie';
+import {signIn, signOut, useSession} from 'next-auth/react'
 import { useRouter } from 'next/router';
 
 const inter = Inter({ subsets: ['latin'] })
@@ -18,19 +18,17 @@ import { FiSettings } from 'react-icons/fi'
 
 export default function DashSelectServer() {
 
-    const cookies = new Cookies();
     const router = useRouter()
     const toast = useToast()
 
     const page = 'dashboard'
 
+    const { data: session } = useSession()
+
     const [loading, setLoading] = React.useState(true)
 
     const { toggleColorMode } = useColorMode();
     const text = useColorModeValue('dark', 'light');
-
-    const [user, setUser] = React.useState(undefined)
-    const [sessionId, setSessionId] = React.useState(cookies.get('seeds-session-id'))
 
     const [guild, setGuild] = React.useState(undefined)
 
@@ -45,19 +43,17 @@ export default function DashSelectServer() {
         // make a request to the api to get the guild data
         // set a timeout to make sure the guildId is set
         setTimeout(() => {
-            if (!sessionId) {
-                // user is not logged in
-                window.location.href = `${process.env.REDIRECT}/login`
-            }
+            if (!session) return
             if (id) {
+                console.log(session)
                 console.log('making request')
-                axios.get(`${process.env.REDIRECT}/api/discord-get-guild`, {
+                axios.get(`${process.env.REDIRECT}/api/auth/guild-data`, {
                     params: {
                         guildId: id,
-                        sessionId: sessionId    
+                        sessionId: session.jti    
                     }
                 }).then((res) => {
-                    setGuild(res.data.guildData)
+                    setGuild(res.data.guild)
                     setLoading(false)
                 }).catch((err) => {
                     console.log(err)
@@ -65,15 +61,15 @@ export default function DashSelectServer() {
             } else {
                 console.log('guildId not set')
             }
-        }, 1000)
+        }, 3000)
 
         console.log(guild)
-    }, [router])
+    }, [router, session])
 
     const newNicknameSubmit = (newNickname) => {
         axios.post(`${process.env.REDIRECT}/api/dashboard/change-bot-nickname`, {
             guildId: guild.id,
-            sessionId: sessionId,
+            sessionId: session.jti,
             newNickname: newNickname
         }).then((res) => {
             console.log(res)
@@ -128,12 +124,21 @@ export default function DashSelectServer() {
         <Box
         >
             {loading ? 
-                <Spinner
-                thickness="4px"
-                speed="0.65s"
-                color="brand.brown.500"
-                size="xl"
-                />
+                <Box
+                    display={'flex'}
+                    flexDirection={'column'}
+                    alignItems={'center'}
+                    justifyContent={'center'}
+                    height={'100vh'}
+                    width={'100%'}
+                >
+                    <Spinner
+                    thickness="4px"
+                    speed="0.65s"
+                    color="brand.brown.500"
+                    size="xl"
+                    />
+                </Box>
             :
                 <Box>
                     <SidebarWithHeader page={page} guild={guild} />

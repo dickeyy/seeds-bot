@@ -1,15 +1,14 @@
 import { Box, Button, ChakraProvider, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, Heading, Hide, Image, Link, Show, Text, useDisclosure } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { GiHamburger, GiHamburgerMenu } from 'react-icons/gi';
-import Cookies from 'universal-cookie';
+import {signIn, signOut, useSession} from 'next-auth/react'
 
 import theme from '../../styles/theme.js'
 
 export default function NavBar(props) {
 
     const activePage = props.active
-    const cookies = new Cookies();
-
+    const {data: session} = useSession()
 
     const [cmdsActive, setCmdsActive] = useState(false)
     const [supportActive, setSupportActive] = useState(false)
@@ -32,10 +31,16 @@ export default function NavBar(props) {
             setDonateActive(true)
         }
 
-        if (cookies.get('seeds-session-id')) {
+        // if (cookies.get('seeds-session-id')) {
+        //     setIsLoggedIn(true)
+        // }
+
+        
+        if (session) {
             setIsLoggedIn(true)
+            console.log(session)
         }
-    }, [])
+    }, [session])
 
     
   return (
@@ -133,18 +138,17 @@ export default function NavBar(props) {
             
             {!isLoggedIn ?
                 <Hide breakpoint='(max-width: 530px)'>
-                    <a href='/login' >
-                        <Button 
-                            colorScheme={'brand.brown'} 
-                            variant={'solid'} 
-                            size={'lg'}
-                            fontSize={'1rem'}
-                            fontWeight={'bold'}
-                            ml={'1rem'}
-                        >
-                            Login
-                        </Button>
-                    </a>
+                    <Button 
+                        colorScheme={'brand.brown'} 
+                        variant={'solid'} 
+                        size={'lg'}
+                        fontSize={'1rem'}
+                        fontWeight={'bold'}
+                        ml={'1rem'}
+                        onClick={() => signIn('discord')}
+                    >
+                        Login
+                    </Button>
                 </Hide>
             :
                 <Hide breakpoint='(max-width: 530px)'>
