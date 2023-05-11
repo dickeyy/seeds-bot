@@ -9,6 +9,7 @@ import NavBar from '../../comps/navbar/index.js'
 import React from 'react'
 
 import { getAllPostIds, getPostData } from '../../utils/posts';
+import SEOHead from '@/comps/seoHead/index.js'
 
 export async function getStaticPaths() {
     // Return a list of possible value for id

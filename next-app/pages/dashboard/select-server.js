@@ -12,6 +12,7 @@ import theme from '../../styles/theme.js'
 import NavBar from '../../comps/navbar'
 import React from 'react'
 import axios from 'axios'
+import SEOHead from '@/comps/seoHead/index.js'
 
 export default function DashSelectServer() {
   const cookies = new Cookies();

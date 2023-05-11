@@ -15,6 +15,7 @@ import DashboardModule from '../../../comps/dashboardModule/index.js'
 import { FaShieldAlt, FaStar } from 'react-icons/fa'
 import { RiRadioButtonLine } from 'react-icons/ri'
 import { FiSettings } from 'react-icons/fi'
+import SEOHead from '@/comps/seoHead/index.js'
 
 export default function DashSelectServer() {
 
