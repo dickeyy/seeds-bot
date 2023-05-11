@@ -7,6 +7,7 @@ import theme from '../styles/theme.js'
 
 import NavBar from '../comps/navbar'
 import React from 'react'
+import SEOHead from '@/comps/seoHead/index.js'
 
 export default function SupportPage() {
 
@@ -29,12 +30,7 @@ export default function SupportPage() {
 
   return (
     <ChakraProvider theme={theme}>
-        <Head>
-            <title>Seeds | Support</title>
-            <meta name="description" content="Seeds is the easiest bot to use on Discord" />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <link rel="icon" href="images/seeds-logo-removebg.png" />
-        </Head>
+        <SEOHead title={'Support'} description={'The easiest bot to use on Discord'} />
 
         <Box>
             <NavBar active={page}/>

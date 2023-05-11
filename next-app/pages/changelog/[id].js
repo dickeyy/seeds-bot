@@ -34,10 +34,7 @@ export default function ChangelogPage({postData}) {
     return (
 
         <ChakraProvider theme={theme}>
-            <Head>
-                <title>{postData.title}</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
+            <SEOHead title={'Changelog'} description={'The easiest bot to use on Discord'} />
             <NavBar />
             <Box
                 as="main"

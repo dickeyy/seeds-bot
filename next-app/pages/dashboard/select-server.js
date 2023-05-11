@@ -44,27 +44,7 @@ export default function DashSelectServer() {
   return (
 
     <ChakraProvider theme={theme}>
-      <Head>
-        <title>Seeds | Select Server</title>
-        <meta name="description" content="Seeds is the easiest bot to use on Discord" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="../images/seeds-logo-removebg.png" />
-
-        {/* //   <!-- Facebook Meta Tags --> */}
-        <meta property="og:url" content="https://seedsbot.xyz" />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Seeds" />
-        <meta property="og:description" content="The easiest bot to use on Discord" />
-        <meta property="og:image" content="https://seedsbot/images/seeds-logo-removedbg.png" />
-
-        {/* <!-- Twitter Meta Tags --> */}
-        <meta name="twitter:card" content="summary_small_image" />
-        <meta property="twitter:domain" content="seedsbot.xyz" />
-        <meta property="twitter:url" content="https://seedsbot.xyz" />
-        <meta name="twitter:title" content="Seeds" />
-        <meta name="twitter:description" content="The easiest bot to use on Discord" />
-        <meta name="twitter:image" content="https://seedsbot/images/seeds-logo-removedbg.png" />
-      </Head>
+      <SEOHead title={'Select Server'} description={'The easiest bot to use on Discord'} />
 
     <Box
       display={'flex'}
