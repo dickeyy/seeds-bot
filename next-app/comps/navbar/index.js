@@ -4,6 +4,7 @@ import { GiHamburger, GiHamburgerMenu } from 'react-icons/gi';
 import {signIn, signOut, useSession} from 'next-auth/react'
 
 import theme from '../../styles/theme.js'
+import { FaDiscord } from 'react-icons/fa';
 
 export default function NavBar(props) {
 
@@ -146,6 +147,10 @@ export default function NavBar(props) {
                         fontWeight={'bold'}
                         ml={'1rem'}
                         onClick={() => signIn('discord')}
+                        leftIcon={<FaDiscord style={{
+                            fontSize: '1.5rem',
+                            marginTop: '0.2rem',
+                        }} />}
                     >
                         Login
                     </Button>
@@ -182,29 +187,32 @@ export default function NavBar(props) {
                     ></Button>
 
                     {!isLoggedIn ?
-                        <a href='/login' >
-                            <Button 
-                                colorScheme={'brand.brown'}
-                                variant={'solid'}
-                                size={'md'}
-                                fontSize={'1rem'}
-                                fontWeight={'bold'}
-                                ml={'0.5rem'}
-                            >
-                                Login
-                            </Button>
-                        </a>
+                        <Button 
+                            colorScheme={'brand.brown'} 
+                            variant={'solid'} 
+                            size={'lg'}
+                            fontSize={'1rem'}
+                            fontWeight={'bold'}
+                            ml={'1rem'}
+                            onClick={() => signIn('discord')}
+                            leftIcon={<FaDiscord style={{
+                                fontSize: '1.5rem',
+                                marginTop: '0.2rem',
+                            }} />}
+                        >
+                            Login
+                        </Button>
                     :
                         <a href='/dashboard/select-server' >
                             <Button
                                 colorScheme={'brand.brown'}
                                 variant={'solid'}
-                                size={'md'}
+                                size={'lg'}
                                 fontSize={'1rem'}
                                 fontWeight={'bold'}
-                                ml={'0.5rem'}
+                                ml={'1rem'}
                             >
-                                Manage
+                                Dashboard
                             </Button>
                         </a>
                     }
