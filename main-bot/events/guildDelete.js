@@ -21,7 +21,7 @@ const guildDeleteEvent = async (guild) => {
     consoleWebhookClient.send({
         avatarURL: client.user.displayAvatarURL(),
         username: 'Console',
-        content: `\`\`\`${date} ${time} | ${logData}\`\`\``
+        content: `\`\`\`${date} ${time}\n\nLEFT GUILD:\nName: ${guild.name}\nID: ${guild.id}\nShard ID: ${guild.shardId}\nOwner ID: ${guild.ownerId}\nMem. Count: ${guild.memberCount.toLocaleString()}/${guild.maximumMembers.toLocaleString()}\`\`\``
     })
 
     console.log(`Left Guild -- ${guild.name}`)

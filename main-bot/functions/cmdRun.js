@@ -37,7 +37,7 @@ const cmdRun = async (user,cmdName,guild,interaction) => {
     consoleWebhookClient.send({
         avatarURL: client.user.displayAvatarURL(),
         username: 'Console',
-        content: `\`\`\`${date} ${time}\nUser: ${user.tag}\nGuild: ${guild.name}\nCMD: ${cmdName}\`\`\``
+        content: `\`\`\`${date} ${time}\n\nCMD RUN:\nUser: ${user.tag}\nGuild: ${guild.name}\nCMD: ${cmdName}\`\`\``
     })
     
     // Check if the user has any alerts

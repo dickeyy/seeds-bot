@@ -52,13 +52,7 @@ const guildCreateEvent = async (guild) => {
     consoleWebhookClient.send({
         avatarURL: client.user.displayAvatarURL(),
         username: 'Console',
-        content: `\`\`\`
-        ${date} ${time} | ${logData}
-        ID: ${guild.id}
-        Shard ID: ${guild.shardId}
-        Owner ID: ${guild.ownerId}
-        Member Count: ${guild.memberCount.toLocaleString()}/${guild.maximumMembers.toLocaleString()}
-        \`\`\``
+        content: `\`\`\`${date} ${time}\n\nNEW GUILD:\nName: ${guild.name}\nID: ${guild.id}\nShard ID: ${guild.shardId}\nOwner ID: ${guild.ownerId}\nMem. Count: ${guild.memberCount.toLocaleString()}/${guild.maximumMembers.toLocaleString()}\`\`\``
     })
 
     console.log(`New Guild -- ${guild.name}`)
