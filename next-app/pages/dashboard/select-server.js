@@ -150,6 +150,17 @@ export default function DashSelectServer() {
                   )
                 }) : null
                 }
+
+                <Button
+                  onClick={() => {
+                    signOut()
+                  }}
+                  colorScheme={'brand.brown'}
+                  variant={'solid'}
+                  size={'xl'}
+                >
+                  Log Out
+                </Button>
                       
           </Box>
           
