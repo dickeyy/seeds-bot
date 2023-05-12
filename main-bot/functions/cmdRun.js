@@ -17,7 +17,7 @@ const cmdRun = async (user,cmdName,guild,interaction) => {
     var collection = db.collection('commands')
     const doc = await collection.find({ name: cmdName }).toArray();
 
-    log('info',`${user.tag} - ${cmdName}`)
+    log('info',`CMD RUN: ${user.tag} - ${guild.name} - ${cmdName}`)
 
     if (doc.length == 0) {
         const cmdData = {
@@ -37,7 +37,7 @@ const cmdRun = async (user,cmdName,guild,interaction) => {
     consoleWebhookClient.send({
         avatarURL: client.user.displayAvatarURL(),
         username: 'Console',
-        content: `\`\`\`${date} ${time} | ${user.tag} - ${cmdName}\`\`\``
+        content: `\`\`\`${date} ${time}\nUser: ${user.tag}\nGuild: ${guild.name}\nCMD: ${cmdName}\`\`\``
     })
     
     // Check if the user has any alerts

@@ -43,8 +43,8 @@ const guildCreateEvent = async (guild) => {
         joinedAt: guild.joinedAt,
     }
 
-    // var collection = db.collection('guilds')
-    // await collection.insertOne(guildData)
+    var collection = db.collection('guilds')
+    await collection.insertOne(guildData)
 
     var logData = `New Guild -- ${guild.name}\n`
     log('info',logData)
