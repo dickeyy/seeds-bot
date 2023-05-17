@@ -26,7 +26,7 @@ export default function Discord(props) {
     // choose a random function to add to the array
     const randomFunction = () => {
         // choose a random number between 1 and 4
-        const random = Math.floor(Math.random() * 4) + 1;
+        const random = Math.floor(Math.random() * 3) + 1;
         if (random == 0) {
             return 1;
         }
@@ -196,32 +196,6 @@ function Messages(props) {
                         Balance: 1294 Seeds
                         {" "}
                     </DiscordEmbedFooter>
-
-                </DiscordEmbed>
-            </DiscordMessage>
-        )
-    } else if ( props.message == 4 ) {
-        return(
-            <DiscordMessage author="Seeds" bot verified avatar="/images/logo.png">
-                <DiscordCommand
-                    slot="reply"
-                    profile="dickey"
-                    command="/lovetest"
-                    avatar="/images/dickey.png"
-                    author="dickey"
-                ></DiscordCommand>
-                <DiscordEmbed
-                    slot="embeds"
-                    color="#c90076"
-                    embedTitle="❤ Love Test ❤ - All the best!"
-                    image="/images/discord/lovetest.png"
-                >
-                    <DiscordEmbedDescription slot="description">
-                        {'⬜⬜⬜⬜⬜⬜⬜⬛⬛⬛⬛ - 74%'}
-                        {"\n\n"}
-                        {'dickey#6969 and isaiah#6969'}
-                    </DiscordEmbedDescription>
-                    
 
                 </DiscordEmbed>
             </DiscordMessage>
