@@ -1,4 +1,4 @@
-# Seeds 🌱
+# 🌱 Seeds
 The easiest bot to use on Discord.
 
 With moderation, economy, games, levels, and more...
