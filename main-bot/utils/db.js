@@ -19,6 +19,7 @@ const connectDb = () => {
         const mClient = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
         mClient.connect().then(() => {
             console.log("Connected to MongoDB");
+            log("info","Connected to MongoDB");
         })
         const db = mClient.db("main");
 

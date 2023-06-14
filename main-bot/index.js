@@ -18,7 +18,7 @@ const { log } = require('./functions/log.js');
 const { redis } = require('./utils/redis.js');
 
 // Define Dev Mode
-const devMode = false
+const devMode = true
 
 // Dotenv initialize 
 dotenv.config();
@@ -34,14 +34,24 @@ redis.connect()
 redis.on('connect', (err) => {
     if (err) throw err;
     console.log('Redis connected')
+    log('info', 'Redis connected')
+})
+
+// if redis disconnects, try to reconnect
+redis.on('error', (err) => {
+    if (err) throw err;
+    console.log('Redis disconnected')
+    log('info', 'Redis disconnected')
+    redis.connect()
 })
 
 // Connect to SQL
 const sql = connectSql()
 // test sql connection
-sql.query('SELECT * FROM `Guilds`', (err, rows) => {
+sql.query('SELECT * FROM `guilds`', (err, rows) => {
     if (err) throw err;
     console.log('SQL connected')
+    log('info', 'SQL connected')
 })
 
 // Export stuff
@@ -95,11 +105,6 @@ process.on('uncaughtException', async function (error) {
 });
 
 process.on('unhandledRejection', async function (error) {
-    console.log('error', error.stack)
-    log('error', error.stack)
-});
-
-process.on('warning', async function (error) {
     console.log('error', error.stack)
     log('error', error.stack)
 });

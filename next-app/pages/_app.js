@@ -2,7 +2,6 @@ import '@/styles/globals.css'
 import { ChakraProvider, useColorMode, useColorModeValue } from '@chakra-ui/react'
 import { Analytics } from '@vercel/analytics/react';
 import React from 'react';
-import Mirky from 'mirky'
 import { GoogleAnalytics } from "nextjs-google-analytics";
 import { SessionProvider } from "next-auth/react"
 
@@ -16,13 +15,7 @@ export default function App({
   const { toggleColorMode } = useColorMode();
   const text = useColorModeValue('dark', 'light');
 
-  const analytics = new Mirky()
-
   React.useEffect(() => {
-
-    analytics.init('NYzjBfMq8SeknUScXtrgDi')
-
-    analytics.pageView()
 
     if (text === 'dark') {
         toggleColorMode

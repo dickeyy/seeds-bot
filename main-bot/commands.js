@@ -386,16 +386,30 @@ const commands = [
     },
     {
         name: 'lockdown',
-        description: 'Lockdown the current channel or a specified channel',
+        description: 'Lockdown the current channel, a specified channel, or the entire server',
         default_member_permissions: MODERATE_PERM,
         options: [
             {
                 name: 'channel',
-                description: 'The channel you want to lockdown',
+                description: 'Lockdown a specific channel or the current channel',
                 required: false,
-                type: ApplicationCommandOptionType.Channel
+                type: 1,
+                options: [
+                    {
+                        name: 'channel',
+                        description: 'The channel you want to lockdown',
+                        required: false,
+                        type: ApplicationCommandOptionType.Channel
+                    }
+                ]
+            },
+            {
+                name: 'server',
+                description: 'Lockdown the entire server',
+                required: false,
+                type: 1,
             }
-        ]
+        ]       
     },
     {
         name: 'unlock',
@@ -407,10 +421,9 @@ const commands = [
                 description: 'The channel you want to unlock',
                 required: false,
                 type: ApplicationCommandOptionType.Channel
-            }
+            },
         ]
     },
-
     // Fun Commands
     { 
         name: 'friend', 

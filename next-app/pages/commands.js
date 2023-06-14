@@ -125,9 +125,15 @@ export default function CommandsPage() {
       perms: 'MODERATE_MEMBERS',
     },
     {
-      name: 'lockdown',
+      name: 'lockdown channel',
       description: 'Lockdown the current channel or a specified channel',
-      usage: '/lockdown [channel]',
+      usage: '/lockdown channel [channel]',
+      perms: 'MODERATE_MEMBERS', 
+    },
+    {
+      name: 'lockdown server',
+      description: 'Lockdown the entire server',
+      usage: '/lockdown server',
       perms: 'MODERATE_MEMBERS', 
     },
     {

@@ -287,13 +287,21 @@ exports.commandHandler = async (interaction) => {
     }
 
     if (commandName == 'lockdown') {
-        const lockChannel = options.getChannel('channel')
-        await lockdownCmd(user,guild,interaction,lockChannel)
+        const subCmd = options.getSubcommand()
+        let lockChannel = null
+        let lockServer = false
+        if (subCmd == 'server') {
+            lockServer = true
+        } else {
+            lockChannel = options.getChannel('channel')
+        }
+        await lockdownCmd(user,guild,interaction,lockChannel,lockServer)
     }
 
     if (commandName == 'unlock') {
         const unlockChannel = options.getChannel('channel')
-        await unlockCmd(user,guild,interaction,unlockChannel)
+        const unlockServer = options.getString('server')
+        await unlockCmd(user,guild,interaction,unlockChannel,unlockServer)
     }
 
     if (commandName == 'alert') {

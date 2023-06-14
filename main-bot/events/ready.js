@@ -1,6 +1,6 @@
 const { ActivityType } = require('discord.js');
 const { log } = require('../functions/log.js');
-const { client, db, devMode } = require('../index.js')
+const { client, db, devMode, sql } = require('../index.js')
 
 const readyEvent = async function readyEvent() {
 
@@ -10,6 +10,7 @@ const readyEvent = async function readyEvent() {
 
         console.log('Loading guild data...')
         log('info', 'Loading guild data...')
+
         await db.collection('guilds').find({}).toArray().then(async (guilds) => {
             for (let i = 0; i < guilds.length; i++) {
                 let guild = guilds[i]
@@ -27,6 +28,7 @@ const readyEvent = async function readyEvent() {
                 _id: guild.id,
                 id: guild.id,
                 name: guild.name,
+                memberCount: guild.memberCount,
                 large: guild.large,
                 vanityUrl: guild.vanityURLCode,
                 description: guild.description,
