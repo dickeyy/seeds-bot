@@ -18,7 +18,7 @@ const { log } = require('./functions/log.js');
 const { redis } = require('./utils/redis.js');
 
 // Define Dev Mode
-const devMode = true
+const devMode = false
 
 // Dotenv initialize 
 dotenv.config();
