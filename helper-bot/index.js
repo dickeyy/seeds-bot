@@ -49,10 +49,16 @@ cron.schedule('*/30 * * * *', async () => {
   let doc = await db.collection('twitterCountingBot').findOne({ current: true })
   let num = doc.num
   num += 1
-  twitterClient.v2.tweet(`${num.toLocaleString()}`)
-  await db.collection('twitterCountingBot').updateOne({ current: true }, { $set: { num: num } })
-  console.log(`Tweeted ${num}`)
-});
+  twitterClient.v2.tweet(`${num.toLocaleString()}`).then(() => {
+    db.collection('twitterCountingBot').updateOne({ current: true }, { $set: { num: num } }).then(() => {
+      console.log(`Tweeted ${num}`)
+    }).catch((err) => {
+      console.log(err)
+    })
+  }).catch((err) => {
+    console.log(err)
+  })
+  });
 
 // Pemissions numbers
 const ADMIN_PERM = 0x0000000000000008
