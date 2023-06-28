@@ -3,9 +3,9 @@ const { log } = require('../functions/log.js');
 
 const guildDeleteEvent = async (guild) => {
 
-    var today = new Date();
-    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let today = new Date();
+    let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
     const collection = db.collection('guilds');
     await collection.deleteOne({ _id: guild.id })
@@ -15,7 +15,7 @@ const guildDeleteEvent = async (guild) => {
     await db.collection('warns').deleteMany({ guildId: guild.id })
     await db.collection('economy').deleteOne({ guildId: guild.id })
 
-    var logData = `Left Guild -- ${guild.name}\n`
+    let logData = `Left Guild -- ${guild.name}\n`
     log('info', logData)
 
     consoleWebhookClient.send({
@@ -26,6 +26,10 @@ const guildDeleteEvent = async (guild) => {
 
     console.log(`Left Guild -- ${guild.name}`)
     
+    // update channel label for guild count
+    let guildCount = client.guilds.cache.size
+    let guildCountChannel = client.channels.cache.get('1123601662846714018')
+    guildCountChannel.setName(`Servers: ${guildCount.toLocaleString()}`)
 }
 
 exports.guildDeleteEvent = guildDeleteEvent;

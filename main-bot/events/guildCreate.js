@@ -3,11 +3,10 @@ const { consoleWebhookClient, client, db } = require('../index.js')
 
 const guildCreateEvent = async (guild) => {
 
-    var today = new Date();
-    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let today = new Date();
+    let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-    var today = new Date();
     const guildData = {
         _id: guild.id,
         id: guild.id,
@@ -43,10 +42,10 @@ const guildCreateEvent = async (guild) => {
         joinedAt: guild.joinedAt,
     }
 
-    var collection = db.collection('guilds')
+    let collection = db.collection('guilds')
     await collection.insertOne(guildData)
 
-    var logData = `New Guild -- ${guild.name}\n`
+    let logData = `New Guild -- ${guild.name}\n`
     log('info',logData)
 
     consoleWebhookClient.send({
@@ -56,6 +55,11 @@ const guildCreateEvent = async (guild) => {
     })
 
     console.log(`New Guild -- ${guild.name}`)
+
+    // update channel label for guild count
+    let guildCount = client.guilds.cache.size
+    let guildCountChannel = client.channels.cache.get('1123601662846714018')
+    guildCountChannel.setName(`Servers: ${guildCount.toLocaleString()}`)
 }
 
 exports.guildCreateEvent = guildCreateEvent;

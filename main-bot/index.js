@@ -115,8 +115,9 @@ process.on('exit', async function (error) {
 });
 
 // Register slash commands
-if (devMode) var rest = new REST({ version: '9' }).setToken(process.env.BETA_TOKEN);
-else var rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
+let rest;
+if (devMode) rest = new REST({ version: '9' }).setToken(process.env.BETA_TOKEN);
+else rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
 
 (async () => {
     try {

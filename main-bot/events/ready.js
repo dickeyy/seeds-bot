@@ -92,6 +92,11 @@ const readyEvent = async function readyEvent() {
         }]
     })
 
+    // update channel label for guild count
+    let guildCount = client.guilds.cache.size
+    let guildCountChannel = client.channels.cache.get('1123601662846714018')
+    guildCountChannel.setName(`Servers: ${guildCount.toLocaleString()}`)
+
     console.log(`Logged in as: ${client.user.tag}`)
     log('info', `Logged in as: ${client.user.tag}`)
 }
