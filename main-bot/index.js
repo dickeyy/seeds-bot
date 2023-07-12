@@ -301,42 +301,8 @@ client.on('messageReactionAdd', async (reaction, user) => {
 })
 
 // message create
-let ddcMessageCount = 0
-let ddcSent = false
 client.on('messageCreate', async message => {
-
     // messageCreateEvent(message)
-    
-    if (message.guild.id != '772212146670141460') return;
-    if (message.channel.id != '934343950855184414') return;
-    if (message.author.bot) return;  
-
-    ddcMessageCount++
-
-    const ddcWebhookClient = new WebhookClient({ url: process.env.DDC_WEBHOOK_URL });
-
-    let ddcIcon = client.guilds.cache.get('772212146670141460').iconURL()
-    const ddcThresh = await redis.get('ddc-threshold')
-    let string = await redis.get('ddc-message')
-
-    // Process the string, there are \n's in the string and we need it to actually break the line
-    string = string.replace(/\\n/g, ' \r ')
-
-    if (ddcMessageCount < ddcThresh) {
-        ddcSent = false
-    }
-
-    if (ddcMessageCount >= ddcThresh && !ddcSent) {
-        ddcWebhookClient.send({
-            avatarURL: ddcIcon,
-            username: 'Disdaycare Announcements',
-            content: string
-        })
-
-        ddcMessageCount = 0
-        ddcSent = true
-    }
-
 })
 
 // Cron Jobs
