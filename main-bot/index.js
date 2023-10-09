@@ -46,16 +46,16 @@ redis.on('error', (err) => {
 })
 
 // Connect to SQL
-const sql = connectSql()
-// test sql connection
-sql.query('SELECT * FROM `guilds`', (err, rows) => {
-    if (err) throw err;
-    console.log('SQL connected')
-    log('info', 'SQL connected')
-})
+// const sql = connectSql()
+// // test sql connection
+// sql.query('SELECT * FROM `guilds`', (err, rows) => {
+//     if (err) throw err;
+//     console.log('SQL connected')
+//     log('info', 'SQL connected')
+// })
 
 // Export stuff
-module.exports = { client, consoleWebhookClient, devMode, redis, db, sql };
+module.exports = { client, consoleWebhookClient, devMode, redis, db };
 
 // Import Events
 const { readyEvent } = require('./events/ready.js');
