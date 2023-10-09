@@ -4,11 +4,7 @@ const { createClient } = require('redis');
 dotenv.config();
 
 const redis = createClient({
-    socket: {
-        host: process.env.REDIS_HOST,
-    },
-    password: process.env.REDIS_PASSWORD,
-    port: 6379,
+    url: process.env.REDIS_URL
 })
 
 // Export the connect function
