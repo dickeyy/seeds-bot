@@ -14,7 +14,6 @@
     "@discordjs/rest": "^0.4.1",
     "@jimp/plugin-circle": "^0.22.7",
     "axios": "^0.26.1",
-    "canvas": "^2.11.2",
     "colorette": "^2.0.19",
     "cron": "^2.1.0",
     "discord-api-types": "^0.32.1",

@@ -1,0 +1,41 @@
+import winston from "winston";
+import Transport, { TransportStreamOptions } from "winston-transport";
+import { client } from "../bot";
+
+class WebhookTransport extends Transport {
+    constructor(opts:TransportStreamOptions) {
+        super(opts);
+    }
+    async log(info:any, callback:Function) {
+        
+        // strip any color codes from the message
+        info.message = info.message.replace(/\x1b\[[0-9;]*m/g, '');
+
+        await client.webhookClient?.send({
+            content: `\`\`\`json\n${JSON.stringify(info, null, 2)}\`\`\``,
+            username: "Console",
+            avatarURL: client.user?.displayAvatarURL()
+        })
+
+        callback();
+    }
+}
+
+const whTransport = new WebhookTransport({});
+
+const logger = winston.createLogger({
+    level: 'info',
+    format: winston.format.combine(winston.format.timestamp(), winston.format.json(), winston.format.colorize({
+        message: true
+    })),
+    defaultMeta: { service: 'seeds-bot' },
+    transports: [
+        new winston.transports.Console({ format: winston.format.simple() }),
+        new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+        new winston.transports.File({ filename: 'logs/combined.log' }),
+        whTransport
+    ]
+});
+
+
+export { logger };
