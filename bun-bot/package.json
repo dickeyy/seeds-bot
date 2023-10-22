@@ -3,7 +3,7 @@
   "module": "bot.ts",
   "type": "module",
   "scripts": {
-    "start": "bun upgrade && bun --smol run bot.ts",
+    "start": "bun --smol run bot.ts",
     "dev": "bun run --watch bot.ts"
   },
   "devDependencies": {
