@@ -14,7 +14,7 @@ async function execute(interaction: ChatInputCommandInteraction) {
         title: "Seeds Stats",
         description: `Some statistics about Seeds\`\`\`asciidoc
 Servers   ::   ${interaction.client.guilds.cache.size.toLocaleString('en-US')}
-Users     ::   ${interaction.client.users.cache.size.toLocaleString('en-US')}
+Users     ::   ${interaction.client.users.cache.size.toLocaleString('en-US')} (in cache)
 CPU       ::   ${(process.cpuUsage().system / 100000).toFixed(2)}%
 RAM       ::   ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB
 Ping      ::   ${Math.round(interaction.client.ws.ping)} ms
