@@ -64,6 +64,7 @@ export default async function registerSlashCommands() {
         try {
             logger.info(`Started refreshing ${commands.length} commands.`);
             let count = 0
+            let isPublic = false
     
             // register the commands baed on the environment
             if (env == "dev") {
@@ -78,9 +79,10 @@ export default async function registerSlashCommands() {
                     { body: commands },
                 );
                 count = data.length
+                isPublic = true
             }
     
-            logger.info(`Successfully reloaded ${count}/${commands.length} commands.`);
+            logger.info(`Successfully reloaded ${count}/${commands.length} ${isPublic ? "Public": "Private"} commands.`);
         } catch (error) {
             logger.error(error);
         }
