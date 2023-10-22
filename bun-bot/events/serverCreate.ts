@@ -3,7 +3,7 @@ import { checkLogTypeEnabled } from "../lib/checkLogEnabled";
 import embedBuilder from "../lib/embedBuilder";
 import { logger } from "../lib/logger";
 import DBGuild from "../interfaces/DBGuild";
-import { db } from "../bot";
+import { client, db } from "../bot";
 import { guilds } from "../schema/guild";
 
 async function execute(server:Guild) {
@@ -50,6 +50,9 @@ async function execute(server:Guild) {
             error: error,
         });
     }
+
+    let guildCountChannel:any = client.channels.cache.get('1123601662846714018')
+    guildCountChannel.setName(`${client.guilds.cache.size.toLocaleString()} servers`)
  
 }
 

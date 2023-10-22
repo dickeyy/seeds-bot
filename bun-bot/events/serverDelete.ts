@@ -1,6 +1,6 @@
 import { Events, Guild } from "discord.js";
 import { logger } from "../lib/logger";
-import { db } from "../bot";
+import { client, db } from "../bot";
 import { guilds } from "../schema/guild";
 import { eq } from "drizzle-orm";
 
@@ -23,7 +23,10 @@ async function execute(server:Guild) {
             error: error,
         });
     }
- 
+    
+    let guildCountChannel:any = client.channels.cache.get('1123601662846714018')
+    guildCountChannel.setName(`${client.guilds.cache.size.toLocaleString()} servers`)
+
 }
 
 const data = {
