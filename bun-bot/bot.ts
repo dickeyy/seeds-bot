@@ -1,4 +1,4 @@
-import { Client, Collection, Events, GatewayIntentBits, WebhookClient } from 'discord.js';
+import { Client, Collection, Events, GatewayIntentBits, WebhookClient, Options, User } from 'discord.js';
 import registerSlashCommands from './lib/registerSlashCommands';
 import { db } from './lib/db';
 import cmdRun from './lib/cmdRun';
@@ -38,7 +38,24 @@ const intents = [
     GatewayIntentBits.MessageContent,
 ]
 // create the client
-const client = new MyClient({intents: intents});
+const client:MyClient = new MyClient({
+    intents: intents, 
+    sweepers: {
+		...Options.DefaultSweeperSettings,
+		messages: {
+			interval: 3600, // Every hour...
+			lifetime: 1800,	// Remove messages older than 30 minutes.
+		},
+		users: {
+			interval: 3600, // Every hour...
+            filter: () => user => user.id !== client.user?.id, // remove all users except the bot itself.
+		},
+        invites: {
+            interval: 3600, // Every hour...
+            lifetime: 1800, // Remove invites older than 30 minutes.
+        },
+    },
+});
 
 // register the commands
 await registerSlashCommands();
