@@ -21,6 +21,7 @@ async function checkLogTypeEnabled(logType:string, guildId:string) {
                 // guild doesnt have logs enabled
                 return false
             } else {
+                logger.info("Had to get log settings from db for guild " + guildId)
                 // guild has logs enabled
                 guildSettings = JSON.stringify(dbData[0])
 
