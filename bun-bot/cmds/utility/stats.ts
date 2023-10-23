@@ -26,7 +26,7 @@ Runtime   ::   Bun\`\`\``
         fields: [
             {
                 name: "Links",
-                value: "[🌐 Website](https://seedsbot.xyz) | [<:invite:823987169978613851> Invite](https://seedsbot.xyz/invite) | [<:discord:823989269626355793> Support](https://seedsbot.xyz/support)",
+                value: "[🌐 Website](https://seedsbot.xyz) | [<:invite:823987169978613851> Invite](https://seedsbot.xyz/invite) | [<:discord:823989269626355793> Support](https://seedsbot.xyz/discord)",
                 inline: false
             }
         ],
