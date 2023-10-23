@@ -4,10 +4,11 @@ export default function SEOHead(props:any) {
     return (
         <Head>
             <title>{props.title || "Seeds Discord Bot"}</title>
-            {/* icon */}
             <link rel="icon" href="/images/webp/logo.webp" />
             <meta name="description" content={props.description || "Seeds is the easiest moderation bot on Discord. Designed for servers of all sizes, Seeds helps you keep your server safe and secure from all types of threats."} />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <meta name="theme-color" content="#d79a61" />
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/webp/logo.webp" />
 
             {/* //   <!-- Facebook Meta Tags --> */}
             <meta property="og:url" content="https://seedsbot.xyz" />
