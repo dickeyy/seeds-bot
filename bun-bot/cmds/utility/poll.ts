@@ -4,7 +4,7 @@ import embedBuilder from "../../lib/embedBuilder";
 // create the command
 const command = new SlashCommandBuilder()
     .setName('poll')
-    .setDescription('Send a poll for 2 options in the server');
+    .setDescription('Send a poll for multiple options in the server');
 
 // add the options
 command.addStringOption(option => option.setName('options').setDescription('Options for the poll, put up to 8 separated with ||').setRequired(true));

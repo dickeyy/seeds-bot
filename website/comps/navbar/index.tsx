@@ -3,7 +3,7 @@ import { FaBars, FaCrown, FaDiscord, FaPlus, FaPlusCircle } from "react-icons/fa
 
 export default function Navbar() {
     return (
-        <div className="navbar rounded-lg fixed top-0 backdrop-blur-lg py-5 bg-transparent lg:px-10 px-2">
+        <div className="navbar rounded-lg fixed top-0 backdrop-blur-lg py-5 z-[99] bg-transparent lg:px-10 px-2">
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -16,6 +16,7 @@ export default function Navbar() {
                         <ul className="p-2">
                             <li><a href="https://docs.seedsbot.xyz" target="_blank">Documentation</a></li>
                             <li><a href="/support">Support Server</a></li>
+                            <li><a href="/blog">Blog</a></li>
                         </ul>
                         </li>
                         <li className="text-primary font-bold"><a href="/invite">
@@ -24,12 +25,16 @@ export default function Navbar() {
                         </a></li>
                     </ul>
                 </div>
-                <a className="btn btn-ghost normal-case text-xl font-bold" href="/">
+                <a className="btn sm:flex hidden btn-ghost normal-case text-xl font-bold" href="/">
                     <Image src="/images/webp/logo.webp" alt="Logo" width={32} height={32} />
                     Seeds
                 </a>
 
-                <ul className="menu menu-horizontal hidden lg:flex px-1 text-zinc-300">
+                <a className="btn sm:hidden flex btn-ghost normal-case text-xl font-bold" href="/">
+                    <Image src="/images/webp/logo.webp" alt="Logo" width={32} height={32} />
+                </a>
+
+                <ul className="menu menu-horizontal hidden lg:flex flex-row px-1 text-zinc-300">
                     <li><a href="/commands">Commands</a></li>
                     <li tabIndex={0}>
                         <details>
@@ -37,20 +42,20 @@ export default function Navbar() {
                         <ul className="p-2  bg-base-200">
                             <li><a href="https://docs.seedsbot.xyz" target="_blank">Documentation</a></li>
                             <li><a href="/support">Support Server</a></li>
+                            <li><a href="/blog">Blog</a></li>
                         </ul>
                         </details>
                     </li>
-                    <li className="text-primary font-bold"><a href="/invite">
-                        <FaPlusCircle className="text-md" />
-                        Invite
-                    </a></li>
+                    <li className="text-primary font-bold">
+                        <a className="normal-case" href="/invite">
+                            <FaPlusCircle className="text-md" />
+                            Invite
+                        </a>
+                    </li>
                 </ul>
             </div>
-            <div className="navbar-start hidden lg:flex">
-                
-            </div>
             <div className="navbar-end gap-4">
-                <a className="btn btn-ghost text-yellow-300 bg-yellow-300/20 justify-center items-center hover:bg-yellow-300/10 normal-case"
+                <a className="btn sm:flex hidden btn-ghost text-yellow-300 bg-yellow-300/20 justify-center items-center hover:bg-yellow-300/10 normal-case"
                     href="/premium"
                 >
                     <FaCrown className="text-2xl" />

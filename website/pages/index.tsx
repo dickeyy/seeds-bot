@@ -9,13 +9,14 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   	return (
     	<main
-      		className={`flex min-h-screen flex-col text-white items-center justify-between p-24 ${inter.className}`}
+      		className={`flex min-h-screen flex-col text-white items-center justify-between sm:px-10 px-2 ${inter.className}`}
 			data-theme="primary"
     	>	
 
 			<SEOHead title="Seeds Discord Bot" />
 			<Navbar />
 			<HomeHero />
+			
 
     	</main>
   	)
