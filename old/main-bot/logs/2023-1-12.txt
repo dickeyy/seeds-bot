@@ -1,0 +1,5 @@
+DiscordAPIError: Unknown interaction
+    at RequestHandler.execute (/Users/kyledickey/Documents/Code/seeds-bot/main-bot/node_modules/discord.js/src/rest/RequestHandler.js:350:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async RequestHandler.push (/Users/kyledickey/Documents/Code/seeds-bot/main-bot/node_modules/discord.js/src/rest/RequestHandler.js:51:14)
+    at async CommandInteraction.reply (/Users/kyledickey/Documents/Code/seeds-bot/main-bot/node_modules/discord.js/src/structures/interfaces/InteractionResponses.js:99:5)

@@ -1,0 +1,8 @@
+TypeError: Invalid argument type
+    at encodeCommand (/Users/kyledickey/Documents/Code/seeds-bot/main-bot/node_modules/@redis/client/dist/lib/client/RESP2/encoder.js:17:19)
+    at RedisCommandsQueue.getCommandToSend (/Users/kyledickey/Documents/Code/seeds-bot/main-bot/node_modules/@redis/client/dist/lib/client/commands-queue.js:187:45)
+    at Commander._RedisClient_tick (/Users/kyledickey/Documents/Code/seeds-bot/main-bot/node_modules/@redis/client/dist/lib/client/index.js:468:76)
+    at RedisSocket.socketInitiator (/Users/kyledickey/Documents/Code/seeds-bot/main-bot/node_modules/@redis/client/dist/lib/client/index.js:353:90)
+    at RedisSocket._RedisSocket_connect (/Users/kyledickey/Documents/Code/seeds-bot/main-bot/node_modules/@redis/client/dist/lib/client/socket.js:136:81)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Commander.connect (/Users/kyledickey/Documents/Code/seeds-bot/main-bot/node_modules/@redis/client/dist/lib/client/index.js:173:9)

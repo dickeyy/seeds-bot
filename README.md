@@ -1,15 +1,4 @@
 # 🌱 Seeds
-The easiest bot to use on Discord.
-
-With moderation, economy, games, levels, and more...
+Making Discord safer one server at a time. Through intuitive moderation, and beautifully simplistic utilities, Seeds is a moderation bot that will keep your community safe and fun for every member.
 
 [Add it here](https://seedsbot.xyz/invite) run `/help` to get a list of all available commands
-
-### Currently developing:
-```
-1. Full web dashboard
-2. Advanced levels system
-3. AI powered mod system
-4. More economy commands
-5. Change economy structure to global
-```
