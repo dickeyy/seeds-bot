@@ -4,6 +4,8 @@ import Navbar from '@/comps/navbar'
 import SEOHead from '@/comps/seoHead'
 import HomeHero from '@/comps/hero/home'
 import Commands from '@/comps/commands'
+import Footer from '@/comps/footer'
+import SmallFooter from '@/comps/footer/small'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -28,6 +30,9 @@ export default function Home() {
 
                 <Commands />
             </div>
+
+            <Footer />
+            {/* <SmallFooter /> */}
 			
 
     	</main>

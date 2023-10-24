@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import Navbar from '@/comps/navbar'
 import SEOHead from '@/comps/seoHead'
 import HomeHero from '@/comps/hero/home'
+import SmallFooter from '@/comps/footer/small'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,7 +17,6 @@ export default function Home() {
 			<SEOHead title="Seeds Discord Bot" />
 			<Navbar />
 			<HomeHero />
-			
 
     	</main>
   	)
