@@ -1,5 +1,6 @@
-import { Guild, User } from "discord.js";
+import { Guild, User, time } from "discord.js";
 import { redis } from "../bot";
+import embedBuilder from "./embedBuilder";
 
 const cdList = ['Chill Out', 'CHILLLLL', 'Stop.', 'Take a Breather', 'ok', 'Spamming commands is cringe', 'Slow it down', 'Wee-Woo-Wee-Woo Pull Over', 'No :)', '-_-', 'Why tho...', 'Yikes U Should Like Not', 'Slow it Cowboy', 'Take a Break Bro', 'Go Touch Some Grass']
 
@@ -27,29 +28,19 @@ async function isOnCooldown(userId:string, cmdName:string, guildId:string) {
 }
 
 function convertCooldown(duration:string) {
-    const tenSecCooldown = 10;
-    const thirtySecCooldown = tenSecCooldown * 3;
-    const oneMinCooldown = thirtySecCooldown * 2;
-    const twoMinCooldown = oneMinCooldown * 2;
-    const fiveMinCooldown = oneMinCooldown * 5; 
-    const tenMinCooldown = fiveMinCooldown * 2 ; 
-    const thirtyMinCooldown = tenMinCooldown * 3;
-    const oneHourCooldown = thirtyMinCooldown * 2;
-    const twelveHourCooldown = oneHourCooldown * 12;
-    const OneDayCooldown = twelveHourCooldown * 2;
-    const OneWeekCooldown = OneDayCooldown * 7;
-
-    if (duration == 'tenSec') return tenSecCooldown
-    else if (duration == 'thirtySec') return thirtySecCooldown
-    else if (duration == 'oneMin') return oneMinCooldown
-    else if (duration == 'twoMin') return twoMinCooldown
-    else if (duration == 'fiveMin') return fiveMinCooldown
-    else if (duration == 'tenMin') return tenMinCooldown
-    else if (duration == 'thirtyMin') return thirtyMinCooldown
-    else if (duration == 'oneHour') return oneHourCooldown
-    else if (duration == 'twelveHour') return twelveHourCooldown
-    else if (duration == 'oneDay') return OneDayCooldown
-    else if (duration == 'oneWeek') return OneWeekCooldown
+    if (duration == 'oneSec') return 1
+    else if (duration == 'fiveSec') return 5
+    else if (duration == 'tenSec') return 10
+    else if (duration == 'thirtySec') return 30
+    else if (duration == 'oneMin') return 60
+    else if (duration == 'twoMin') return 120
+    else if (duration == 'fiveMin') return 60 * 5
+    else if (duration == 'tenMin') return 60 * 10
+    else if (duration == 'thirtyMin') return 60 * 30
+    else if (duration == 'oneHour') return 60 * 60
+    else if (duration == 'twelveHour') return 60 * 60 * 12
+    else if (duration == 'oneDay') return 60 * 60 * 24
+    else if (duration == 'oneWeek') return 60 * 60 * 24 * 7
 }
 
 function randCDMessage() {
@@ -62,4 +53,20 @@ async function checkTimeRemaining(userId:string, cmdName:string, guildId:string)
     return timeRemaining;
 }
 
-export { addCooldown, isOnCooldown, randCDMessage, checkTimeRemaining }
+async function tellOnCooldown(interaction:any) {
+
+    const timeRemaining = await checkTimeRemaining(interaction.user.id, interaction.commandName, interaction.guildId);
+    const message = randCDMessage();
+
+    const dateReady = new Date(Date.now() + timeRemaining * 1000);
+
+    const embed = {
+        description: `${message}\nYou can use this command again ${time(dateReady, "R")}.`,
+        color: "Red"
+    }
+
+    await interaction.reply({ embeds: [ embedBuilder(embed as any) ], ephemeral: true });
+
+}
+
+export { addCooldown, isOnCooldown, randCDMessage, checkTimeRemaining, tellOnCooldown }

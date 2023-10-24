@@ -4,10 +4,10 @@ import config from "../config";
 
 const redisOptions: RedisClientOptions = {
     socket: {
-        host: config.redisUrl,
-        port: parseInt(config.redisPort as string),
+        host: config.redis.url,
+        port: parseInt(config.redis.port as string),
     },
-    password: config.redisPassword,
+    password: config.redis.password,
 }
 
 const redis = createClient(redisOptions);

@@ -15,9 +15,12 @@ const config = {
     env: process.env.ENVIORNMENT,
     webhookUrl: process.env.WEBHOOK_URL,
     mongoUrl: process.env.MONGO_URI,
-    redisUrl: process.env.REDIS_HOST,
-    redisPort: process.env.REDIS_PORT,
-    redisPassword: process.env.REDIS_PASSWORD,
+    
+    redis: {
+        url: process.env.REDIS_HOST,
+        port: process.env.REDIS_PORT,
+        password: process.env.REDIS_PASSWORD,
+    },
 
     database: {
         host: process.env.DATABASE_HOST,

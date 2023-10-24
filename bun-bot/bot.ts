@@ -6,6 +6,7 @@ import { redis } from './lib/redis';
 import { logger } from './lib/logger';
 import config from './config';
 import embedBuilder from './lib/embedBuilder';
+import { addCooldown, isOnCooldown, tellOnCooldown } from './lib/cooldown';
 
 // import event handlers
 // import readyEvent from './events/ready';
@@ -68,7 +69,7 @@ const webhookClient = new WebhookClient({ url: config.webhookUrl as string });
 client.webhookClient = webhookClient;
 
 // listen for interaction create events
-client.on(Events.InteractionCreate, interaction => {
+client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return
 
     // get the command from the collection
@@ -80,9 +81,15 @@ client.on(Events.InteractionCreate, interaction => {
     // try to execute the command
     try {
 
+        const checkCooldown = await isOnCooldown(interaction.user.id, interaction.commandName, interaction.guildId as string);
+        if (checkCooldown) {
+            await tellOnCooldown(interaction);
+        }
+        
         command.execute(interaction);
         cmdRun(interaction.commandName, interaction);
-
+        await addCooldown(interaction.user, interaction.commandName, interaction.guild as any, 'oneSec');
+        
     } catch (error) {
         logger.error(error);
         const embedData = {
