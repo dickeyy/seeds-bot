@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { FaPlus, FaPlusCircle, FaQuestionCircle } from "react-icons/fa";
+import { FaDiscord, FaPlus, FaPlusCircle, FaQuestionCircle } from "react-icons/fa";
 import DiscordElement from "./discordElement";
 
 export default function HomeHero() {
@@ -20,11 +20,11 @@ export default function HomeHero() {
     }, [])
 
     return (
-        <div className="hero min-h-screen overflow-x-hidden xl:mb-0 lg:mt-10 sm:mb-10 sm:mt-0 mt-20">
+        <div className="hero min-h-screen overflow-x-hidden xl:-mb-10 lg:mt-0 sm:mb-10 sm:mt-0 mt-20">
 			
-			<div className="hero-content grid gap-4 sm:grid-cols-7 grid-cols-1 w-full">
+			<div className="hero-content grid gap-8 sm:grid-cols-1 lg:grid-cols-2 md:grid-cols-2">
 				
-				<div className='sm:col-span-4'>
+				<div className='lg:col-span-1'>
                     <div className="leading-10">
                         <span className="sm:text-5xl text-4xl font-bold ">
                             Easy 
@@ -50,17 +50,17 @@ export default function HomeHero() {
                     </div>
 
                     <div className="flex sm:flex-row flex-col gap-4 w-full mt-8">
-                        <a className="btn sm:w-2/6 w-full btn-lg btn-primary normal-case" href="/invite">
-                            <FaPlusCircle className="text-md" /> Invite
+                        <a className="btn sm:w-[40%] w-full btn-lg btn-primary normal-case" href="/invite">
+                            <FaDiscord className="text-md" /> Add to Discord
                         </a>
-                        <a className="btn sm:w-2/6 w-full btn-lg btn-neutral normal-case" href="/discord">
-                            <FaQuestionCircle className="text-md" /> Support
+                        <a className="btn sm:w-[40%] w-full btn-lg btn-neutral normal-case" href="/discord">
+                            <FaQuestionCircle className="text-md" /> Need help?
                         </a>
                     </div>
 
 				</div>
 
-				<div className="sm:flex hidden col-span-3 flex-col justify-center items-center ml-6 h-full">
+				<div className="sm:flex hidden col-span-1 flex-col justify-center items-center ml-6 h-full">
                     {/* <Image src={`/images/webp/logo.webp`} alt="Seeds Logo" width={300} height={300} /> */}
                     <DiscordElement />
 				</div>

@@ -21,7 +21,7 @@ export default function Navbar() {
                         </li>
                         <li className="text-primary font-bold"><a href="/invite">
                             <FaPlusCircle className="text-md" />
-                            Invite
+                            Add to Discord
                         </a></li>
                     </ul>
                 </div>
@@ -49,7 +49,7 @@ export default function Navbar() {
                     <li className="text-primary font-bold">
                         <a className="normal-case" href="/invite">
                             <FaPlusCircle className="text-md" />
-                            Invite
+                            Add to Discord
                         </a>
                     </li>
                 </ul>
