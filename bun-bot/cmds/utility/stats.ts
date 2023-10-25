@@ -11,7 +11,7 @@ const command = new SlashCommandBuilder()
 // write the function
 async function execute(interaction: ChatInputCommandInteraction) {
 
-    console.log(heapStats())
+    const heapstat = heapStats();
 
     const embedData = {
         title: "Seeds Stats",
@@ -19,7 +19,7 @@ async function execute(interaction: ChatInputCommandInteraction) {
 Servers   ::   ${interaction.client.guilds.cache.size.toLocaleString('en-US')}
 Users     ::   ${interaction.client.users.cache.size.toLocaleString('en-US')} (in cache)
 CPU       ::   ${(process.cpuUsage().system / 100000).toFixed(2)}%
-RAM       ::   ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB
+RAM       ::   ${(heapstat.heapSize / 1024 / 1024).toFixed(2)} MB (${((heapstat.heapSize / heapstat.heapCapacity) * 100).toFixed(2)}%)
 Ping      ::   ${Math.round(interaction.client.ws.ping)} ms
 Uptime    ::   ${Math.round(process.uptime() / 1000 / 60 / 60 / 24)} days
 Library   ::   Discord.js
