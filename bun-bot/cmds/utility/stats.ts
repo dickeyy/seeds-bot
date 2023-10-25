@@ -1,6 +1,7 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
 import embedBuilder from "../../lib/embedBuilder";
 import { client } from "../../bot";
+import { heapStats } from "bun:jsc";
 
 // create the command
 const command = new SlashCommandBuilder()
@@ -9,6 +10,8 @@ const command = new SlashCommandBuilder()
     
 // write the function
 async function execute(interaction: ChatInputCommandInteraction) {
+
+    console.log(heapStats())
 
     const embedData = {
         title: "Seeds Stats",

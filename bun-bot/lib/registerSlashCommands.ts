@@ -28,6 +28,9 @@ export default async function registerSlashCommands() {
             client.commands.set(command.data.data.name, command.data);
             commands.push(command.data.data.toJSON());
 
+            // remove the imported command from the cache
+            delete require.cache[require.resolve(filePath)];
+
         }
     }
 
@@ -52,6 +55,9 @@ export default async function registerSlashCommands() {
         }
 
         eventCount++;
+
+        // remove the imported event from the cache
+        delete require.cache[require.resolve(filePath)];
     }
 
     logger.info(`Loaded ${eventCount} events (${onceCount} once ${onCount} on).`);
@@ -86,7 +92,7 @@ export default async function registerSlashCommands() {
         } catch (error) {
             logger.error(error);
         }
-    })();
+    })().catch(logger.error);
 
     return;
 }
