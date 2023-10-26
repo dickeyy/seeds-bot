@@ -2,8 +2,31 @@ import { Events, WebhookClient } from "discord.js";
 import { checkLogTypeEnabled } from "../lib/checkLogEnabled";
 import embedBuilder from "../lib/embedBuilder";
 import { logger } from "../lib/logger";
+import config from "../config";
 
 async function execute(oldMessage:any, newMessage:any) {
+
+    // let data = {
+    //     oldMessage,
+    //     newMessage,
+    //     author: oldMessage.author,
+    //     channel: oldMessage.channel,
+    // }
+
+    // const req = await fetch(`${config.event_api_url}/message/update`, {
+    //     method: "POST",
+    //     headers: {
+    //         "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //         data
+    //     }),
+    // })
+
+    // if (!req.ok) {
+    //     logger.error("Error sending message_update event to events-api")
+    //     return
+    // }
 
     let settings:any = await checkLogTypeEnabled("message_update", oldMessage.guildId)
     if (!settings) {

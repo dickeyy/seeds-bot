@@ -71,7 +71,12 @@ async function messageDeleteEvent(event:any) {
 // message update event
 async function messageUpdateEvent(event:any) {
 
-    let settings:any = await getMessageEventLogSettings("message_update", event.data.event.guildId)
+    const oldMessage = event.data.oldMessage
+    const newMessage = event.data.newMessage
+    const author = event.data.author
+    const channel = event.data.channel
+
+    let settings:any = await getMessageEventLogSettings("message_update", oldMessage.guildId)
     if (!settings) {
         return
     }
@@ -80,6 +85,35 @@ async function messageUpdateEvent(event:any) {
 
     if (!settings.types.messages) {
         return
+    }
+
+    let descString = `**Author:** <@${author.id}> (${author.id})\n**Channel:** <#${channel.id}> (${channel.id})\n`
+
+    const embed = {
+        title: "Message Edited in #" + channel.name,
+        description: descString,
+        thumbnail: {
+            url: "https://cdn.discordapp.com/emojis/1065110917962022922.webp",
+        },
+        color: "#4CA99D",
+        author: {
+            name: author.username,
+            icon_url: author.avatarURL,
+        },
+        footer: {
+            text: "Event ID: " + oldMessage.id + " | message_update event",
+        },
+        timestamp: new Date(),
+    }
+
+    try {
+        await sendMessage({
+            embeds: [embed],
+        }, settings.types.messages.webhook_url)
+        return true
+    } catch (error) {
+        logger.error("Error sending message_update webhook", error)
+        return false
     }
 
 }

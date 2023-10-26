@@ -15,6 +15,7 @@ const config = {
     env: process.env.ENVIORNMENT,
     webhookUrl: process.env.WEBHOOK_URL,
     mongoUrl: process.env.MONGO_URI,
+    event_api_url: process.env.EVENT_API_URL,
     
     redis: {
         url: process.env.REDIS_HOST,

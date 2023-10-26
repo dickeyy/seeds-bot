@@ -2,6 +2,7 @@ import { Events, WebhookClient } from "discord.js";
 import { checkLogTypeEnabled } from "../lib/checkLogEnabled";
 import embedBuilder from "../lib/embedBuilder";
 import { logger } from "../lib/logger";
+import config from "../config";
 
 async function execute(event:any) {
     
@@ -11,7 +12,7 @@ async function execute(event:any) {
     //     channel: event.channel,
     // }
 
-    // const req = await fetch("http://localhost:3000/message/delete", {
+    // const req = await fetch(`${config.event_api_url}/message/delete`, {
     //     method: "POST",
     //     headers: {
     //         "Content-Type": "application/json",
