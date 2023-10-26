@@ -1,0 +1,23 @@
+{
+  "name": "events-api",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --watch index.ts"
+  },
+  "devDependencies": {
+    "bun-types": "latest",
+    "drizzle-kit": "^0.19.13"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@grotto/logysia": "^0.0.5",
+    "@planetscale/database": "^1.11.0",
+    "drizzle-orm": "^0.28.6",
+    "elysia": "^0.7.20",
+    "redis": "^4.6.10",
+    "winston": "^3.11.0"
+  }
+}

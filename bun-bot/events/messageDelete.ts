@@ -4,6 +4,27 @@ import embedBuilder from "../lib/embedBuilder";
 import { logger } from "../lib/logger";
 
 async function execute(event:any) {
+    
+    // let data = {
+    //     event,
+    //     author: event.author,
+    //     channel: event.channel,
+    // }
+
+    // const req = await fetch("http://localhost:3000/message/delete", {
+    //     method: "POST",
+    //     headers: {
+    //         "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //         data
+    //     }),
+    // })
+
+    // if (!req.ok) {
+    //     logger.error("Error sending message_delete event to events-api")
+    //     return
+    // }
 
     let settings:any = await checkLogTypeEnabled("message_delete", event.guildId)
     if (!settings) {
