@@ -110,7 +110,7 @@ async function messageUpdateEvent(context:Context) {
     let descString = `**Author:** <@${author.id}> (${author.id})\n**Channel:** <#${channel.id}> (${channel.id})\n\n\`\`\`diff\n`
 
     const embed = {
-        title: "poop Edited in #" + channel.name,
+        title: "Message Edited in #" + channel.name,
         description: descString,
         thumbnail: {
             url: "https://cdn.discordapp.com/emojis/1065110917962022922.webp",
