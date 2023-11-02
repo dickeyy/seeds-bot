@@ -15,6 +15,7 @@
   "dependencies": {
     "@grotto/logysia": "^0.0.5",
     "@planetscale/database": "^1.11.0",
+    "discord.js": "^14.13.0",
     "drizzle-orm": "^0.28.6",
     "elysia": "^0.7.20",
     "redis": "^4.6.10",

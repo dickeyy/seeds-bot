@@ -6,79 +6,81 @@ import config from "../config";
 
 async function execute(event:any) {
     
-    // let data = {
-    //     event,
-    //     author: event.author,
-    //     channel: event.channel,
+    let data = {
+        event,
+        author: event.author,
+        guild: event.guild,
+        channel: event.channel,
+        attachments: event.attachments,
+    }
+
+    const req = await fetch(`${config.event_api_url}/message/delete`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            data
+        }),
+    })
+
+    if (!req.ok) {
+        logger.error("Error sending message_delete event to events-api")
+        return
+    }
+
+    // let settings:any = await checkLogTypeEnabled("message_delete", event.guildId)
+    // if (!settings) {
+    //     return
     // }
+    // settings = settings.settings
 
-    // const req = await fetch(`${config.event_api_url}/message/delete`, {
-    //     method: "POST",
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //         data
-    //     }),
-    // })
-
-    // if (!req.ok) {
-    //     logger.error("Error sending message_delete event to events-api")
+    // if (!settings.types.messages) {
     //     return
     // }
 
-    let settings:any = await checkLogTypeEnabled("message_delete", event.guildId)
-    if (!settings) {
-        return
-    }
-    settings = settings.settings
+    // let webhookClient:any = undefined
+    // try {
+    //     webhookClient = new WebhookClient({ url: settings.types.messages.webhook_url });
+    // } catch (error) {
+    //     logger.error("Error creating message_delete webhook", error)
+    // }
 
-    if (!settings.types.messages) {
-        return
-    }
+    // let descriptionString = `**Author:** <@${event.author.id}> (${event.author.id})\n**Channel:** <#${event.channel.id}> (${event.channel.id})\n`
 
-    let webhookClient:any = undefined
-    try {
-        webhookClient = new WebhookClient({ url: settings.types.messages.webhook_url });
-    } catch (error) {
-        logger.error("Error creating message_delete webhook", error)
-    }
+    // const embed = {
+    //     title: "Message Deleted in #" + event.channel.name,
+    //     description: descriptionString,
+    //     thumbnail: "https://cdn.discordapp.com/emojis/1064444110334861373.webp",
+    //     color: "#914444",
+    //     author: {
+    //         name: event.author.username,
+    //         iconURL: event.author.avatarURL(),
+    //     },
+    //     footer: {
+    //         text: "Event ID: " + event.id + " | message_delete event",
+    //     },
+    //     timestamp: new Date(),
+    // }
 
-    let descriptionString = `**Author:** <@${event.author.id}> (${event.author.id})\n**Channel:** <#${event.channel.id}> (${event.channel.id})\n`
+    // if (event.content) {
+    //     embed.description += "\n**Content:** `" + event.content + "`"
+    // } if (event.attachments.size > 0) {
+    //     embed.description += "\n**Attachments:** " + event.attachments.map((attachment:any) => {
+    //         return "[Attachment URL](" + attachment.proxyURL + ")"
+    //     }).join(", ")
+    // }
 
-    const embed = {
-        title: "Message Deleted in #" + event.channel.name,
-        description: descriptionString,
-        thumbnail: "https://cdn.discordapp.com/emojis/1064444110334861373.webp",
-        color: "#914444",
-        author: {
-            name: event.author.username,
-            iconURL: event.author.avatarURL(),
-        },
-        footer: {
-            text: "Event ID: " + event.id + " | message_delete event",
-        },
-        timestamp: new Date(),
-    }
+    // try {
+    //     await webhookClient.send({
+    //         embeds: [embedBuilder(embed as any)],
+    //     })
+    // } catch (error) {
+    //     logger.error("Error sending message_delete webhook", error)
+    // }
 
-    if (event.content) {
-        embed.description += "\n**Content:** `" + event.content + "`"
-    } if (event.attachments.size > 0) {
-        embed.description += "\n**Attachments:** " + event.attachments.map((attachment:any) => {
-            return "[Attachment URL](" + attachment.proxyURL + ")"
-        }).join(", ")
-    }
-
-    try {
-        await webhookClient.send({
-            embeds: [embedBuilder(embed as any)],
-        })
-    } catch (error) {
-        logger.error("Error sending message_delete webhook", error)
-    }
-
-    // close the webhook client
-    webhookClient.destroy()
+    // // close the webhook client
+    // webhookClient.destroy()
 
 }
 
