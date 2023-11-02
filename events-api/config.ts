@@ -1,5 +1,6 @@
 const config = {
     port: process.env.PORT || 3000,
+    token: process.env.TOKEN,
 
     database: {
         host: process.env.DATABASE_HOST,

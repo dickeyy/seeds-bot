@@ -16,6 +16,7 @@ async function execute(channel:any) {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${config.event_api_token}`
         },
         body: JSON.stringify({
             data
