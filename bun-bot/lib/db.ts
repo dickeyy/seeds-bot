@@ -33,10 +33,15 @@ const connection = connect({
 
 class MyLogger implements Logger {
     logQuery(query: string, params: unknown[]): void {
-        logger.info(query)
+        logger.info({
+            message: `Query: ${query}`,
+            params: params,
+        })
     }
 }
 
-const db = drizzle(connection)
+const db = drizzle(connection, {
+    // logger: new MyLogger()
+})
 
 export { db, connectDb };

@@ -8,12 +8,13 @@ const redisOptions: RedisClientOptions = {
         port: parseInt(config.redis.port as string),
     },
     password: config.redis.password,
+    pingInterval: 1000 * 60 * 5,
 }
 
 const redis = createClient(redisOptions);
 
 redis.on("error", (error) => {
-    logger.error(error);
+    logger.error('Redis error: ' + error);
 });
 
 redis.once("ready", () => {

@@ -6,6 +6,9 @@ import { eq } from "drizzle-orm";
 
 async function execute(server:Guild) {
 
+    if (!server) return;
+    if (!server.name) return;
+
     // remove the server from the database
     try {
         await db.delete(guilds).where(eq(guilds.id, server.id)).execute();

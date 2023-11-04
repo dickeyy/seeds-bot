@@ -312,7 +312,7 @@ async function channelUpdateEvent(context:Context) {
 
     if (oldChannel.name !== newChannel.name) {
         embed.description += `\nName Changed: \n- ${oldChannel.name}\n+ ${newChannel.name}\n`
-    } if (oldParent.id !== newParent.id) {
+    } if (oldParent && newParent && oldParent.id !== newParent.id) {
         embed.description += `\nCategory Changed: \n- ${oldParent ? oldParent.name : "None"}\n+ ${newParent ? newParent.name : "None"}\n`
     } if (oldChannel.type !== newChannel.type) {
         embed.description += `\nType Changed: \n- ${oldChannel.type}\n+ ${newChannel.type}\n`
