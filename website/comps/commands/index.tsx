@@ -107,6 +107,76 @@ export default function Commands() {
                 permission: "MODERATE_MEMBERS",
             },
             {
+                name: "notes add",
+                parameters: {
+                    required: [ "user", "content" ],
+                    optional: []
+                },
+                short_description: "Adds a note to a user",
+                long_description: "This command will add a note to a user. Notes are only visible to moderators, and they are useful for keeping track of a user's behavior without notifying the user like the cases system does.",
+                permission: "MODERATE_MEMBERS",
+            },
+            {
+                name: "notes view id",
+                parameters: {
+                    required: [ "id" ],
+                    optional: []
+                },
+                short_description: "Views a note by its ID",
+                long_description: "This command will show you a note by its ID. You can find the ID of a note by using the `/notes view user` command or with the `/notes view latest` command.",
+                permission: "MODERATE_MEMBERS",
+            },
+            {
+                name: "notes view user",
+                parameters: {
+                    required: [ "user" ],
+                    optional: []
+                },
+                short_description: "Views a user's notes",
+                long_description: "This command will show you all of a user's notes. You can find the user by their ID, or by their mention.",
+                permission: "MODERATE_MEMBERS",
+            },
+            {
+                name: "notes view latest",
+                parameters: {
+                    required: [],
+                    optional: []
+                },
+                short_description: "Views the latest note",
+                long_description: "This command will show you the latest note that was added to the server. This is useful for quickly seeing what the latest note was.",
+                permission: "MODERATE_MEMBERS",
+            },
+            {
+                name: "notes remove id",
+                parameters: {
+                    required: [ "id" ],
+                    optional: []
+                },
+                short_description: "Removes a note by its ID",
+                long_description: "This command will remove a note by its ID. You can find the ID of a note by using the `/notes view user` command or with the `/notes view latest` command.",
+                permission: "MODERATE_MEMBERS",
+            },
+            {
+                name: "notes remove user",
+                parameters: {
+                    required: [ "user" ],
+                    optional: []
+                },
+                short_description: "Removes a user's notes",
+                long_description: "This command will remove all of a user's notes. You can find the user by their ID, or by their mention.",
+                permission: "MODERATE_MEMBERS",
+            },
+            {
+                name: "notes remove latest",
+                parameters: {
+                    required: [],
+                    optional: []
+                },
+                short_description: "Removes the latest note",
+                long_description: "This command will remove the latest note that was added to the server. This is useful for quickly removing the latest note if it was added by mistake.",
+                permission: "MODERATE_MEMBERS",
+            },
+            {
                 name: "lockdown channel",
                 parameters: {
                     required: [],
@@ -320,17 +390,17 @@ export default function Commands() {
                     onClick={() => {
                         setActiveTab(1)
                     }}
-                >Moderation</a> 
+                >Moderation ({commands.moderation.length})</a> 
                 <a className={`tab ${activeTab == 2 ? "tab-active" : ""}`}
                     onClick={() => {
                         setActiveTab(2)
                     }}
-                >Utility</a> 
+                >Utility ({commands.utility.length})</a> 
                 <a className={`tab ${activeTab == 3 ? "tab-active" : ""}`}
                     onClick={() => {
                         setActiveTab(3)
                     }}
-                >Fun</a>
+                >Fun ({commands.fun.length})</a>
             </div>
 
             {activeTab == 1 && (
