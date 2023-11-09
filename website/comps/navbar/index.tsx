@@ -64,7 +64,7 @@ export default function Navbar(props: { user: any }) {
                     Premium
                 </a>
                 {props.user ? (
-                    <UserMenu user={props.user} />
+                    <UserMenu user={props.user as any} />
                 ) : (
                     <button className="btn btn-ghost justify-center items-center normal-case"
                         onClick={() => signIn("discord")}

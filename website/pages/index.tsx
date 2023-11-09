@@ -5,6 +5,7 @@ import SEOHead from '@/comps/seoHead'
 import HomeHero from '@/comps/hero/home'
 import { useEffect } from 'react'
 import { useSession } from 'next-auth/react'
+import { User } from 'next-auth'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,7 +20,7 @@ export default function Home() {
     	>	
 
 			<SEOHead title="Seeds Discord Bot" />
-			<Navbar user={session?.user} />
+			<Navbar user={session?.user as User} />
 			<HomeHero />
 
     	</main>
