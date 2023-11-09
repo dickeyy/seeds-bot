@@ -1,9 +1,12 @@
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import { FaBars, FaCrown, FaDiscord, FaPlus, FaPlusCircle } from "react-icons/fa";
 import UserMenu from "./userMenu";
 
 export default function Navbar(props:any) {
+
+    const { data: session } = useSession()
+
     return (
         <div className="navbar rounded-lg fixed top-0 backdrop-blur-lg py-5 z-[99] bg-transparent lg:px-10 px-2">
             <div className="navbar-start">
@@ -63,8 +66,8 @@ export default function Navbar(props:any) {
                     <FaCrown className="text-2xl" />
                     Premium
                 </a>
-                {props.user ? (
-                    <UserMenu user={props.user as any} />
+                {session?.user ? (
+                    <UserMenu user={session?.user as any} />
                 ) : (
                     <button className="btn btn-ghost justify-center items-center normal-case"
                         onClick={() => signIn("discord")}

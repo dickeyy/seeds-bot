@@ -11,8 +11,6 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
 
-	const { data: session } = useSession()
-
   	return (
     	<main
       		className={`flex min-h-screen flex-col text-white items-center justify-between sm:px-10 px-2 ${inter.className}`}
@@ -20,7 +18,7 @@ export default function Home() {
     	>	
 
 			<SEOHead title="Seeds Discord Bot" />
-			<Navbar user={session?.user as User} />
+			<Navbar />
 			<HomeHero />
 
     	</main>
