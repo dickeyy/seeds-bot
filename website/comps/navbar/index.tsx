@@ -1,7 +1,9 @@
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { FaBars, FaCrown, FaDiscord, FaPlus, FaPlusCircle } from "react-icons/fa";
+import UserMenu from "./userMenu";
 
-export default function Navbar() {
+export default function Navbar(props: { user: any }) {
     return (
         <div className="navbar rounded-lg fixed top-0 backdrop-blur-lg py-5 z-[99] bg-transparent lg:px-10 px-2">
             <div className="navbar-start">
@@ -61,12 +63,16 @@ export default function Navbar() {
                     <FaCrown className="text-2xl" />
                     Premium
                 </a>
-                <a className="btn btn-ghost justify-center items-center normal-case"
-                    href="/login"
-                >
-                    <FaDiscord className="text-2xl" />
-                    Log In
-                </a>
+                {props.user ? (
+                    <UserMenu user={props.user} />
+                ) : (
+                    <button className="btn btn-ghost justify-center items-center normal-case"
+                        onClick={() => signIn("discord")}
+                    >
+                        <FaDiscord className="text-2xl" />
+                        Login
+                    </button>
+                )}
             </div>
         </div>
     )
