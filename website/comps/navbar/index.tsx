@@ -3,7 +3,7 @@ import Image from "next/image";
 import { FaBars, FaCrown, FaDiscord, FaPlus, FaPlusCircle } from "react-icons/fa";
 import UserMenu from "./userMenu";
 
-export default function Navbar(props: { user: any }) {
+export default function Navbar(props:any) {
     return (
         <div className="navbar rounded-lg fixed top-0 backdrop-blur-lg py-5 z-[99] bg-transparent lg:px-10 px-2">
             <div className="navbar-start">

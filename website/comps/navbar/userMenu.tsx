@@ -3,7 +3,7 @@ import Image from "next/image";
 import { FaArrowCircleLeft, FaBars, FaGripVertical, FaQuestionCircle } from "react-icons/fa";
 import Avatar from "../avatar";
 
-export default function UserMenu(props: { user: any }) {
+export default function UserMenu(props: any) {
 
     const { user } = props
 
