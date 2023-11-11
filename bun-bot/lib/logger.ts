@@ -36,11 +36,11 @@ const logger = winston.createLogger({
         // new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
         // new winston.transports.File({ filename: 'logs/combined.log' }),
         whTransport,
-        new AxiomTransport({
-            dataset: config.axiom.dataset,
-            token: config.axiom.token,
-            orgId: config.axiom.orgId,
-        }),
+        // new AxiomTransport({
+        //     dataset: config.axiom.dataset,
+        //     token: config.axiom.token,
+        //     orgId: config.axiom.orgId,
+        // }),
     ]
 });
 
