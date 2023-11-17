@@ -18,6 +18,16 @@ if (env == "dev") {
     console.log("WARNING: Running in development mode.");
 }
 
+// process exceptions
+process.on('uncaughtException', (error) => {
+    logger.error(error);
+});
+
+// handle timeout errors
+process.on('unhandledRejection', (error) => {
+    logger.error(error);
+});
+
 // Client setup
 // create a new class that extends Client
 class MyClient extends Client {
