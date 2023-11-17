@@ -64,6 +64,10 @@ await registerSlashCommands();
 // connect redis
 await redis.connect()
 
+redis.on("error", (error) => {
+    logger.error("Redis error: " + error);
+})
+
 // register the webhook client
 const webhookClient = new WebhookClient({ url: config.webhookUrl as string });
 client.webhookClient = webhookClient;
@@ -81,14 +85,38 @@ client.on(Events.InteractionCreate, async interaction => {
     // try to execute the command
     try {
 
-        const checkCooldown = await isOnCooldown(interaction.user.id, interaction.commandName, interaction.guildId as string);
-        if (checkCooldown) {
-            await tellOnCooldown(interaction);
+        try {
+            const checkCooldown = await isOnCooldown(interaction.user.id, interaction.commandName, interaction.guildId as string);
+            if (checkCooldown) {
+                await tellOnCooldown(interaction);
+            }
+        } catch (error) {
+            logger.error("Error checking cooldown: " + error);
         }
         
-        command.execute(interaction);
-        cmdRun(interaction.commandName, interaction);
-        await addCooldown(interaction.user, interaction.commandName, interaction.guild as any, 'oneSec');
+        try {
+            command.execute(interaction);
+        } catch (error) {
+            logger.error("Error executing command: " + error);
+            const embedData = {
+                title: "Error: An error occured when trying to run this command.",
+                description: "Please try again later.",
+                color: "Red",
+            }
+            interaction.reply({ embeds: [ embedBuilder(embedData as any) ], ephemeral: true });
+        }
+
+        try {
+            cmdRun(interaction.commandName, interaction);
+        } catch (error) {
+            logger.error("Error running cmdRun: " + error);
+        } 
+
+        try {
+            await addCooldown(interaction.user, interaction.commandName, interaction.guild as any, 'oneSec');
+        } catch (error) {
+            logger.error("Error adding cooldown: " + error);
+        }
         
     } catch (error) {
         logger.error(error);

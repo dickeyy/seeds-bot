@@ -41,7 +41,7 @@ class MyLogger implements Logger {
 }
 
 const db = drizzle(connection, {
-    // logger: new MyLogger()
+    logger: new MyLogger(),
 })
 
 export { db, connectDb };
