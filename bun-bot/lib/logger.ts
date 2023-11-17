@@ -12,12 +12,15 @@ class WebhookTransport extends Transport {
         
         // strip any color codes from the message
         info.message = info.message.replace(/\x1b\[[0-9;]*m/g, '');
-
-        await client.webhookClient?.send({
-            content: `\`\`\`json\n${JSON.stringify(info, null, 2)}\`\`\``,
-            username: "Console",
-            avatarURL: client.user?.displayAvatarURL()
-        })
+        try {
+            await client.webhookClient?.send({
+                content: `\`\`\`json\n${JSON.stringify(info, null, 2)}\`\`\``,
+                username: "Console",
+                avatarURL: client.user?.displayAvatarURL()
+            })
+        } catch (e) {
+            console.error('Failed to send webhook message via logger', e);
+        }
 
         callback();
     }
@@ -35,12 +38,12 @@ const logger = winston.createLogger({
         new winston.transports.Console({ format: winston.format.simple() }),
         // new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
         // new winston.transports.File({ filename: 'logs/combined.log' }),
-        whTransport,
-        // new AxiomTransport({
-        //     dataset: config.axiom.dataset,
-        //     token: config.axiom.token,
-        //     orgId: config.axiom.orgId,
-        // }),
+        // whTransport,
+        new AxiomTransport({
+            dataset: config.axiom.dataset,
+            token: config.axiom.token,
+            orgId: config.axiom.orgId,
+        }),
     ]
 });
 
