@@ -90,15 +90,6 @@ client.on(Events.InteractionCreate, async interaction => {
 
     // try to execute the command
     try {
-
-        try {
-            const checkCooldown = await isOnCooldown(interaction.user.id, interaction.commandName, interaction.guildId as string);
-            if (checkCooldown) {
-                await tellOnCooldown(interaction);
-            }
-        } catch (error) {
-            logger.error("Error checking cooldown: " + error);
-        }
         
         try {
             command.execute(interaction);
