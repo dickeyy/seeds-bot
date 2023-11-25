@@ -57,10 +57,6 @@ const client:MyClient = new MyClient({
 			interval: 3600, // Every hour...
 			lifetime: 1800,	// Remove messages older than 30 minutes.
 		},
-		users: {
-			interval: 3600, // Every hour...
-            filter: () => user => user.id !== client.user?.id, // remove all users except the bot itself.
-		},
         invites: {
             interval: 3600, // Every hour...
             lifetime: 1800, // Remove invites older than 30 minutes.
