@@ -16,13 +16,7 @@ export default async function cmdRun(cmdName:string, interaction:ChatInputComman
         await redis.hIncrBy("seeds:cmds", cmdName, 1);
     }
 
-    logger.info({
-        message: `${cmdName} Command -- ${interaction.user.tag}`,
-        userId: interaction.user.id,
-        guildId: interaction.guildId,
-        guildName: interaction.guild?.name,
-        interactionId: interaction.id,
-    });
+    await redis.hIncrBy("seeds:cmds", "total", 1);
 
     // check if there are any active alerts
     let alert:any = await redis.hGet("seeds:alerts", "active")
